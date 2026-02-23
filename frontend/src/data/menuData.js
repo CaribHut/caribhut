@@ -342,20 +342,22 @@ export const aboutData = {
   title: "Vår Historia",
   subtitle: "Från Musik till Mat",
   story: [
-    "Vi träffades genom den gemensamma passionen för musik, vilket gjorde att några samarbeten och låtar senare så blev vi så nära vänner att vi blev som familj för varandra.",
-    "Vi kom fram till att vi båda älskade matlagning också, och hur kul det vore att starta något ihop i framtiden.",
-    "10 år senare blev det till en sanning och idag finns vi, Carib Hut, mitt nere i Västerås stadskärna: Aseatorget.",
-    "Välkomna!"
+    "Vår resa började med en gemensam passion för musik. Det var genom musiken som Christoffer och René först möttes – ett kreativt samarbete som snabbt utvecklades från låtskapande till en djup och nära vänskap. Med tiden blev vi som en familj.",
+    "Under årens gång insåg vi att vi delade ännu en stor passion: matlagning. Idén om att en dag skapa något tillsammans inom mat och upplevelser växte fram – en dröm om att förena gemenskap, kultur och smaker under samma tak.",
+    "Längs vägen anslöt även Mathias, en driven entreprenör, nära vän och självklar samarbetspartner i satsningen. Med hans erfarenhet och engagemang tog visionen form på riktigt.",
+    "Tio år senare blev drömmen verklighet.",
+    "Idag finns vi – Carib Hut – mitt i hjärtat av Västerås, på Aseatorget. Här kombinerar vi vår passion för musik, kultur och mat i en varm och välkomnande miljö.",
+    "Varmt välkomna till oss!"
   ],
   founders: [
     {
-      name: "Marcus",
-      role: "Grundare & Kökschef",
+      name: "Christoffer",
+      role: "Grundare",
       quote: "Mat är hur vi delar vår kultur och vår kärlek."
     },
     {
-      name: "David",
-      role: "Grundare & Verksamhet",
+      name: "René",
+      role: "Grundare",
       quote: "Vi serverar inte bara mat – vi serverar minnen."
     }
   ]
