@@ -1,0 +1,115 @@
+{
+  "design_system": {
+    "identity": {
+      "name": "Carib Hut",
+      "vibe": "Scandi-Tropico: Clean European structure meets Caribbean soul.",
+      "description": "A fusion of Swedish minimalism and vibrant Caribbean energy. The design uses generous negative space, crisp typography, and structured grids (European) as a canvas for explosive, saturated colors and lush imagery (Tropical).",
+      "tone": "Warm, inviting, spicy, authentic, organized."
+    },
+    "typography": {
+      "font_family": {
+        "headings": "Syne, sans-serif",
+        "body": "DM Sans, sans-serif",
+        "accents": "Space Grotesk, sans-serif"
+      },
+      "import_url": "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Space+Grotesk:wght@300;400;700&family=Syne:wght@400;700;800&display=swap",
+      "rules": {
+        "headings": "Use 'Syne' for all H1-H3. H1 should be massive (text-6xl+). Use font-extrabold for impact.",
+        "body": "Use 'DM Sans' for all paragraphs. Keep line-height loose (leading-relaxed).",
+        "menu_items": "Use 'Space Grotesk' for menu item names to give a modern bistro feel."
+      }
+    },
+    "colors": {
+      "palette": {
+        "background": {
+          "default": "#FDFCF8",
+          "paper": "#FFFFFF",
+          "dark": "#1A1A18"
+        },
+        "foreground": {
+          "default": "#1A1A18",
+          "muted": "#5F5F58",
+          "inverse": "#FDFCF8"
+        },
+        "brand": {
+          "pink": "#FF66A3",
+          "green": "#32CD32",
+          "orange": "#FFA500",
+          "teal": "#008080",
+          "primary": "#008080"
+        },
+        "functional": {
+          "success": "#32CD32",
+          "warning": "#FFA500",
+          "error": "#E53E3E"
+        }
+      },
+      "usage": {
+        "primary_bg": "Use '#FDFCF8' (Warm Sand) as the main background, NOT pure white.",
+        "accents": "Use the vibrant brand colors (Pink, Green, Orange) for tags, buttons, and decorative blobs/shapes. Do not use them for large text backgrounds unless it's a specific 'loud' section.",
+        "text": "Use '#1A1A18' (Soft Black) for text. Never use pure black.",
+        "gradients": "Avoid gradients on buttons. Use solid vibrant colors. You MAY use subtle, blurred gradient orbs in the background."
+      }
+    },
+    "spacing": {
+      "scale": "2x standard Tailwind. Use p-8, p-12, p-16.",
+      "container": "max-w-7xl mx-auto px-6 md:px-12",
+      "grid_gap": "gap-8 md:gap-12"
+    },
+    "layout": {
+      "grid_system": "Bento-style grids. Mix 1x1, 2x1, and 2x2 blocks.",
+      "hero_section": "Asymmetric 'Tetris' layout. Text on left (overlapping image), Image on right (but not a perfect square).",
+      "menu_layout": "Clean European Bistro list. Name on left, dotted leader or ample space, Price on right. Description below. Tags (Spicy, Vegan) as small pill badges.",
+      "navbar": "Sticky, glassmorphism (backdrop-blur-md). Logo left, Links center, CTA right."
+    },
+    "visual_enhancers": {
+      "radius": "rounded-none or rounded-sm (Sharp/Clean Scandi feel) or rounded-3xl (Playful). DECISION: rounded-2xl for friendly but organized feel.",
+      "shadows": "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] (Neo-brutalist pop) OR shadow-lg (Soft). DECISION: Soft, diffuse shadows 'shadow-xl' for depth, no hard borders.",
+      "texture": "Add a subtle 'noise' overlay to the entire body to kill digital flatness.",
+      "animations": {
+        "scroll": "Parallax effect on images.",
+        "hover": "Scale up (scale-105) on cards. Buttons fill with color on hover."
+      }
+    },
+    "components": {
+      "buttons": {
+        "primary": "bg-[#008080] text-white hover:bg-[#006666] rounded-full px-8 py-4 font-bold tracking-wide transition-all shadow-lg hover:shadow-xl",
+        "secondary": "border-2 border-[#1A1A18] text-[#1A1A18] hover:bg-[#1A1A18] hover:text-white rounded-full px-8 py-4 font-bold transition-all"
+      },
+      "cards": {
+        "style": "bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all border border-stone-100",
+        "content": "Image top (aspect-video or square), Title bold, Text muted."
+      }
+    },
+    "media": {
+      "image_style": "High saturation, warm temperature. Food should look juicy. People should look happy.",
+      "icons": "Lucide React. Use stroke-width=1.5 for a clean look.",
+      "image_urls": {
+        "hero_bg": "https://images.unsplash.com/photo-1540206395-688085723adb?q=80&w=2588&auto=format&fit=crop",
+        "food_jerk_chicken": "https://images.pexels.com/photos/27556985/pexels-photo-27556985.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "food_shrimp_pasta": "https://images.pexels.com/photos/31235404/pexels-photo-31235404.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "food_roti": "https://images.pexels.com/photos/29173104/pexels-photo-29173104.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "drink_cocktail": "https://images.unsplash.com/photo-1692746931486-22b6c7feb80e?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "interior_vibes": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=2574&auto=format&fit=crop",
+        "about_story": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2532&auto=format&fit=crop"
+      }
+    },
+    "instructions_to_main_agent": [
+      "INSTALL: framer-motion (yarn add framer-motion)",
+      "SETUP: Add the Google Fonts import to index.css or a layout file.",
+      "THEME: Implement the 'Scandi-Tropico' vibe. Do not make it look like a generic bootstrap site.",
+      "NAVIGATION: Create a custom 'Navbar' component that handles scrolling to sections (Hero, Menu, Drinks, About, Contact).",
+      "MENU: Build a 'MenuSection' that maps through a JSON object of items. Don't hardcode individual HTML for every dish.",
+      "CONTACT: Add a map placeholder and a stylish footer.",
+      "RESPONSIVE: Ensure the 'Tetris' grid collapses to a single column on mobile.",
+      "TESTING: Add data-testid to all interactive elements."
+    ],
+    "universal_guidelines": [
+      "Don't make generic centered layouts.",
+      "Create depth through layered design elements.",
+      "Use micro-animations for every interaction.",
+      "Use 2-3x more spacing than feels comfortable.",
+      "NO AI assistant emojis."
+    ]
+  }
+}
