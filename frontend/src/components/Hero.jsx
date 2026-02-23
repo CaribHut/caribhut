@@ -123,28 +123,28 @@ const Hero = () => {
             className="relative hidden lg:block"
           >
             <div className="relative w-full h-[600px]">
-              {/* Main large image - Chef cooking */}
+              {/* Main large image - Two Chefs */}
               <motion.div
                 className="absolute top-0 right-0 w-[85%] h-[70%] rounded-2xl overflow-hidden shadow-2xl"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.4 }}
               >
                 <img
-                  src="https://customer-assets.emergentagent.com/job_carib-menu/artifacts/3tl4ybpu_CaribHUT-85.jpg"
-                  alt="Carib Hut kock i köket"
+                  src="https://customer-assets.emergentagent.com/job_carib-menu/artifacts/28uktxfn_till%20hemsida.jpg"
+                  alt="Carib Hut kockar"
                   className="w-full h-full object-cover img-hover"
                 />
               </motion.div>
               
-              {/* Smaller accent image - Food closeup */}
+              {/* Smaller accent image - Chef cooking */}
               <motion.div
                 className="absolute bottom-0 left-0 w-[50%] h-[45%] rounded-2xl overflow-hidden shadow-xl border-4 border-[#FDFCF8]"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.4 }}
               >
                 <img
-                  src="https://customer-assets.emergentagent.com/job_carib-menu/artifacts/8id6cng8_CaribHUT-18.jpg"
-                  alt="Karibisk mat"
+                  src="https://customer-assets.emergentagent.com/job_carib-menu/artifacts/3tl4ybpu_CaribHUT-85.jpg"
+                  alt="Carib Hut kock i köket"
                   className="w-full h-full object-cover img-hover"
                 />
               </motion.div>
