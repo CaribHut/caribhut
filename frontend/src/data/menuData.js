@@ -339,39 +339,38 @@ export const menuData = {
 };
 
 export const aboutData = {
-  title: "Our Story",
-  subtitle: "From Friendship to Flavor",
+  title: "Vår Historia",
+  subtitle: "Från Musik till Mat",
   story: [
-    "It all started with two friends who shared an obsession: food. Not just any food, but the bold, soulful flavors of the Caribbean that had colored our childhoods and travels.",
-    "We grew up in different parts of Sweden, but our paths crossed in Västerås over a shared love of cooking. Late nights experimenting with jerk marinades, debating the perfect rice and peas ratio, and dreaming about bringing something new to our beloved city.",
-    "In 2023, that dream became reality. Carib Hut was born – a place where the warmth of Caribbean hospitality meets Scandinavian simplicity. We wanted to create more than a restaurant; we wanted to build a home away from home.",
-    "Every dish we serve carries a piece of our journey. The recipes come from grandmothers in Jamaica, street vendors in Trinidad, and home cooks in Barbados – all adapted with love and respect for tradition.",
-    "Welcome to Carib Hut. Welcome to our family."
+    "Vi träffades genom den gemensamma passionen för musik, vilket gjorde att några samarbeten och låtar senare så blev vi så nära vänner att vi blev som familj för varandra.",
+    "Vi kom fram till att vi båda älskade matlagning också, och hur kul det vore att starta något ihop i framtiden.",
+    "10 år senare blev det till en sanning och idag finns vi, Carib Hut, mitt nere i Västerås stadskärna: Aseatorget.",
+    "Välkomna!"
   ],
   founders: [
     {
       name: "Marcus",
-      role: "Co-Founder & Head Chef",
-      quote: "Food is how we share our culture and our love."
+      role: "Grundare & Kökschef",
+      quote: "Mat är hur vi delar vår kultur och vår kärlek."
     },
     {
       name: "David",
-      role: "Co-Founder & Operations",
-      quote: "We don't just serve food – we serve memories."
+      role: "Grundare & Verksamhet",
+      quote: "Vi serverar inte bara mat – vi serverar minnen."
     }
   ]
 };
 
 export const contactData = {
-  address: "Vasagatan 12, 722 15 Västerås, Sweden",
+  address: "Aseatorget, 722 15 Västerås",
   phone: "+46 21 123 4567",
   email: "hello@caribhut.se",
   hours: {
-    weekdays: "Tue - Thu: 11:00 - 22:00",
-    friday: "Fri: 11:00 - 23:00",
-    saturday: "Sat: 12:00 - 23:00",
-    sunday: "Sun: 12:00 - 20:00",
-    monday: "Mon: Closed"
+    weekdays: "Tis - Tor: 11:00 - 22:00",
+    friday: "Fre: 11:00 - 23:00",
+    saturday: "Lör: 12:00 - 23:00",
+    sunday: "Sön: 12:00 - 20:00",
+    monday: "Mån: Stängt"
   },
   social: {
     instagram: "@caribhut.vasteras",

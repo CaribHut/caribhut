@@ -38,7 +38,7 @@ const Hero = () => {
                 transition={{ delay: 0.2 }}
                 className="font-space text-[#008080] font-bold tracking-widest text-sm uppercase"
               >
-                Welcome to Västerås
+                Välkommen till Carib Hut
               </motion.p>
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -46,11 +46,11 @@ const Hero = () => {
                 transition={{ delay: 0.3 }}
                 className="font-syne text-5xl sm:text-6xl lg:text-7xl font-extrabold text-[#1A1A18] leading-tight"
               >
-                Caribbean{' '}
-                <span className="text-[#FF66A3]">Soul</span>
+                Karibisk{' '}
+                <span className="text-[#FF66A3]">Själ</span>
                 <br />
-                Swedish{' '}
-                <span className="text-[#32CD32]">Heart</span>
+                Svenskt{' '}
+                <span className="text-[#32CD32]">Hjärta</span>
               </motion.h1>
             </div>
 
@@ -60,8 +60,8 @@ const Hero = () => {
               transition={{ delay: 0.4 }}
               className="font-dm text-[#5F5F58] text-lg md:text-xl leading-relaxed max-w-lg"
             >
-              Experience authentic Caribbean flavors in the heart of Sweden. 
-              Bold spices, fresh ingredients, and recipes passed down through generations.
+              Upplev autentiska karibiska smaker mitt i Västerås. 
+              Djärva kryddor, färska råvaror och recept som gått i arv i generationer.
             </motion.p>
 
             <motion.div
@@ -77,7 +77,7 @@ const Hero = () => {
                 whileTap={{ scale: 0.95 }}
                 data-testid="hero-menu-button"
               >
-                Explore Menu
+                Se Menyn
               </motion.button>
               <motion.button
                 onClick={() => {
@@ -89,7 +89,7 @@ const Hero = () => {
                 whileTap={{ scale: 0.95 }}
                 data-testid="hero-story-button"
               >
-                Our Story
+                Vår Historia
               </motion.button>
             </motion.div>
 
@@ -101,16 +101,16 @@ const Hero = () => {
               className="flex gap-12 pt-8"
             >
               <div>
-                <p className="font-syne text-4xl font-extrabold text-[#FF66A3]">25+</p>
-                <p className="font-dm text-[#5F5F58] text-sm">Signature Dishes</p>
+                <p className="font-syne text-4xl font-extrabold text-[#FF66A3]">10+</p>
+                <p className="font-dm text-[#5F5F58] text-sm">Signaturrätter</p>
               </div>
               <div>
                 <p className="font-syne text-4xl font-extrabold text-[#32CD32]">100%</p>
-                <p className="font-dm text-[#5F5F58] text-sm">Fresh Daily</p>
+                <p className="font-dm text-[#5F5F58] text-sm">Färskt Dagligen</p>
               </div>
               <div>
                 <p className="font-syne text-4xl font-extrabold text-[#FFA500]">5★</p>
-                <p className="font-dm text-[#5F5F58] text-sm">Reviews</p>
+                <p className="font-dm text-[#5F5F58] text-sm">Omdömen</p>
               </div>
             </motion.div>
           </motion.div>
