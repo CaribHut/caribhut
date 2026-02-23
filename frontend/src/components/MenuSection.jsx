@@ -137,7 +137,7 @@ const MenuSection = () => {
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-full h-full object-cover img-hover"
+                    className={`w-full h-full object-cover img-hover ${item.name === 'Chicken Roti' ? 'object-left' : ''}`}
                   />
                 </div>
                 <div className="p-6">
