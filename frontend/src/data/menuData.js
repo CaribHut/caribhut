@@ -357,7 +357,7 @@ export const aboutData = {
     },
     {
       name: "René",
-      role: "Grundare",
+      role: "Kock",
       quote: "Vi serverar inte bara mat – vi serverar minnen."
     }
   ]
