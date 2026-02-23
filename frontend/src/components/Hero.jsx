@@ -131,7 +131,7 @@ const Hero = () => {
                 <img
                   src="https://customer-assets.emergentagent.com/job_carib-menu/artifacts/28uktxfn_till%20hemsida.jpg"
                   alt="Carib Hut kockar"
-                  className="w-full h-[300px] sm:h-[400px] object-cover object-bottom"
+                  className="w-full h-[300px] sm:h-[400px] object-cover object-top"
                 />
               </motion.div>
             </div>
@@ -147,7 +147,7 @@ const Hero = () => {
                 <img
                   src="https://customer-assets.emergentagent.com/job_carib-menu/artifacts/28uktxfn_till%20hemsida.jpg"
                   alt="Carib Hut kockar"
-                  className="w-full h-full object-cover object-bottom img-hover"
+                  className="w-full h-full object-cover object-top img-hover"
                 />
               </motion.div>
               
