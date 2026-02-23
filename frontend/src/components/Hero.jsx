@@ -120,9 +120,24 @@ const Hero = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative hidden lg:block"
+            className="relative"
           >
-            <div className="relative w-full h-[600px]">
+            {/* Mobile: Single image */}
+            <div className="lg:hidden mb-8">
+              <motion.div
+                className="rounded-2xl overflow-hidden shadow-2xl"
+                whileHover={{ scale: 1.02 }}
+              >
+                <img
+                  src="https://customer-assets.emergentagent.com/job_carib-menu/artifacts/28uktxfn_till%20hemsida.jpg"
+                  alt="Carib Hut kockar"
+                  className="w-full h-[300px] sm:h-[400px] object-cover object-bottom"
+                />
+              </motion.div>
+            </div>
+
+            {/* Desktop: Tetris layout */}
+            <div className="relative w-full h-[600px] hidden lg:block">
               {/* Main large image - Two Chefs */}
               <motion.div
                 className="absolute top-0 right-0 w-[85%] h-[70%] rounded-2xl overflow-hidden shadow-2xl"
@@ -132,7 +147,7 @@ const Hero = () => {
                 <img
                   src="https://customer-assets.emergentagent.com/job_carib-menu/artifacts/28uktxfn_till%20hemsida.jpg"
                   alt="Carib Hut kockar"
-                  className="w-full h-full object-cover img-hover"
+                  className="w-full h-full object-cover object-bottom img-hover"
                 />
               </motion.div>
               
