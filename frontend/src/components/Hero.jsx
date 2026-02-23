@@ -130,7 +130,7 @@ const Hero = () => {
                 transition={{ duration: 0.4 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1540206395-688085723adb?q=80&w=2588&auto=format&fit=crop"
+                  src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2670&auto=format&fit=crop"
                   alt="Caribbean atmosphere"
                   className="w-full h-full object-cover img-hover"
                 />
