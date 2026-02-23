@@ -133,11 +133,11 @@ const MenuSection = () => {
                 className="bg-[#FDFCF8] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all card-hover"
                 data-testid={`featured-dish-${item.id}`}
               >
-                <div className="aspect-video overflow-hidden">
+                <div className={`overflow-hidden ${item.name === 'Chicken Roti' ? 'aspect-square' : 'aspect-video'}`}>
                   <img
                     src={item.image}
                     alt={item.name}
-                    className={`w-full h-full object-cover img-hover ${item.name === 'Chicken Roti' ? 'object-left' : ''}`}
+                    className={`w-full h-full img-hover ${item.name === 'Chicken Roti' ? 'object-cover object-[0%_20%] scale-150' : 'object-cover'}`}
                   />
                 </div>
                 <div className="p-6">
