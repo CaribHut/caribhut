@@ -21,14 +21,14 @@ const ContactSection = () => {
           className="text-center mb-16 md:mb-24"
         >
           <p className="font-space text-[#008080] font-bold tracking-widest text-sm uppercase mb-4">
-            Visit Us
+            Besök Oss
           </p>
           <h2 className="font-syne text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#1A1A18] mb-6">
-            Come Say <span className="text-[#32CD32]">Hello</span>
+            Kom Förbi och <span className="text-[#32CD32]">Hälsa På</span>
           </h2>
           <p className="font-dm text-[#5F5F58] text-lg max-w-2xl mx-auto leading-relaxed">
-            We're located in the heart of Västerås. Drop by for a taste of the Caribbean 
-            or reach out to book a table for your next celebration.
+            Vi finns mitt i Västerås centrum vid Aseatorget. Kom förbi för en smak av Karibien 
+            eller kontakta oss för att boka bord till nästa firande.
           </p>
           <div className="section-divider mx-auto mt-8" />
         </motion.div>
@@ -48,7 +48,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <h3 className="font-syne text-lg font-bold text-[#1A1A18] mb-1">
-                  Location
+                  Adress
                 </h3>
                 <p className="font-dm text-[#5F5F58]">{contactData.address}</p>
               </div>
@@ -61,7 +61,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <h3 className="font-syne text-lg font-bold text-[#1A1A18] mb-1">
-                  Phone
+                  Telefon
                 </h3>
                 <a
                   href={`tel:${contactData.phone}`}
@@ -80,7 +80,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <h3 className="font-syne text-lg font-bold text-[#1A1A18] mb-1">
-                  Email
+                  E-post
                 </h3>
                 <a
                   href={`mailto:${contactData.email}`}
@@ -99,7 +99,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <h3 className="font-syne text-lg font-bold text-[#1A1A18] mb-3">
-                  Opening Hours
+                  Öppettider
                 </h3>
                 <div className="font-dm text-[#5F5F58] space-y-1">
                   <p>{contactData.hours.weekdays}</p>
@@ -165,7 +165,7 @@ const ContactSection = () => {
                   data-testid="get-directions-button"
                 >
                   <MapPin size={18} />
-                  Get Directions
+                  Hitta Hit
                 </motion.a>
               </div>
             </div>
