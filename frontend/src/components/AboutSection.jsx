@@ -46,8 +46,8 @@ const AboutSection = () => {
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2532&auto=format&fit=crop"
-                alt="Founders"
+                src="https://customer-assets.emergentagent.com/job_carib-menu/artifacts/3tl4ybpu_CaribHUT-85.jpg"
+                alt="Carib Hut grundare"
                 className="w-full aspect-[4/5] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A18]/50 to-transparent" />

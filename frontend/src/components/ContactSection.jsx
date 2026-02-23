@@ -145,10 +145,10 @@ const ContactSection = () => {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="rounded-3xl overflow-hidden shadow-xl aspect-square lg:aspect-auto lg:h-full min-h-[400px] relative">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-square lg:aspect-auto lg:h-full min-h-[400px] relative">
               <img
-                src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=2574&auto=format&fit=crop"
-                alt="Restaurant interior"
+                src="https://customer-assets.emergentagent.com/job_carib-menu/artifacts/8id6cng8_CaribHUT-18.jpg"
+                alt="Carib Hut mat"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A18]/60 to-transparent" />
