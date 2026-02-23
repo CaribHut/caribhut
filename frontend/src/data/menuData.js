@@ -351,7 +351,7 @@ export const aboutData = {
   ],
   founders: [
     {
-      name: "Christoffer",
+      name: "Christoffer & Mathias",
       role: "Grundare",
       quote: "Mat är hur vi delar vår kultur och vår kärlek."
     },
