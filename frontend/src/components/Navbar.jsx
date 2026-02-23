@@ -23,11 +23,11 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { id: 'hero', label: 'Home' },
-    { id: 'menu', label: 'Menu' },
-    { id: 'drinks', label: 'Drinks' },
-    { id: 'about', label: 'About Us' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'hero', label: 'Hem' },
+    { id: 'menu', label: 'Meny' },
+    { id: 'drinks', label: 'Drycker' },
+    { id: 'about', label: 'Om Oss' },
+    { id: 'contact', label: 'Kontakt' },
   ];
 
   return (
@@ -77,7 +77,7 @@ const Navbar = () => {
               whileTap={{ scale: 0.95 }}
               data-testid="nav-cta-button"
             >
-              Book a Table
+              Boka Bord
             </motion.button>
 
             {/* Mobile Menu Button */}
@@ -125,7 +125,7 @@ const Navbar = () => {
                 transition={{ delay: 0.5 }}
                 data-testid="mobile-cta-button"
               >
-                Book a Table
+                Boka Bord
               </motion.button>
             </div>
           </motion.div>
