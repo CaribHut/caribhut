@@ -56,12 +56,12 @@ const Navbar = () => {
             </motion.button>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="nav-link font-dm text-[#1A1A18] font-medium text-sm tracking-wide hover:text-[#008080] transition-colors"
+                  className="nav-link font-dm text-[#1A1A18] font-medium text-sm tracking-wide hover:text-[#008080] transition-colors whitespace-nowrap"
                   data-testid={`nav-${link.id}`}
                 >
                   {link.label}
