@@ -4,10 +4,10 @@ import { menuData } from '../data/menuData';
 
 const TagBadge = ({ tag }) => {
   const tagConfig = {
-    spicy: { icon: Flame, className: 'tag-spicy', label: 'Spicy' },
+    spicy: { icon: Flame, className: 'tag-spicy', label: 'Stark' },
     vegan: { icon: Leaf, className: 'tag-vegan', label: 'Vegan' },
-    popular: { icon: Star, className: 'tag-popular', label: 'Popular' },
-    new: { icon: Sparkles, className: 'tag-new', label: 'New' },
+    popular: { icon: Star, className: 'tag-popular', label: 'Populär' },
+    new: { icon: Sparkles, className: 'tag-new', label: 'Nyhet' },
   };
 
   const config = tagConfig[tag];
@@ -103,14 +103,14 @@ const MenuSection = () => {
           className="text-center mb-16 md:mb-24"
         >
           <p className="font-space text-[#008080] font-bold tracking-widest text-sm uppercase mb-4">
-            Our Menu
+            Vår Meny
           </p>
           <h2 className="font-syne text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#1A1A18] mb-6">
-            Caribbean <span className="text-[#FFA500]">Classics</span>
+            Karibiska <span className="text-[#FFA500]">Klassiker</span>
           </h2>
           <p className="font-dm text-[#5F5F58] text-lg max-w-2xl mx-auto leading-relaxed">
-            From spicy jerk to savory roti, each dish is crafted with authentic 
-            Caribbean spices and fresh, locally-sourced ingredients.
+            Från kryddig jerk till smakrik roti, varje rätt tillagas med autentiska 
+            karibiska kryddor och färska, lokala råvaror.
           </p>
           <div className="section-divider mx-auto mt-8" />
         </motion.div>

@@ -4,10 +4,10 @@ import { menuData } from '../data/menuData';
 
 const TagBadge = ({ tag }) => {
   const tagConfig = {
-    spicy: { icon: Flame, className: 'bg-[#FFA500] text-white', label: 'Spicy' },
+    spicy: { icon: Flame, className: 'bg-[#FFA500] text-white', label: 'Stark' },
     vegan: { icon: Leaf, className: 'bg-[#32CD32] text-white', label: 'Vegan' },
-    popular: { icon: null, className: 'bg-[#FF66A3] text-white', label: 'Popular' },
-    new: { icon: null, className: 'bg-[#008080] text-white', label: 'New' },
+    popular: { icon: null, className: 'bg-[#FF66A3] text-white', label: 'Populär' },
+    new: { icon: null, className: 'bg-[#008080] text-white', label: 'Nyhet' },
   };
 
   const config = tagConfig[tag];
@@ -109,14 +109,14 @@ const DrinksSection = () => {
           className="text-center mb-16 md:mb-24"
         >
           <p className="font-space text-[#32CD32] font-bold tracking-widest text-sm uppercase mb-4">
-            Drink Menu
+            Dryckesmeny
           </p>
           <h2 className="font-syne text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#FDFCF8] mb-6">
-            Tropical <span className="text-[#FF66A3]">Refreshments</span>
+            Tropiska <span className="text-[#FF66A3]">Förfriskningar</span>
           </h2>
           <p className="font-dm text-[#FDFCF8]/70 text-lg max-w-2xl mx-auto leading-relaxed">
-            From rum-based classics to refreshing mocktails, our drinks menu captures 
-            the spirit of the Caribbean. Cheers to good vibes!
+            Från rombaserade klassiker till uppfriskande mocktails, vår dryckesmeny fångar 
+            Karibiens själ. Skål för goda vibbar!
           </p>
           <div className="section-divider mx-auto mt-8" />
         </motion.div>
@@ -137,13 +137,13 @@ const DrinksSection = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A18] via-transparent to-transparent" />
             <div className="absolute bottom-8 left-8 right-8">
               <p className="font-space text-[#FFA500] text-sm uppercase tracking-widest mb-2">
-                Signature Cocktail
+                Signaturdrink
               </p>
               <h3 className="font-syne text-3xl md:text-4xl font-extrabold text-white">
                 Caribbean Punch
               </h3>
               <p className="font-dm text-white/70 mt-2 max-w-md">
-                Our famous house rum punch — a tropical blend that transports you to island shores.
+                Vår berömda rumpunch — en tropisk blandning som tar dig till öparadis.
               </p>
             </div>
           </div>
