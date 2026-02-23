@@ -24,7 +24,7 @@ const AboutSection = () => {
           className="text-center mb-16 md:mb-24"
         >
           <p className="font-space text-[#008080] font-bold tracking-widest text-sm uppercase mb-4">
-            About Us
+            Om Oss
           </p>
           <h2 className="font-syne text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#1A1A18] mb-6">
             {aboutData.title}
@@ -62,7 +62,7 @@ const AboutSection = () => {
               className="absolute -bottom-8 -right-8 bg-[#008080] text-white p-8 rounded-2xl shadow-xl max-w-[200px]"
             >
               <p className="font-syne text-4xl font-extrabold">2023</p>
-              <p className="font-dm text-sm opacity-80">Founded in Västerås</p>
+              <p className="font-dm text-sm opacity-80">Grundat i Västerås</p>
             </motion.div>
 
             {/* Decorative elements */}
@@ -102,20 +102,20 @@ const AboutSection = () => {
           {[
             {
               icon: Heart,
-              title: 'Made with Love',
-              description: 'Every dish carries the warmth and passion of Caribbean home cooking.',
+              title: 'Lagat med Kärlek',
+              description: 'Varje rätt bär värmen och passionen från karibisk hemlagad mat.',
               color: '#FF66A3',
             },
             {
               icon: Utensils,
-              title: 'Authentic Recipes',
-              description: 'Traditional recipes passed down through generations, prepared with care.',
+              title: 'Autentiska Recept',
+              description: 'Traditionella recept som gått i arv i generationer, tillagade med omsorg.',
               color: '#FFA500',
             },
             {
               icon: Users,
-              title: 'Community First',
-              description: 'We\'re more than a restaurant — we\'re a gathering place for food lovers.',
+              title: 'Gemenskap Först',
+              description: 'Vi är mer än en restaurang — vi är en mötesplats för matälskare.',
               color: '#32CD32',
             },
           ].map((value, index) => (
