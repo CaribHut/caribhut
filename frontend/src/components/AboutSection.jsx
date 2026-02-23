@@ -61,7 +61,7 @@ const AboutSection = () => {
               transition={{ delay: 0.3 }}
               className="absolute -bottom-8 -right-8 bg-[#008080] text-white p-8 rounded-2xl shadow-xl max-w-[200px]"
             >
-              <p className="font-syne text-4xl font-extrabold">2023</p>
+              <p className="font-syne text-4xl font-extrabold">2024</p>
               <p className="font-dm text-sm opacity-80">Grundat i Västerås</p>
             </motion.div>
 
