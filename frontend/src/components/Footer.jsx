@@ -34,14 +34,14 @@ const Footer = () => {
           {/* Quick Links */}
           <div>
             <h4 className="font-syne text-lg font-bold text-[#FDFCF8] mb-6">
-              Quick Links
+              Snabblänkar
             </h4>
             <ul className="space-y-3">
               {[
-                { id: 'menu', label: 'Menu' },
-                { id: 'drinks', label: 'Drinks' },
-                { id: 'about', label: 'About Us' },
-                { id: 'contact', label: 'Contact' },
+                { id: 'menu', label: 'Meny' },
+                { id: 'drinks', label: 'Drycker' },
+                { id: 'about', label: 'Om Oss' },
+                { id: 'contact', label: 'Kontakt' },
               ].map((link) => (
                 <li key={link.id}>
                   <button
@@ -59,14 +59,14 @@ const Footer = () => {
           {/* Hours */}
           <div>
             <h4 className="font-syne text-lg font-bold text-[#FDFCF8] mb-6">
-              Hours
+              Öppettider
             </h4>
             <ul className="font-dm text-[#FDFCF8]/60 space-y-2 text-sm">
-              <li>Tue - Thu: 11:00 - 22:00</li>
-              <li>Fri: 11:00 - 23:00</li>
-              <li>Sat: 12:00 - 23:00</li>
-              <li>Sun: 12:00 - 20:00</li>
-              <li className="text-[#FF66A3]">Mon: Closed</li>
+              <li>Tis - Tor: 11:00 - 22:00</li>
+              <li>Fre: 11:00 - 23:00</li>
+              <li>Lör: 12:00 - 23:00</li>
+              <li>Sön: 12:00 - 20:00</li>
+              <li className="text-[#FF66A3]">Mån: Stängt</li>
             </ul>
           </div>
         </div>
@@ -77,10 +77,10 @@ const Footer = () => {
         {/* Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="font-dm text-[#FDFCF8]/40 text-sm">
-            © {currentYear} Carib Hut. All rights reserved.
+            © {currentYear} Carib Hut. Alla rättigheter förbehållna.
           </p>
           <p className="font-dm text-[#FDFCF8]/40 text-sm flex items-center gap-1">
-            Made with <Heart size={14} className="text-[#FF66A3]" fill="#FF66A3" /> in Västerås
+            Gjort med <Heart size={14} className="text-[#FF66A3]" fill="#FF66A3" /> i Västerås
           </p>
         </div>
       </div>
