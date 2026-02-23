@@ -54,7 +54,7 @@ export const menuData = {
           description: "Tender curried chicken wrapped in soft, flaky roti bread with potatoes and chickpeas",
           price: 179,
           tags: ["popular"],
-          image: "https://images.pexels.com/photos/29306505/pexels-photo-29306505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          image: "https://customer-assets.emergentagent.com/job_carib-menu/artifacts/s337xcpq_Roti.jpg"
         },
         {
           id: 7,
