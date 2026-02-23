@@ -1,34 +1,158 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Carib Hut Custom Styles */
+
+/* Glass effect for navbar */
+.glass {
+  background: rgba(253, 252, 248, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Menu item dotted leader */
+.menu-leader {
+  flex-grow: 1;
+  border-bottom: 2px dotted #d4d4d4;
+  margin: 0 16px;
+  align-self: flex-end;
+  margin-bottom: 6px;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+/* Hero gradient orbs */
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
 }
 
-.App-link {
-    color: #61dafb;
+.orb-pink {
+  background: #FF66A3;
+  width: 300px;
+  height: 300px;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.orb-green {
+  background: #32CD32;
+  width: 250px;
+  height: 250px;
 }
+
+.orb-orange {
+  background: #FFA500;
+  width: 200px;
+  height: 200px;
+}
+
+/* Tag pills */
+.tag-spicy {
+  background: #FFA500;
+  color: white;
+}
+
+.tag-vegan {
+  background: #32CD32;
+  color: white;
+}
+
+.tag-popular {
+  background: #FF66A3;
+  color: white;
+}
+
+.tag-new {
+  background: #008080;
+  color: white;
+}
+
+/* Section divider */
+.section-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #FF66A3, #FFA500, #32CD32);
+  border-radius: 2px;
+}
+
+/* Image hover effect */
+.img-hover {
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.img-hover:hover {
+  transform: scale(1.05);
+  filter: saturate(1.2);
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Decorative shapes */
+.shape-circle {
+  border-radius: 50%;
+}
+
+.shape-blob {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+
+/* Nav link underline animation */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #008080;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Button fill animation */
+.btn-fill {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-fill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.btn-fill:hover::before {
+  left: 0;
+}
+
+/* Parallax container */
+.parallax-container {
+  perspective: 1px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Stagger animation delay */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
