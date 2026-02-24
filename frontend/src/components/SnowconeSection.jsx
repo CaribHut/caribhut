@@ -98,8 +98,7 @@ const SnowconeSection = () => {
               </h3>
               <p className="font-dm text-white/80 leading-relaxed mb-4">
                 <span className="font-bold text-[#FFA500]">Vår egen version:</span> En krämig 
-                vaniljgräddsglass som bas, blandad med våra egengjorda extrakt – kokta och mosade 
-                frukter för en autentisk smakupplevelse.
+                vaniljgräddsglass som bas, blandad med våra egengjorda extrakt.
               </p>
               <p className="font-dm text-white/60 text-sm mb-4">
                 Alla extrakt är gjorda från grunden med naturliga ingredienser.
