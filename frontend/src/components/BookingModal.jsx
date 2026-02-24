@@ -6,22 +6,20 @@ import { X, Users, Calendar, Clock, Check, ArrowRight, ArrowLeft, ChefHat, Palmt
 // Water at top, Entrance & Kitchen on right
 // 6-seat tables in middle, 2-seat at top row, 4-seat at bottom
 const tables = [
-  // TOP ROW - Near water: 2p tables on sides, 6p in middle
-  { id: 1, seats: 2, x: 15, y: 20, color: '#40E0D0', shape: 'small', label: 'Vid vattnet' },
-  { id: 2, seats: 6, x: 40, y: 20, color: '#DEB887', shape: 'large', label: 'Vid vattnet' },
-  { id: 3, seats: 2, x: 65, y: 20, color: '#40E0D0', shape: 'small', label: 'Vid vattnet' },
+  // TOP ROW - All in line: 2p, 6p, 2p, 6p, 6p
+  { id: 1, seats: 2, x: 12, y: 22, color: '#40E0D0', shape: 'small', label: 'Vid vattnet' },
+  { id: 2, seats: 6, x: 30, y: 22, color: '#DEB887', shape: 'large', label: 'Vid vattnet' },
+  { id: 3, seats: 2, x: 48, y: 22, color: '#40E0D0', shape: 'small', label: 'Vid vattnet' },
+  { id: 4, seats: 6, x: 66, y: 22, color: '#DEB887', shape: 'large', label: '' },
+  { id: 5, seats: 6, x: 84, y: 22, color: '#DEB887', shape: 'large', label: '' },
   
   // MIDDLE ROW - 6-seat tables
-  { id: 4, seats: 6, x: 25, y: 50, color: '#DEB887', shape: 'large', label: '' },
-  { id: 5, seats: 6, x: 55, y: 50, color: '#DEB887', shape: 'large', label: '' },
-  
-  // LOWER MIDDLE - 6-seat tables
-  { id: 6, seats: 6, x: 25, y: 75, color: '#40E0D0', shape: 'large', label: '' },
-  { id: 7, seats: 6, x: 55, y: 75, color: '#40E0D0', shape: 'large', label: '' },
+  { id: 6, seats: 6, x: 30, y: 55, color: '#40E0D0', shape: 'large', label: '' },
+  { id: 7, seats: 6, x: 66, y: 55, color: '#40E0D0', shape: 'large', label: '' },
   
   // BOTTOM ROW - 4-seat tables near entrance
-  { id: 8, seats: 4, x: 30, y: 95, color: '#2F4F4F', shape: 'medium', label: 'Vid entrén' },
-  { id: 9, seats: 4, x: 50, y: 95, color: '#2F4F4F', shape: 'medium', label: 'Vid entrén' },
+  { id: 8, seats: 4, x: 38, y: 85, color: '#2F4F4F', shape: 'medium', label: 'Vid entrén' },
+  { id: 9, seats: 4, x: 58, y: 85, color: '#2F4F4F', shape: 'medium', label: 'Vid entrén' },
 ];
 
 const TableIcon = ({ table, selected, onClick }) => {
@@ -242,12 +240,12 @@ const BookingModal = ({ isOpen, onClose }) => {
                     <Palmtree size={20} className="text-[#32CD32]" />Välj bord (42 platser)
                   </h3>
                   
-                  <div className="relative rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(180deg, #3D5A4C 0%, #2D4A3E 50%, #1A332A 100%)', minHeight: '380px' }}>
-                    {/* WATER at TOP */}
-                    <div className="absolute top-0 left-0 right-16 h-12 bg-gradient-to-b from-[#1E90FF]/50 to-transparent flex items-center justify-center">
-                      <div className="flex items-center gap-2 text-[#87CEEB]">
-                        <Waves size={18} /><span className="text-xs font-bold tracking-wider">FONTÄN & VATTEN</span><Waves size={18} />
-                      </div>
+                  <div className="relative rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(180deg, #3D5A4C 0%, #2D4A3E 50%, #1A332A 100%)', minHeight: '320px' }}>
+                    {/* WATER at TOP - just blue gradient, no text */}
+                    <div className="absolute top-0 left-0 right-16 h-10 bg-gradient-to-b from-[#1E90FF]/50 to-transparent">
+                      <div className="absolute top-1 left-1/4 w-6 h-6 border border-[#87CEEB]/30 rounded-full animate-ping" style={{ animationDuration: '3s' }} />
+                      <div className="absolute top-2 left-1/2 w-4 h-4 border border-[#87CEEB]/20 rounded-full animate-ping" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+                      <div className="absolute top-1 left-3/4 w-5 h-5 border border-[#87CEEB]/25 rounded-full animate-ping" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }} />
                     </div>
                     
                     {/* ENTRANCE & KITCHEN on RIGHT */}
@@ -267,14 +265,14 @@ const BookingModal = ({ isOpen, onClose }) => {
                     <div className="absolute bottom-16 left-4 text-lg">🌿</div>
                     
                     {/* String lights */}
-                    <div className="absolute top-12 left-8 right-20 flex justify-between">
-                      {[...Array(8)].map((_, i) => (
+                    <div className="absolute top-10 left-6 right-20 flex justify-between">
+                      {[...Array(10)].map((_, i) => (
                         <div key={i} className="w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
                       ))}
                     </div>
                     
                     {/* Tables */}
-                    <div className="absolute inset-0 pt-12 pb-2 pl-10 pr-20">
+                    <div className="absolute inset-0 pt-8 pb-2 pl-6 pr-20">
                       {tables.map((table) => (
                         <TableIcon key={table.id} table={table} selected={selectedTable?.id === table.id} onClick={() => handleTableSelect(table)} />
                       ))}
