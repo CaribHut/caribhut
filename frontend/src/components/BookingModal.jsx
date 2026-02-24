@@ -2,25 +2,26 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Users, Calendar, Clock, Check, ArrowRight, ArrowLeft, ChefHat, Palmtree, Waves } from 'lucide-react';
 
-// Updated table layout to match actual restaurant - 42 seats
-// Water/fountain at top, Entrance & Kitchen on right
+// Updated table layout - 42 seats
+// Water at top, Entrance & Kitchen on right
+// 6-seat tables in middle, 2-seat at top row, 4-seat at bottom
 const tables = [
-  // TOP ROW - Near water (2-seat tables)
-  { id: 1, seats: 2, x: 25, y: 12, color: '#40E0D0', shape: 'small', label: 'Vid vattnet' },
-  { id: 2, seats: 2, x: 45, y: 12, color: '#40E0D0', shape: 'small', label: 'Vid vattnet' },
+  // TOP ROW - Near water: 2p tables on sides, 6p in middle
+  { id: 1, seats: 2, x: 15, y: 20, color: '#40E0D0', shape: 'small', label: 'Vid vattnet' },
+  { id: 2, seats: 6, x: 40, y: 20, color: '#DEB887', shape: 'large', label: 'Vid vattnet' },
+  { id: 3, seats: 2, x: 65, y: 20, color: '#40E0D0', shape: 'small', label: 'Vid vattnet' },
   
-  // UPPER MIDDLE - 6-seat tables (row 1)
-  { id: 3, seats: 6, x: 22, y: 35, color: '#DEB887', shape: 'large', label: '' },
-  { id: 4, seats: 6, x: 50, y: 35, color: '#DEB887', shape: 'large', label: '' },
-  { id: 5, seats: 6, x: 78, y: 28, color: '#40E0D0', shape: 'large', label: '' },
+  // MIDDLE ROW - 6-seat tables
+  { id: 4, seats: 6, x: 25, y: 50, color: '#DEB887', shape: 'large', label: '' },
+  { id: 5, seats: 6, x: 55, y: 50, color: '#DEB887', shape: 'large', label: '' },
   
-  // LOWER MIDDLE - 6-seat tables (row 2)
-  { id: 6, seats: 6, x: 22, y: 62, color: '#DEB887', shape: 'large', label: '' },
-  { id: 7, seats: 6, x: 78, y: 58, color: '#40E0D0', shape: 'large', label: '' },
+  // LOWER MIDDLE - 6-seat tables
+  { id: 6, seats: 6, x: 25, y: 75, color: '#40E0D0', shape: 'large', label: '' },
+  { id: 7, seats: 6, x: 55, y: 75, color: '#40E0D0', shape: 'large', label: '' },
   
-  // BOTTOM ROW - Near entrance (4-seat tables)
-  { id: 8, seats: 4, x: 22, y: 88, color: '#2F4F4F', shape: 'medium', label: 'Vid entrén' },
-  { id: 9, seats: 4, x: 50, y: 88, color: '#2F4F4F', shape: 'medium', label: 'Vid entrén' },
+  // BOTTOM ROW - 4-seat tables near entrance
+  { id: 8, seats: 4, x: 30, y: 95, color: '#2F4F4F', shape: 'medium', label: 'Vid entrén' },
+  { id: 9, seats: 4, x: 50, y: 95, color: '#2F4F4F', shape: 'medium', label: 'Vid entrén' },
 ];
 
 const TableIcon = ({ table, selected, onClick }) => {
