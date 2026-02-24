@@ -212,7 +212,7 @@ export const menuData = {
           description: "All the tropical flavor without the rum - passion fruit, mango, and pineapple",
           price: 79,
           tags: ["popular"],
-          image: null
+          image: "https://images.pexels.com/photos/12931223/pexels-photo-12931223.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
         },
         {
           id: 202,
@@ -220,7 +220,7 @@ export const menuData = {
           description: "Traditional hibiscus drink with ginger and cinnamon",
           price: 69,
           tags: ["vegan"],
-          image: null
+          image: "https://images.pexels.com/photos/2093089/pexels-photo-2093089.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
         },
         {
           id: 203,
@@ -236,7 +236,15 @@ export const menuData = {
           description: "Fresh mango puree with orange juice and grenadine",
           price: 79,
           tags: [],
-          image: null
+          image: "https://images.unsplash.com/photo-1568752114168-ef1ec63ffd18?crop=entropy&cs=srgb&fm=jpg&q=85"
+        },
+        {
+          id: 205,
+          name: "Tropical Paradise",
+          description: "Ananas, kokos och passionsfrukt - en smak av Karibien",
+          price: 85,
+          tags: ["new"],
+          image: "https://images.unsplash.com/photo-1654248235353-4546d1e2b199?crop=entropy&cs=srgb&fm=jpg&q=85"
         }
       ]
     },
@@ -314,7 +322,7 @@ export const menuData = {
           name: "Ting",
           description: "Jamaican grapefruit soda",
           price: 39,
-          tags: [],
+          tags: ["popular"],
           image: null
         },
         {
@@ -331,6 +339,38 @@ export const menuData = {
           description: "Served in the shell when available",
           price: 59,
           tags: ["vegan"],
+          image: null
+        },
+        {
+          id: 504,
+          name: "Coca-Cola / Fanta / Sprite",
+          description: "Klassiska läskfavoriter",
+          price: 35,
+          tags: [],
+          image: null
+        },
+        {
+          id: 505,
+          name: "Lemonad",
+          description: "Hemgjord lemonad med färsk citron och mynta",
+          price: 49,
+          tags: ["popular"],
+          image: "https://images.unsplash.com/photo-1528163077399-91ef32e66754?crop=entropy&cs=srgb&fm=jpg&q=85"
+        },
+        {
+          id: 506,
+          name: "Mango Lassi",
+          description: "Krämig yoghurtdryck med färsk mango",
+          price: 55,
+          tags: ["vegan"],
+          image: null
+        },
+        {
+          id: 507,
+          name: "Juice (Apelsin / Äpple / Ananas)",
+          description: "Färskpressad juice",
+          price: 45,
+          tags: [],
           image: null
         }
       ]
