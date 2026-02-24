@@ -149,6 +149,48 @@ const DrinksSection = () => {
           </div>
         </motion.div>
 
+        {/* Alkoholfria Highlights */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <h3 className="font-syne text-2xl md:text-3xl font-bold text-[#FDFCF8] text-center mb-8">
+            Alkoholfria <span className="text-[#32CD32]">Favoriter</span>
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {menuData.drinks
+              .filter(cat => cat.category === 'Mocktails' || cat.category === 'Soft Drinks')
+              .flatMap(cat => cat.items)
+              .filter(item => item.image)
+              .slice(0, 4)
+              .map((item, index) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group"
+                >
+                  <div className="relative rounded-2xl overflow-hidden aspect-square">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A18] via-transparent to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <p className="font-space text-sm font-bold text-white">{item.name}</p>
+                      <p className="font-syne text-[#FFA500] font-bold">{item.price} kr</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+          </div>
+        </motion.div>
+
         {/* Drinks Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {menuData.drinks.map((section, index) => (
