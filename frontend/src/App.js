@@ -6,6 +6,7 @@ import MenuSection from "./components/MenuSection";
 import NightMenuSection from "./components/NightMenuSection";
 import LogoBanner from "./components/LogoBanner";
 import DrinksSection from "./components/DrinksSection";
+import SnowconeSection from "./components/SnowconeSection";
 import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
@@ -21,6 +22,7 @@ function App() {
         <NightMenuSection />
         <LogoBanner />
         <DrinksSection />
+        <SnowconeSection />
         <AboutSection />
         <ContactSection />
       </main>
