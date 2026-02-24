@@ -28,17 +28,16 @@ const TableIcon = ({ table, selected, onClick }) => {
   const { seats, color, shape, id } = table;
   
   const getTableDimensions = () => {
-    if (shape === 'large') return { width: 65, height: 45 };
-    if (shape === 'medium') return { width: 50, height: 35 };
-    return { width: 40, height: 30 };
+    if (shape === 'large') return { width: 70, height: 45 };
+    if (shape === 'medium') return { width: 55, height: 38 };
+    return { width: 42, height: 32 };
   };
 
   const { width, height } = getTableDimensions();
-  const isDiamond = seats === 6;
   
   return (
     <motion.div
-      whileHover={{ scale: 1.1, y: -5 }}
+      whileHover={{ scale: 1.08, y: -3 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
       className="cursor-pointer absolute"
@@ -50,7 +49,7 @@ const TableIcon = ({ table, selected, onClick }) => {
       data-testid={`table-${id}`}
     >
       <div
-        className={`flex flex-col items-center justify-center transition-all relative ${
+        className={`flex flex-col items-center justify-center transition-all rounded-xl ${
           selected ? 'ring-4 ring-[#FF66A3] ring-offset-2 ring-offset-transparent' : ''
         }`}
         style={{ 
@@ -60,19 +59,12 @@ const TableIcon = ({ table, selected, onClick }) => {
           boxShadow: selected 
             ? '0 8px 25px rgba(255, 102, 163, 0.5)' 
             : '0 4px 12px rgba(0,0,0,0.3)',
-          borderRadius: '8px',
-          transform: isDiamond ? 'rotate(45deg)' : 'none',
         }}
       >
-        <div style={{ transform: isDiamond ? 'rotate(-45deg)' : 'none' }} className="flex flex-col items-center">
-          <Users size={seats === 2 ? 12 : 16} className="text-white mb-0.5" />
-          <span className="text-white text-[10px] font-bold">{seats}p</span>
-        </div>
+        <Users size={seats <= 2 ? 14 : 18} className="text-white mb-0.5" />
+        <span className="text-white text-xs font-bold">{seats}p</span>
       </div>
-      <div 
-        className={`text-center mt-2 text-xs font-bold ${selected ? 'text-[#FF66A3]' : 'text-white/80'}`}
-        style={{ marginTop: isDiamond ? '12px' : '4px' }}
-      >
+      <div className={`text-center mt-1 text-xs font-bold ${selected ? 'text-[#FF66A3]' : 'text-white/80'}`}>
         Bord {id}
       </div>
     </motion.div>
