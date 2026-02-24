@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
-const Navbar = () => {
+const Navbar = ({ onBookingClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -73,7 +73,7 @@ const Navbar = () => {
 
             {/* CTA Button */}
             <motion.button
-              onClick={() => scrollToSection('contact')}
+              onClick={onBookingClick}
               className="hidden md:block bg-[#008080] text-white rounded-full px-6 py-3 font-dm font-bold text-sm tracking-wide hover:bg-[#006666] transition-all shadow-lg hover:shadow-xl btn-fill"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -120,7 +120,10 @@ const Navbar = () => {
                 </motion.button>
               ))}
               <motion.button
-                onClick={() => scrollToSection('contact')}
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onBookingClick();
+                }}
                 className="mt-8 bg-[#008080] text-white rounded-full px-8 py-4 font-dm font-bold text-lg tracking-wide"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
