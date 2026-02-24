@@ -97,18 +97,22 @@ const SnowconeSection = () => {
                 Snow Dreams <span className="text-[#FF66A3]">★</span>
               </h3>
               <p className="font-dm text-white/80 leading-relaxed mb-4">
-                <span className="font-bold text-[#FFA500]">Vår egen version:</span> En magisk blandning av 
-                krämig vaniljglass och naturliga sirap. Ännu godare och krämigare!
+                <span className="font-bold text-[#FFA500]">Vår egen version:</span> En krämig 
+                vaniljgräddsglass som bas, toppat med våra färska egengjorda extrakt på mosade 
+                och kokta äpplen, mango, jordgubbar och andra svenska sommarbär.
+              </p>
+              <p className="font-dm text-white/60 text-sm italic mb-4">
+                Alla smaker är gjorda från grunden med naturliga ingredienser.
               </p>
               <div className="flex flex-wrap gap-3 mt-6">
                 <span className="bg-[#FFA500] px-4 py-2 rounded-full text-sm font-dm font-bold">
-                  Vaniljglass
+                  Vaniljgräddsglass
                 </span>
                 <span className="bg-[#32CD32] px-4 py-2 rounded-full text-sm font-dm font-bold">
-                  Naturlig sirap
+                  Egengjorda extrakt
                 </span>
                 <span className="bg-[#FF66A3] px-4 py-2 rounded-full text-sm font-dm font-bold">
-                  Extra krämig
+                  Svenska sommarbär
                 </span>
               </div>
             </div>
