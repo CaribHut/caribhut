@@ -13,13 +13,11 @@ const tables = [
   { id: 4, seats: 6, x: 66, y: 22, color: '#DEB887', shape: 'large', label: '' },
   { id: 5, seats: 6, x: 84, y: 22, color: '#DEB887', shape: 'large', label: '' },
   
-  // MIDDLE ROW - 6-seat tables
-  { id: 6, seats: 6, x: 30, y: 55, color: '#40E0D0', shape: 'large', label: '' },
-  { id: 7, seats: 6, x: 66, y: 55, color: '#40E0D0', shape: 'large', label: '' },
-  
-  // BOTTOM ROW - 4-seat tables near entrance
-  { id: 8, seats: 4, x: 38, y: 85, color: '#2F4F4F', shape: 'medium', label: 'Vid entrén' },
-  { id: 9, seats: 4, x: 58, y: 85, color: '#2F4F4F', shape: 'medium', label: 'Vid entrén' },
+  // BOTTOM ROW - All in line: 6p, 6p, 4p, 4p
+  { id: 6, seats: 6, x: 20, y: 65, color: '#40E0D0', shape: 'large', label: '' },
+  { id: 7, seats: 6, x: 42, y: 65, color: '#40E0D0', shape: 'large', label: '' },
+  { id: 8, seats: 4, x: 62, y: 65, color: '#2F4F4F', shape: 'medium', label: '' },
+  { id: 9, seats: 4, x: 80, y: 65, color: '#2F4F4F', shape: 'medium', label: '' },
 ];
 
 const TableIcon = ({ table, selected, onClick }) => {
