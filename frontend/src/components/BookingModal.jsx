@@ -261,8 +261,8 @@ const BookingModal = ({ isOpen, onClose }) => {
                     </div>
                     
                     {/* Decorations */}
-                    <div className="absolute top-14 left-4 text-xl">🌴</div>
-                    <div className="absolute bottom-16 left-4 text-lg">🌿</div>
+                    <div className="absolute top-12 left-3 text-lg">🌴</div>
+                    <div className="absolute bottom-8 left-3 text-base">🌿</div>
                     
                     {/* String lights */}
                     <div className="absolute top-10 left-6 right-20 flex justify-between">
