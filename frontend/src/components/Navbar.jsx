@@ -25,6 +25,7 @@ const Navbar = () => {
   const navLinks = [
     { id: 'hero', label: 'Hem' },
     { id: 'menu', label: 'Meny' },
+    { id: 'nightmenu', label: 'Nattmeny' },
     { id: 'drinks', label: 'Drycker' },
     { id: 'about', label: 'Om Oss' },
     { id: 'contact', label: 'Kontakt' },

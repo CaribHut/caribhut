@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import BrandBanner from "./components/BrandBanner";
 import MenuSection from "./components/MenuSection";
+import NightMenuSection from "./components/NightMenuSection";
 import LogoBanner from "./components/LogoBanner";
 import DrinksSection from "./components/DrinksSection";
 import AboutSection from "./components/AboutSection";
@@ -17,6 +18,7 @@ function App() {
         <Hero />
         <BrandBanner />
         <MenuSection />
+        <NightMenuSection />
         <LogoBanner />
         <DrinksSection />
         <AboutSection />
