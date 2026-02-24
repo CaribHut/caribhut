@@ -98,22 +98,33 @@ const SnowconeSection = () => {
               </h3>
               <p className="font-dm text-white/80 leading-relaxed mb-4">
                 <span className="font-bold text-[#FFA500]">Vår egen version:</span> En krämig 
-                vaniljgräddsglass som bas, toppat med våra färska egengjorda extrakt på mosade 
-                och kokta äpplen, mango, jordgubbar och andra svenska sommarbär.
+                vaniljgräddsglass som bas, blandad med våra egengjorda extrakt – kokta och mosade 
+                frukter för en autentisk smakupplevelse.
               </p>
-              <p className="font-dm text-white/60 text-sm italic mb-4">
-                Alla smaker är gjorda från grunden med naturliga ingredienser.
+              <p className="font-dm text-white/60 text-sm mb-4">
+                Alla extrakt är gjorda från grunden med naturliga ingredienser.
               </p>
-              <div className="flex flex-wrap gap-3 mt-6">
-                <span className="bg-[#FFA500] px-4 py-2 rounded-full text-sm font-dm font-bold">
-                  Vaniljgräddsglass
-                </span>
-                <span className="bg-[#32CD32] px-4 py-2 rounded-full text-sm font-dm font-bold">
-                  Egengjorda extrakt
-                </span>
-                <span className="bg-[#FF66A3] px-4 py-2 rounded-full text-sm font-dm font-bold">
-                  Svenska sommarbär
-                </span>
+              <div className="mt-6">
+                <p className="font-space text-[#FFA500] text-sm uppercase tracking-widest mb-3">
+                  Välj din smak:
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <span className="bg-[#FF6B6B] px-4 py-2 rounded-full text-sm font-dm font-bold">
+                    Jordgubb
+                  </span>
+                  <span className="bg-[#FFA500] px-4 py-2 rounded-full text-sm font-dm font-bold">
+                    Mango
+                  </span>
+                  <span className="bg-[#32CD32] px-4 py-2 rounded-full text-sm font-dm font-bold">
+                    Äpple
+                  </span>
+                  <span className="bg-[#9B59B6] px-4 py-2 rounded-full text-sm font-dm font-bold">
+                    Sommarbär
+                  </span>
+                  <span className="bg-[#3498DB] px-4 py-2 rounded-full text-sm font-dm font-bold">
+                    Blåbär
+                  </span>
+                </div>
               </div>
             </div>
 
