@@ -242,60 +242,54 @@ const BookingModal = ({ isOpen, onClose }) => {
                     <Palmtree size={20} className="text-[#32CD32]" />Välj bord (42 platser)
                   </h3>
                   
-                  <div className="relative rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(180deg, #3D5A4C 0%, #2D4A3E 30%, #1A332A 100%)', minHeight: '450px' }}>
+                  <div className="relative rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(180deg, #3D5A4C 0%, #2D4A3E 50%, #1A332A 100%)', minHeight: '380px' }}>
                     {/* WATER at TOP */}
-                    <div className="absolute top-0 left-0 right-20 h-16 bg-gradient-to-b from-[#1E90FF]/40 to-transparent flex items-center justify-center">
+                    <div className="absolute top-0 left-0 right-16 h-12 bg-gradient-to-b from-[#1E90FF]/50 to-transparent flex items-center justify-center">
                       <div className="flex items-center gap-2 text-[#87CEEB]">
-                        <Waves size={20} /><span className="text-sm font-bold tracking-wider">FONTÄN & VATTEN</span><Waves size={20} />
+                        <Waves size={18} /><span className="text-xs font-bold tracking-wider">FONTÄN & VATTEN</span><Waves size={18} />
                       </div>
-                      <div className="absolute top-2 left-1/4 w-8 h-8 border border-[#87CEEB]/30 rounded-full animate-ping" style={{ animationDuration: '3s' }} />
-                      <div className="absolute top-4 left-1/3 w-6 h-6 border border-[#87CEEB]/20 rounded-full animate-ping" style={{ animationDuration: '4s', animationDelay: '1s' }} />
                     </div>
                     
                     {/* ENTRANCE & KITCHEN on RIGHT */}
-                    <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-amber-900/50 to-transparent flex flex-col items-center justify-center gap-8">
+                    <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-amber-900/60 to-transparent flex flex-col items-center justify-center gap-6">
                       <div className="text-center">
-                        <ChefHat size={24} className="text-orange-400 mx-auto mb-1" />
-                        <span className="text-orange-400 text-[10px] font-bold">KÖK</span>
+                        <ChefHat size={20} className="text-orange-400 mx-auto mb-1" />
+                        <span className="text-orange-400 text-[9px] font-bold">KÖK</span>
                       </div>
                       <div className="text-center">
-                        <span className="text-white text-lg">🚪</span>
-                        <p className="text-white/60 text-[10px] font-bold">ENTRÉ</p>
+                        <span className="text-white text-base">🚪</span>
+                        <p className="text-white/60 text-[9px] font-bold">ENTRÉ</p>
                       </div>
                     </div>
                     
                     {/* Decorations */}
-                    <div className="absolute top-20 left-8 text-2xl">🌴</div>
-                    <div className="absolute top-1/2 left-4 text-xl">🪴</div>
-                    <div className="absolute bottom-20 left-8 text-2xl">🌿</div>
-                    <div className="absolute bottom-8 left-1/2 text-xl">🌴</div>
+                    <div className="absolute top-14 left-4 text-xl">🌴</div>
+                    <div className="absolute bottom-16 left-4 text-lg">🌿</div>
                     
                     {/* String lights */}
-                    <div className="absolute top-16 left-8 right-24 flex justify-between">
-                      {[...Array(10)].map((_, i) => (
-                        <div key={i} className="w-2 h-2 rounded-full bg-yellow-300 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+                    <div className="absolute top-12 left-8 right-20 flex justify-between">
+                      {[...Array(8)].map((_, i) => (
+                        <div key={i} className="w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
                       ))}
                     </div>
                     
                     {/* Tables */}
-                    <div className="absolute inset-0 pt-16 pb-4 pl-16 pr-24">
+                    <div className="absolute inset-0 pt-12 pb-2 pl-10 pr-20">
                       {tables.map((table) => (
                         <TableIcon key={table.id} table={table} selected={selectedTable?.id === table.id} onClick={() => handleTableSelect(table)} />
                       ))}
                     </div>
-                    
-                    <div className="absolute top-20 left-1/3 text-[10px] text-[#87CEEB]/70 font-dm">↑ Närmast vattnet</div>
                   </div>
                   
                   {/* Legend */}
                   <div className="flex flex-wrap justify-center gap-4 mt-4">
-                    <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{ backgroundColor: '#40E0D0' }}></div><span className="font-dm text-sm text-white/60">Turkos bord</span></div>
-                    <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{ backgroundColor: '#DEB887' }}></div><span className="font-dm text-sm text-white/60">Träbord</span></div>
-                    <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{ backgroundColor: '#2F4F4F' }}></div><span className="font-dm text-sm text-white/60">Gröna bord</span></div>
-                    <div className="flex items-center gap-2"><div className="w-4 h-4 rounded bg-[#FF66A3]"></div><span className="font-dm text-sm text-white/60">Valt bord</span></div>
+                    <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{ backgroundColor: '#40E0D0' }}></div><span className="font-dm text-sm text-white/60">Turkos</span></div>
+                    <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{ backgroundColor: '#DEB887' }}></div><span className="font-dm text-sm text-white/60">Trä</span></div>
+                    <div className="flex items-center gap-2"><div className="w-4 h-4 rounded" style={{ backgroundColor: '#2F4F4F' }}></div><span className="font-dm text-sm text-white/60">Grön</span></div>
+                    <div className="flex items-center gap-2"><div className="w-4 h-4 rounded bg-[#FF66A3]"></div><span className="font-dm text-sm text-white/60">Valt</span></div>
                   </div>
-                  <div className="flex justify-center gap-6 mt-3 text-white/50 text-xs font-dm">
-                    <span>🪑 5st 6-platser</span><span>🪑 2st 4-platser</span><span>🪑 2st 2-platser</span>
+                  <div className="flex justify-center gap-6 mt-2 text-white/50 text-xs font-dm">
+                    <span>5st 6-platser</span><span>2st 4-platser</span><span>2st 2-platser</span>
                   </div>
                 </div>
 
