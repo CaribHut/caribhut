@@ -148,3 +148,7 @@ h1, h2, h3 {
 .animation-delay-4000 {
   animation-delay: 4s;
 }
+/* Hide Emergent badge */
+#emergent-badge {
+  display: none !important;
+}
