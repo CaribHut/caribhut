@@ -47,15 +47,18 @@ const Navbar = ({ onBookingClick }) => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <motion.button
-              onClick={() => scrollToSection('hero')}
-              className="font-syne text-2xl font-extrabold tracking-tight"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              data-testid="logo-button"
-            >
-              <span className="text-[#FF66A3]">CARIB</span>
-              <span className="text-[#1A1A18]"> HUT</span>
-            </motion.button>
+  onClick={() => scrollToSection('hero')}
+  className="flex items-center gap-3"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  data-testid="logo-button"
+>
+  <img
+    src={logo}
+    alt="Carib Hut"
+    className="h-10 w-10 rounded-full object-contain"
+  />
+</motion.button>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
