@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import logo from "../src/ch-logo-pink.png";
+import logo from "../ch-logo-pink.png";
 
 const Navbar = ({ onBookingClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
