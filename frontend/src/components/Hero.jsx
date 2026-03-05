@@ -129,7 +129,7 @@ const Hero = () => {
                 whileHover={{ scale: 1.02 }}
               >
                 <img
-                  src="https://customer-assets.emergentagent.com/job_carib-menu/artifacts/28uktxfn_till%20hemsida.jpg"
+                  <img src="/chrisrene.jpg"/>
                   alt="Carib Hut kockar"
                   className="w-full h-[300px] sm:h-[400px] object-cover object-top"
                 />
