@@ -6,7 +6,7 @@ const AboutSection = () => {
   return (
     <section
       id="about"
-      className="py-24 md:py-32 bg-[#FDFCF8] relative overflow-hidden"
+      className="fade-in py-24 md:py-32 bg-[#FDFCF8] relative overflow-hidden"
       data-testid="about-section"
     >
       {/* Background decoration */}
