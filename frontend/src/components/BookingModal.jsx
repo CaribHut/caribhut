@@ -38,10 +38,11 @@ const TableIcon = ({ table, selected, onClick }) => {
       onClick={onClick}
       className="cursor-pointer absolute"
       style={{ 
-        left: `${table.x}%`, 
-        top: `${table.y}%`,
-        transform: 'translate(-50%, -50%)'
-      }}
+  left: `${table.x}%`, 
+  top: `${table.y}%`,
+  transform: `translate(-50%, -50%) ${selected ? 'scale(1.05)' : 'scale(1)'}`,
+  transition: 'transform 0.2s ease'
+}}
       data-testid={`table-${id}`}
     >
       <div
