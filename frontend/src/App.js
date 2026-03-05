@@ -11,11 +11,31 @@ import SnowconeSection from "./components/SnowconeSection";
 import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
+import { useState, useEffect } from "react";
+
+}, []);
 const BookingModal = lazy(() => import("./components/BookingModal"));
 
 
 function App() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  useEffect(() => {
+  const elements = document.querySelectorAll(".fade-in");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  elements.forEach((el) => observer.observe(el));
+
+  return () => observer.disconnect();
 
   return (
     <div className="App bg-[#FDFCF8] min-h-screen">
