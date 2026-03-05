@@ -12,6 +12,7 @@ import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import { useState, useEffect } from "react";
+import { Analytics } from '@vercel/analytics/react';
 
 }, []);
 const BookingModal = lazy(() => import("./components/BookingModal"));
@@ -65,3 +66,4 @@ function App() {
 }
 
 export default App;
+<Analytics />
