@@ -129,9 +129,10 @@ const Hero = () => {
                 whileHover={{ scale: 1.02 }}
               >
                 <img
-                  <img src="/chrisrene.jpg"/>
-                  alt="Carib Hut kockar"
-                  className="w-full h-[300px] sm:h-[400px] object-cover object-top"
+  src="/chrisrene.jpg"
+  alt="Carib Hut kockar"
+  fetchpriority="high"
+  className="w-full h-full object-cover object-top img-hover"
                 />
               </motion.div>
             </div>
