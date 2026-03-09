@@ -406,7 +406,13 @@ export const aboutData = {
 export const contactData = {
   address: "Aseatorget, 72217 Västerås",
   phone: "0735-876005",
-  email: "info@caribhut.se, order@caribhut.se",
+  emails: [
+    "info@caribhut.se",
+    "kontakt@caribhut.se",
+    "order@caribhut.se",
+    "support@caribhut.se",
+    "faktura@caribhut.se"
+  ],
   hours: {
     weekdays: "Tis - Tor: 11:00 - 22:00",
     friday: "Fre: 11:00 - 23:00",
@@ -415,7 +421,7 @@ export const contactData = {
     monday: "Mån: Stängt"
   },
   social: {
-    instagram: "@caribhut.vasteras",
-    facebook: "Carib Hut Västerås"
+    instagram: "@caribhut",
+    facebook: "Carib Hut"
   }
 };
