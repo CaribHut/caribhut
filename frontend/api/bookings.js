@@ -1,14 +1,12 @@
 import nodemailer from "nodemailer";
 
-export default async function handler(request, response) {
-
-  if (request.method !== "POST") {
-    return response.status(405).json({ message: "Method not allowed" });
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method not allowed" });
   }
 
   try {
-
-    const booking = await request.json();
+    const booking = req.body;
 
     const transporter = nodemailer.createTransport({
       host: "mailcluster.loopia.se",
@@ -16,8 +14,8 @@ export default async function handler(request, response) {
       secure: true,
       auth: {
         user: "order@caribhut.se",
-        pass: process.env.EMAIL_PASSWORD
-      }
+        pass: process.env.EMAIL_PASSWORD,
+      },
     });
 
     await transporter.sendMail({
@@ -26,26 +24,26 @@ export default async function handler(request, response) {
       subject: "Ny bordsbokning – Carib Hut",
       html: `
         <h2>Ny bokning</h2>
-        <p><b>Namn:</b> ${booking.name}</p>
-        <p><b>Telefon:</b> ${booking.phone}</p>
-        <p><b>Email:</b> ${booking.email}</p>
-        <p><b>Datum:</b> ${booking.date}</p>
-        <p><b>Tid:</b> ${booking.time}</p>
-        <p><b>Gäster:</b> ${booking.guests}</p>
-        <p><b>Bord:</b> ${booking.table}</p>
-      `
+        <p><b>Namn:</b> ${booking.name || ""}</p>
+        <p><b>Telefon:</b> ${booking.phone || ""}</p>
+        <p><b>E-post:</b> ${booking.email || ""}</p>
+        <p><b>Datum:</b> ${booking.date || ""}</p>
+        <p><b>Tid:</b> ${booking.time || ""}</p>
+        <p><b>Gäster:</b> ${booking.guests || ""}</p>
+        <p><b>Bord:</b> ${booking.table || ""}</p>
+      `,
     });
 
-    return response.status(200).json({ success: true });
-
+    return res.status(200).json({
+      success: true,
+      message: "Booking received",
+    });
   } catch (error) {
+    console.error("BOOKING API ERROR:", error);
 
-    console.error(error);
-
-    return response.status(500).json({
+    return res.status(500).json({
       success: false,
-      message: "Server error"
+      message: error.message || "Server error",
     });
-
   }
 }
