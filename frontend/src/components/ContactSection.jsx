@@ -74,28 +74,32 @@ const ContactSection = () => {
             </div>
 
             {/* Email */}
-            <div className="flex gap-5">
-              <div className="w-14 h-14 rounded-2xl bg-[#FFA500]/10 flex items-center justify-center flex-shrink-0">
-                <Mail size={24} className="text-[#FFA500]" strokeWidth={1.5} />
-              </div>
-              <div>
-                <h3 className="font-syne text-lg font-bold text-[#1A1A18] mb-1">
-                  E-post
-                </h3>
-                <div className="space-y-1">
-                  {contactData.emails.map((email) => (
-                    <a
-                      key={email}
-                      href={`mailto:${email}`}
-                      className="block font-dm text-[#5F5F58] hover:text-[#008080] transition-colors break-all"
-                      data-testid={`email-link-${email}`}
-                    >
-                      {email}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
+<div className="flex gap-5">
+  <div className="w-14 h-14 rounded-2xl bg-[#FFA500]/10 flex items-center justify-center flex-shrink-0">
+    <Mail size={24} className="text-[#FFA500]" strokeWidth={1.5} />
+  </div>
+  <div>
+    <h3 className="font-syne text-lg font-bold text-[#1A1A18] mb-1">
+      E-post
+    </h3>
+    <div className="space-y-1">
+      {contactData.emails.map((rawEmail) => {
+        const email = rawEmail.trim();
+
+        return (
+          <a
+            key={email}
+            href={`mailto:${email}`}
+            className="block font-dm text-[#5F5F58] hover:text-[#008080] transition-colors break-all"
+            data-testid={`email-link-${email}`}
+          >
+            {email}
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</div>
 
             {/* Hours */}
             <div className="flex gap-5">
