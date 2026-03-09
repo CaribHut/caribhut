@@ -1,14 +1,14 @@
 import nodemailer from "nodemailer";
 
-export default async function handler(req, res) {
+export default async function handler(request, response) {
 
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
+  if (request.method !== "POST") {
+    return response.status(405).json({ message: "Method not allowed" });
   }
 
   try {
 
-    const booking = req.body;
+    const booking = await request.json();
 
     const transporter = nodemailer.createTransport({
       host: "mailcluster.loopia.se",
@@ -26,11 +26,9 @@ export default async function handler(req, res) {
       subject: "Ny bordsbokning – Carib Hut",
       html: `
         <h2>Ny bokning</h2>
-
         <p><b>Namn:</b> ${booking.name}</p>
         <p><b>Telefon:</b> ${booking.phone}</p>
         <p><b>Email:</b> ${booking.email}</p>
-
         <p><b>Datum:</b> ${booking.date}</p>
         <p><b>Tid:</b> ${booking.time}</p>
         <p><b>Gäster:</b> ${booking.guests}</p>
@@ -38,17 +36,13 @@ export default async function handler(req, res) {
       `
     });
 
-    console.log("Ny bokning:", booking);
-
-    return res.status(200).json({
-      success: true
-    });
+    return response.status(200).json({ success: true });
 
   } catch (error) {
 
     console.error(error);
 
-    return res.status(500).json({
+    return response.status(500).json({
       success: false,
       message: "Server error"
     });
