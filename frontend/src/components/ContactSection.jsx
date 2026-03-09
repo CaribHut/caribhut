@@ -82,13 +82,18 @@ const ContactSection = () => {
                 <h3 className="font-syne text-lg font-bold text-[#1A1A18] mb-1">
                   E-post
                 </h3>
-                <a
-                  href={`mailto:${contactData.email}`}
-                  className="font-dm text-[#5F5F58] hover:text-[#008080] transition-colors"
-                  data-testid="email-link"
-                >
-                  {contactData.email}
-                </a>
+                <div className="space-y-1">
+                  {contactData.emails.map((email) => (
+                    <a
+                      key={email}
+                      href={`mailto:${email}`}
+                      className="block font-dm text-[#5F5F58] hover:text-[#008080] transition-colors break-all"
+                      data-testid={`email-link-${email}`}
+                    >
+                      {email}
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
 
