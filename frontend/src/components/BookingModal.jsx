@@ -42,37 +42,52 @@ const TableIcon = ({ table, selected, onClick }) => {
   const { width, height } = getTableDimensions();
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.08, y: -3 }}
-      whileTap={{ scale: 0.95 }}
-      onClick={onClick}
-      className="cursor-pointer absolute"
+    <div
+      className="absolute cursor-pointer"
       style={{
         left: `${table.x}%`,
         top: `${table.y}%`,
-        transform: `translate(-50%, -50%) ${selected ? "scale(1.05)" : "scale(1)"}`,
-        transition: "transform 0.2s ease",
+        transform: "translate(-50%, -50%)",
       }}
+      onClick={onClick}
       data-testid={`table-${id}`}
     >
-      <div
-        className={`flex flex-col items-center justify-center transition-all rounded-xl ${
-          selected ? "ring-4 ring-[#FF66A3] ring-offset-2 ring-offset-transparent" : ""
-        }`}
-        style={{
-          width,
-          height,
-          backgroundColor: selected ? "#FF66A3" : color,
-          boxShadow: selected ? "0 8px 25px rgba(255, 102, 163, 0.5)" : "0 4px 12px rgba(0,0,0,0.3)",
+      <motion.div
+        whileHover={{ scale: 1.08, y: -3 }}
+        whileTap={{ scale: 0.95 }}
+        animate={{
+          scale: selected ? 1.05 : 1,
+          y: 0,
         }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+        className="flex flex-col items-center"
       >
-        <Users size={seats <= 2 ? 14 : 18} className="text-white mb-0.5" />
-        <span className="text-white text-xs font-bold">{seats}p</span>
-      </div>
-      <div className={`text-center mt-1 text-xs font-bold ${selected ? "text-[#FF66A3]" : "text-white/80"}`}>
-        Bord {id}
-      </div>
-    </motion.div>
+        <div
+          className={`flex flex-col items-center justify-center rounded-xl ${
+            selected ? "ring-4 ring-[#FF66A3] ring-offset-2 ring-offset-transparent" : ""
+          }`}
+          style={{
+            width,
+            height,
+            backgroundColor: selected ? "#FF66A3" : color,
+            boxShadow: selected
+              ? "0 8px 25px rgba(255, 102, 163, 0.5)"
+              : "0 4px 12px rgba(0,0,0,0.3)",
+          }}
+        >
+          <Users size={seats <= 2 ? 14 : 18} className="text-white mb-0.5" />
+          <span className="text-white text-xs font-bold">{seats}p</span>
+        </div>
+
+        <div
+          className={`text-center mt-1 text-xs font-bold ${
+            selected ? "text-[#FF66A3]" : "text-white/80"
+          }`}
+        >
+          Bord {id}
+        </div>
+      </motion.div>
+    </div>
   );
 };
 
