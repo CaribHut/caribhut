@@ -11,14 +11,14 @@ export default async function handler(req, res) {
     if (!process.env.EMAIL_PASSWORD) {
       return res.status(500).json({
         success: false,
-        message: "EMAIL_PASSWORD saknas i Vercel"
+        message: "EMAIL_PASSWORD saknas i Vercel",
       });
     }
 
     const transporter = nodemailer.createTransport({
-      host: "mailcluster.loopia.se",
-      port: 465,
-      secure: true,
+      host: "smtp.loopia.se",
+      port: 587,
+      secure: false,
       auth: {
         user: "order@caribhut.se",
         pass: process.env.EMAIL_PASSWORD,
@@ -26,8 +26,9 @@ export default async function handler(req, res) {
     });
 
     await transporter.sendMail({
-      from: "order@caribhut.se",
+      from: '"Carib Hut Bokning" <order@caribhut.se>',
       to: "order@caribhut.se",
+      replyTo: booking.email || "order@caribhut.se",
       subject: "Ny bordsbokning – Carib Hut",
       html: `
         <h2>Ny bokning</h2>
@@ -43,14 +44,14 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       success: true,
-      message: "Booking received"
+      message: "Booking received",
     });
   } catch (error) {
     console.error("BOOKING API ERROR:", error);
 
     return res.status(500).json({
       success: false,
-      message: error.message || "Server error"
+      message: error.message || "Server error",
     });
   }
 }
