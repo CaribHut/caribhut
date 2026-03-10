@@ -16,13 +16,16 @@ export default async function handler(req, res) {
     }
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.loopia.se",
-      port: 587,
-      secure: false,
+      host: "mailcluster.loopia.se",
+      port: 465,
+      secure: true,
       auth: {
         user: "order@caribhut.se",
         pass: process.env.EMAIL_PASSWORD,
       },
+      connectionTimeout: 15000,
+      greetingTimeout: 15000,
+      socketTimeout: 20000,
     });
 
     await transporter.sendMail({
