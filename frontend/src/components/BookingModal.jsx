@@ -88,7 +88,7 @@ const getZoneLabel = (zone) => {
   return "Terrace";
 };
 
-const TableIcon = ({ table, selected, onClick }) => {
+const TableIcon = ({ table, selected, recommended, onClick }) => {
   const { seats, shape, id, zone } = table;
   const { width, height, borderRadius } = getTableDimensions(shape);
   const colors = getZoneColors(zone, selected);
@@ -115,7 +115,13 @@ const TableIcon = ({ table, selected, onClick }) => {
         className="flex flex-col items-center"
       >
         <div
-          className={`relative flex flex-col items-center justify-center border border-white/20 backdrop-blur-sm ${colors.ring}`}
+          className={`relative flex flex-col items-center justify-center border backdrop-blur-sm ${
+  selected
+    ? colors.ring
+    : recommended
+    ? "ring-2 ring-white/30 border-white/40"
+    : "border-white/20"
+}`}
           style={{
             width,
             height,
@@ -130,11 +136,11 @@ const TableIcon = ({ table, selected, onClick }) => {
             </div>
           )}
 
-          {zone === "waterfront" && selected && (
-            <div className="absolute -top-2 rounded-full bg-white px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#FF66A3]">
-              Premium
-            </div>
-          )}
+          {recommended && !selected && zone !== "waterfront" && (
+  <div className="absolute -top-2 rounded-full bg-white/85 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#15342E]">
+    Passar bäst
+  </div>
+)}
 
           <Users
             size={seats <= 2 ? 14 : seats === 4 ? 16 : 18}
@@ -167,6 +173,41 @@ const BookingModal = ({ isOpen, onClose }) => {
   const timeSlots = ["11:00", "12:00", "13:00", "14:00", "15:00", "17:00", "18:00", "19:00", "20:00", "21:00"];
 
   const totalSeats = tables.reduce((sum, table) => sum + table.seats, 0);
+  const getPreferredTables = (guestCount) => {
+  if (!guestCount || guestCount < 1) return tables;
+
+  const exact = tables.filter((table) => table.seats === guestCount);
+  const larger = tables.filter((table) => table.seats > guestCount);
+  const smaller = tables.filter((table) => table.seats < guestCount);
+
+  return [...exact, ...larger, ...smaller];
+};
+
+const getRecommendedTableIds = (guestCount) => {
+  if (!guestCount || guestCount < 1) return [];
+
+  const exact = tables.filter((table) => table.seats === guestCount);
+
+  if (exact.length > 0) {
+    return exact.map((table) => table.id);
+  }
+
+  const nextBestSize = Math.min(
+    ...tables
+      .filter((table) => table.seats >= guestCount)
+      .map((table) => table.seats)
+  );
+
+  if (Number.isFinite(nextBestSize)) {
+    return tables
+      .filter((table) => table.seats === nextBestSize)
+      .map((table) => table.id);
+  }
+
+  return [];
+};
+
+const recommendedTableIds = getRecommendedTableIds(formData.guests);
   const count2 = tables.filter((t) => t.seats === 2).length;
   const count4 = tables.filter((t) => t.seats === 4).length;
   const count6 = tables.filter((t) => t.seats === 6).length;
@@ -341,40 +382,37 @@ const BookingModal = ({ isOpen, onClose }) => {
                       className="w-full p-4 rounded-xl bg-white/10 border border-white/15 text-white focus:border-[#FF66A3] outline-none font-dm"
                       data-testid="booking-date-input"
                     />
-                  </div>
+                 </div>
+</div>
 
-                  <div>
-                    <label className="block font-dm font-bold text-white mb-2">
-                      <Clock size={18} className="inline mr-2 text-[#32CD32]" />
-                      Välj tid
-                    </label>
-                    <div className="grid grid-cols-5 gap-2">
-                      {timeSlots.map((time) => (
-                        <button
-                          key={time}
-                          type="button"
-                          onClick={() => setSelectedTime(time)}
-                          className={`p-2 rounded-xl text-sm font-dm font-medium transition-all ${
-                            selectedTime === time
-                              ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white shadow-lg"
-                              : "bg-white/10 text-white hover:bg-white/15"
-                          }`}
-                          data-testid={`time-slot-${time}`}
-                        >
-                          {time}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+{/* Guests */}
+<div className="mb-6">
+  <label className="block font-dm font-bold text-white mb-2">
+    <Users size={18} className="inline mr-2 text-[#59E3D8]" />
+    Antal gäster
+  </label>
 
-                {/* Floor Plan */}
-                <div className="mb-6">
+  <select
+    value={formData.guests}
+    onChange={(e) =>
+      setFormData({ ...formData, guests: parseInt(e.target.value, 10) })
+    }
+    className="w-full md:w-64 p-4 rounded-xl bg-white/10 border border-white/20 text-white focus:border-[#FF66A3] outline-none font-dm"
+  >
+    {[1,2,3,4,5,6].map((num) => (
+      <option key={num} value={num} className="bg-[#1A1A18]">
+        {num} {num === 1 ? "gäst" : "gäster"}
+      </option>
+    ))}
+  </select>
+</div>
+
+{/* Floor Plan */}
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
                     <h3 className="font-syne text-lg font-bold text-white flex items-center gap-2">
-                      <Palmtree size={20} className="text-[#32CD32]" />
-                      Välj bord ({totalSeats} platser)
-                    </h3>
+  <Palmtree size={20} className="text-[#32CD32]" />
+  Välj bord efter antal gäster
+</h3>
 
                     <div className="flex flex-wrap gap-2 text-xs">
                       <div className="inline-flex items-center gap-2 rounded-full bg-amber-300/15 px-3 py-1 text-amber-100 border border-amber-200/10">
@@ -469,11 +507,12 @@ const BookingModal = ({ isOpen, onClose }) => {
                     <div className="absolute inset-0 pt-8 pb-4 pl-6 pr-20">
                       {tables.map((table) => (
                         <TableIcon
-                          key={table.id}
-                          table={table}
-                          selected={selectedTable?.id === table.id}
-                          onClick={() => handleTableSelect(table)}
-                        />
+  key={table.id}
+  table={table}
+  selected={selectedTable?.id === table.id}
+  recommended={recommendedTableIds.includes(table.id)}
+  onClick={() => handleTableSelect(table)}
+/>
                       ))}
                     </div>
                   </div>
