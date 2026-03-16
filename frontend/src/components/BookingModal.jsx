@@ -108,9 +108,10 @@ const TableIcon = ({ table, selected, recommended, onClick }) => {
         whileHover={{ scale: 1.06, y: -4 }}
         whileTap={{ scale: 0.97 }}
         animate={{
-          scale: selected ? 1.07 : 1,
-          y: 0,
-        }}
+  scale: selected ? 1.07 : recommended ? 1.03 : 1,
+  opacity: recommended || selected ? 1 : 0.65,
+  y: 0,
+}}
         transition={{ duration: 0.2, ease: "easeOut" }}
         className="flex flex-col items-center"
       >
