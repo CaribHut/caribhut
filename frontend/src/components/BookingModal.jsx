@@ -88,14 +88,14 @@ const getZoneLabel = (zone) => {
   return "Terrace";
 };
 
-const TableIcon = ({ table, selected, recommended, onClick }) => {
+const TableIcon = ({ table, selected, recommended, booked, onClick }) => {
   const { seats, shape, id, zone } = table;
   const { width, height, borderRadius } = getTableDimensions(shape);
   const colors = getZoneColors(zone, selected);
 
   return (
     <div
-      className="absolute cursor-pointer"
+      className={`absolute ${booked ? "cursor-not-allowed" : "cursor-pointer"}`}
       style={{
         left: `${table.x}%`,
         top: `${table.y}%`,
@@ -401,19 +401,45 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
             {step === 1 && (
               <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                 {/* Date and Time */}
-                <div className="grid md:grid-cols-2 gap-6 mb-8">
-                  <div>
-                    <label className="block font-dm font-bold text-white mb-2">
-                      <Calendar size={18} className="inline mr-2 text-[#FFA500]" />
-                      Välj datum
-                    </label>
-                    <input
-                      type="date"
-                      min={getMinDate()}
-                      value={selectedDate}
-                      onChange={(e) => setSelectedDate(e.target.value)}
-                      className="w-full p-4 rounded-xl bg-white/10 border border-white/15 text-white focus:border-[#FF66A3] outline-none font-dm"
-                      data-testid="booking-date-input"
+<div className="grid md:grid-cols-2 gap-6 mb-8">
+  <div>
+    <label className="block font-dm font-bold text-white mb-2">
+      <Calendar size={18} className="inline mr-2 text-[#FFA500]" />
+      Välj datum
+    </label>
+    <input
+      type="date"
+      min={getMinDate()}
+      value={selectedDate}
+      onChange={(e) => setSelectedDate(e.target.value)}
+      className="w-full p-4 rounded-xl bg-white/10 border border-white/15 text-white focus:border-[#FF66A3] outline-none font-dm"
+      data-testid="booking-date-input"
+      />
+
+  <div>
+    <label className="block font-dm font-bold text-white mb-2">
+      <Clock size={18} className="inline mr-2 text-[#32CD32]" />
+      Välj tid
+    </label>
+    <div className="grid grid-cols-5 gap-2">
+      {timeSlots.map((time) => (
+        <button
+          key={time}
+          type="button"
+          onClick={() => setSelectedTime(time)}
+          className={`p-2 rounded-xl text-sm font-dm font-medium transition-all ${
+            selectedTime === time
+              ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white shadow-lg"
+              : "bg-white/10 text-white hover:bg-white/15"
+          }`}
+          data-testid={`time-slot-${time}`}
+        >
+          {time}
+        </button>
+      ))}
+    </div>
+  </div>
+</div>
                     />
                  </div>
 </div>
@@ -539,19 +565,19 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
                     {/* Tables */}
                     <div className="absolute inset-0 pt-8 pb-4 pl-6 pr-20">
                       {tables.map((table) => (
-                        <TableIcon
   <TableIcon
-  key={table.id}
-  table={table}
-  selected={selectedTable?.id === table.id}
-  recommended={recommendedTableIds.includes(table.id)}
-  booked={bookedTableIds.includes(table.id)}
-  onClick={() => {
-    if (!bookedTableIds.includes(table.id)) {
-      handleTableSelect(table);
-    }
-  }}
-/>
+    key={table.id}
+    table={table}
+    selected={selectedTable?.id === table.id}
+    recommended={recommendedTableIds.includes(table.id)}
+    booked={bookedTableIds.includes(table.id)}
+    onClick={() => {
+      if (!bookedTableIds.includes(table.id)) {
+        handleTableSelect(table);
+      }
+    }}
+  />
+))}
 
                   {/* Legend */}
                   <div className="flex flex-wrap justify-center gap-4 mt-5">
