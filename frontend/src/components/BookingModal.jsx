@@ -540,15 +540,18 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
                     <div className="absolute inset-0 pt-8 pb-4 pl-6 pr-20">
                       {tables.map((table) => (
                         <TableIcon
+  <TableIcon
   key={table.id}
   table={table}
   selected={selectedTable?.id === table.id}
   recommended={recommendedTableIds.includes(table.id)}
-  onClick={() => handleTableSelect(table)}
+  booked={bookedTableIds.includes(table.id)}
+  onClick={() => {
+    if (!bookedTableIds.includes(table.id)) {
+      handleTableSelect(table);
+    }
+  }}
 />
-                      ))}
-                    </div>
-                  </div>
 
                   {/* Legend */}
                   <div className="flex flex-wrap justify-center gap-4 mt-5">
