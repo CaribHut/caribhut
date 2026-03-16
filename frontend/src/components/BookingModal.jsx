@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -162,6 +162,8 @@ const TableIcon = ({ table, selected, recommended, onClick }) => {
 };
 
 const BookingModal = ({ isOpen, onClose }) => {
+  const [bookedTableIds, setBookedTableIds] = useState([]);
+const [isLoadingAvailability, setIsLoadingAvailability] = useState(false);
   const [step, setStep] = useState(1);
   const [selectedTable, setSelectedTable] = useState(null);
   const [selectedDate, setSelectedDate] = useState("");
@@ -170,6 +172,36 @@ const BookingModal = ({ isOpen, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingComplete, setBookingComplete] = useState(false);
   const [error, setError] = useState("");
+  useEffect(() => {
+  const fetchAvailability = async () => {
+    if (!selectedDate || !selectedTime) {
+      setBookedTableIds([]);
+      return;
+    }
+
+    setIsLoadingAvailability(true);
+
+    try {
+      const response = await fetch(
+        `/api/bookings/availability?date=${encodeURIComponent(selectedDate)}&time=${encodeURIComponent(selectedTime)}`
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setBookedTableIds(data.bookedTableIds || []);
+      } else {
+        setBookedTableIds([]);
+      }
+    } catch (error) {
+      setBookedTableIds([]);
+    } finally {
+      setIsLoadingAvailability(false);
+    }
+  };
+
+  fetchAvailability();
+}, [selectedDate, selectedTime]);
 
   const timeSlots = ["11:00", "12:00", "13:00", "14:00", "15:00", "17:00", "18:00", "19:00", "20:00", "21:00"];
 
