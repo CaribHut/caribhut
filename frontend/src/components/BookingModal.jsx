@@ -10,36 +10,88 @@ import {
   ArrowLeft,
   ChefHat,
   Palmtree,
+  Waves,
+  Star,
+  MapPin,
 } from "lucide-react";
 
-// Updated table layout - 42 seats
-// Water at top, Entrance & Kitchen on right
-// 6-seat tables in middle, 2-seat at top row, 4-seat at bottom
+// 62 seats total
 const tables = [
-  // TOP ROW - All in line: 2p, 6p, 2p, 6p, 6p
-  { id: 1, seats: 2, x: 12, y: 22, color: "#40E0D0", shape: "small", label: "Vid vattnet" },
-  { id: 2, seats: 6, x: 30, y: 22, color: "#DEB887", shape: "large", label: "Vid vattnet" },
-  { id: 3, seats: 2, x: 48, y: 22, color: "#40E0D0", shape: "small", label: "Vid vattnet" },
-  { id: 4, seats: 6, x: 66, y: 22, color: "#DEB887", shape: "large", label: "" },
-  { id: 5, seats: 6, x: 84, y: 22, color: "#DEB887", shape: "large", label: "" },
+  // Waterfront row (14 seats)
+  { id: 1, seats: 2, x: 10, y: 18, zone: "waterfront", shape: "small", label: "Exklusivt läge" },
+  { id: 2, seats: 6, x: 27, y: 17, zone: "waterfront", shape: "large", label: "Exklusivt läge" },
+  { id: 3, seats: 2, x: 46, y: 18, zone: "waterfront", shape: "small", label: "Exklusivt läge" },
+  { id: 4, seats: 6, x: 64, y: 17, zone: "waterfront", shape: "large", label: "Exklusivt läge" },
+  { id: 5, seats: 2, x: 84, y: 18, zone: "waterfront", shape: "small", label: "Exklusivt läge" },
 
-  // BOTTOM ROW - All in line: 6p, 6p, 4p, 4p
-  { id: 6, seats: 6, x: 20, y: 65, color: "#40E0D0", shape: "large", label: "" },
-  { id: 7, seats: 6, x: 42, y: 65, color: "#40E0D0", shape: "large", label: "" },
-  { id: 8, seats: 4, x: 62, y: 65, color: "#2F4F4F", shape: "medium", label: "" },
-  { id: 9, seats: 4, x: 80, y: 65, color: "#2F4F4F", shape: "medium", label: "" },
+  // Main row (16 seats)
+  { id: 6, seats: 4, x: 18, y: 43, zone: "main", shape: "medium", label: "Main dining" },
+  { id: 7, seats: 4, x: 37, y: 43, zone: "main", shape: "medium", label: "Main dining" },
+  { id: 8, seats: 4, x: 56, y: 43, zone: "main", shape: "medium", label: "Main dining" },
+  { id: 9, seats: 4, x: 75, y: 43, zone: "main", shape: "medium", label: "Main dining" },
+
+  // Terrace / flex row (32 seats)
+  { id: 10, seats: 2, x: 9, y: 72, zone: "terrace", shape: "small", label: "Terrace" },
+  { id: 11, seats: 6, x: 23, y: 70, zone: "terrace", shape: "large", label: "Terrace" },
+  { id: 12, seats: 4, x: 40, y: 72, zone: "terrace", shape: "medium", label: "Terrace" },
+  { id: 13, seats: 2, x: 55, y: 72, zone: "terrace", shape: "small", label: "Terrace" },
+  { id: 14, seats: 6, x: 69, y: 70, zone: "terrace", shape: "large", label: "Terrace" },
+  { id: 15, seats: 4, x: 85, y: 72, zone: "terrace", shape: "medium", label: "Terrace" },
+  { id: 16, seats: 2, x: 90, y: 56, zone: "terrace", shape: "small", label: "Terrace" },
 ];
 
-const TableIcon = ({ table, selected, onClick }) => {
-  const { seats, color, shape, id } = table;
+const getZoneColors = (zone, selected) => {
+  if (selected) {
+    return {
+      background: "linear-gradient(135deg, #FF66A3 0%, #FFA500 100%)",
+      text: "#ffffff",
+      glow: "0 10px 30px rgba(255, 102, 163, 0.45)",
+      ring: "ring-4 ring-[#FF66A3] ring-offset-2 ring-offset-transparent",
+    };
+  }
 
-  const getTableDimensions = () => {
-    if (shape === "large") return { width: 70, height: 45 };
-    if (shape === "medium") return { width: 55, height: 38 };
-    return { width: 42, height: 32 };
+  if (zone === "waterfront") {
+    return {
+      background: "linear-gradient(135deg, #F6D28B 0%, #E7B76A 100%)",
+      text: "#2C2116",
+      glow: "0 8px 24px rgba(231, 183, 106, 0.25)",
+      ring: "",
+    };
+  }
+
+  if (zone === "main") {
+    return {
+      background: "linear-gradient(135deg, #59E3D8 0%, #35C6D7 100%)",
+      text: "#082A2D",
+      glow: "0 8px 24px rgba(53, 198, 215, 0.25)",
+      ring: "",
+    };
+  }
+
+  return {
+    background: "linear-gradient(135deg, #66D3A5 0%, #35B58A 100%)",
+    text: "#0E2A23",
+    glow: "0 8px 24px rgba(53, 181, 138, 0.22)",
+    ring: "",
   };
+};
 
-  const { width, height } = getTableDimensions();
+const getTableDimensions = (shape) => {
+  if (shape === "large") return { width: 82, height: 50, borderRadius: 18 };
+  if (shape === "medium") return { width: 62, height: 44, borderRadius: 16 };
+  return { width: 48, height: 48, borderRadius: 999 };
+};
+
+const getZoneLabel = (zone) => {
+  if (zone === "waterfront") return "Waterfront";
+  if (zone === "main") return "Main dining";
+  return "Terrace";
+};
+
+const TableIcon = ({ table, selected, onClick }) => {
+  const { seats, shape, id, zone } = table;
+  const { width, height, borderRadius } = getTableDimensions(shape);
+  const colors = getZoneColors(zone, selected);
 
   return (
     <div
@@ -53,37 +105,48 @@ const TableIcon = ({ table, selected, onClick }) => {
       data-testid={`table-${id}`}
     >
       <motion.div
-        whileHover={{ scale: 1.08, y: -3 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.06, y: -4 }}
+        whileTap={{ scale: 0.97 }}
         animate={{
-          scale: selected ? 1.05 : 1,
+          scale: selected ? 1.07 : 1,
           y: 0,
         }}
         transition={{ duration: 0.2, ease: "easeOut" }}
         className="flex flex-col items-center"
       >
         <div
-          className={`flex flex-col items-center justify-center rounded-xl ${
-            selected ? "ring-4 ring-[#FF66A3] ring-offset-2 ring-offset-transparent" : ""
-          }`}
+          className={`relative flex flex-col items-center justify-center border border-white/20 backdrop-blur-sm ${colors.ring}`}
           style={{
             width,
             height,
-            backgroundColor: selected ? "#FF66A3" : color,
-            boxShadow: selected
-              ? "0 8px 25px rgba(255, 102, 163, 0.5)"
-              : "0 4px 12px rgba(0,0,0,0.3)",
+            borderRadius,
+            background: colors.background,
+            boxShadow: colors.glow,
           }}
         >
-          <Users size={seats <= 2 ? 14 : 18} className="text-white mb-0.5" />
-          <span className="text-white text-xs font-bold">{seats}p</span>
+          {zone === "waterfront" && !selected && (
+            <div className="absolute -top-2 rounded-full bg-white/80 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#5B3A14]">
+              Premium
+            </div>
+          )}
+
+          {zone === "waterfront" && selected && (
+            <div className="absolute -top-2 rounded-full bg-white px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#FF66A3]">
+              Premium
+            </div>
+          )}
+
+          <Users
+            size={seats <= 2 ? 14 : seats === 4 ? 16 : 18}
+            style={{ color: colors.text }}
+            className="mb-0.5"
+          />
+          <span className="text-xs font-extrabold" style={{ color: colors.text }}>
+            {seats}p
+          </span>
         </div>
 
-        <div
-          className={`text-center mt-1 text-xs font-bold ${
-            selected ? "text-[#FF66A3]" : "text-white/80"
-          }`}
-        >
+        <div className={`text-center mt-2 text-xs font-bold ${selected ? "text-[#FF66A3]" : "text-white/85"}`}>
           Bord {id}
         </div>
       </motion.div>
@@ -103,12 +166,26 @@ const BookingModal = ({ isOpen, onClose }) => {
 
   const timeSlots = ["11:00", "12:00", "13:00", "14:00", "15:00", "17:00", "18:00", "19:00", "20:00", "21:00"];
 
+  const totalSeats = tables.reduce((sum, table) => sum + table.seats, 0);
+  const count2 = tables.filter((t) => t.seats === 2).length;
+  const count4 = tables.filter((t) => t.seats === 4).length;
+  const count6 = tables.filter((t) => t.seats === 6).length;
+
   const getMinDate = () => {
     const today = new Date();
     return today.toISOString().split("T")[0];
   };
 
-  const handleTableSelect = (table) => setSelectedTable(table);
+  const handleTableSelect = (table) => {
+    setSelectedTable(table);
+
+    if (formData.guests > table.seats) {
+      setFormData((prev) => ({
+        ...prev,
+        guests: table.seats,
+      }));
+    }
+  };
 
   const handleNext = () => {
     if (step === 1 && selectedTable && selectedDate && selectedTime) setStep(2);
@@ -130,6 +207,7 @@ const BookingModal = ({ isOpen, onClose }) => {
         body: JSON.stringify({
           table_id: selectedTable.id,
           table_seats: selectedTable.seats,
+          table_zone: selectedTable.zone,
           date: selectedDate,
           time: selectedTime,
           name: formData.name,
@@ -187,12 +265,12 @@ const BookingModal = ({ isOpen, onClose }) => {
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="bg-gradient-to-br from-[#1A1A18] to-[#2D2D2A] rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-y-auto shadow-2xl border border-[#FF66A3]/20"
+          className="bg-gradient-to-br from-[#141412] via-[#1B1B18] to-[#252521] rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-y-auto shadow-2xl border border-[#FF66A3]/15"
           onClick={(e) => e.stopPropagation()}
           data-testid="booking-modal"
         >
           {/* Header */}
-          <div className="sticky top-0 bg-gradient-to-r from-[#1A1A18] to-[#2D2D2A] p-6 border-b border-white/10 flex items-center justify-between z-10">
+          <div className="sticky top-0 bg-gradient-to-r from-[#141412]/95 to-[#252521]/95 backdrop-blur-md p-6 border-b border-white/10 flex items-center justify-between z-10">
             <div>
               <h2 className="font-syne text-2xl font-bold text-white flex items-center gap-3">
                 <span className="text-3xl">🌴</span>
@@ -204,7 +282,11 @@ const BookingModal = ({ isOpen, onClose }) => {
                 {step === 3 && "Vi ses snart!"}
               </p>
             </div>
-            <button onClick={handleClose} className="p-2 hover:bg-white/10 rounded-full transition-colors" data-testid="close-booking-modal">
+            <button
+              onClick={handleClose}
+              className="p-2 hover:bg-white/10 rounded-full transition-colors"
+              data-testid="close-booking-modal"
+            >
               <X size={24} className="text-white/60" />
             </button>
           </div>
@@ -217,15 +299,23 @@ const BookingModal = ({ isOpen, onClose }) => {
                   <div className="flex flex-col items-center">
                     <div
                       className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all ${
-                        step >= s.num ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white shadow-lg" : "bg-white/10 text-white/40"
+                        step >= s.num
+                          ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white shadow-lg"
+                          : "bg-white/10 text-white/40"
                       }`}
                     >
                       {step > s.num ? <Check size={18} /> : s.num}
                     </div>
-                    <span className={`text-xs mt-1 ${step >= s.num ? "text-white" : "text-white/40"}`}>{s.label}</span>
+                    <span className={`text-xs mt-1 ${step >= s.num ? "text-white" : "text-white/40"}`}>
+                      {s.label}
+                    </span>
                   </div>
                   {i < 2 && (
-                    <div className={`w-20 h-1 mx-3 rounded ${step > s.num ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500]" : "bg-white/10"}`} />
+                    <div
+                      className={`w-20 h-1 mx-3 rounded ${
+                        step > s.num ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500]" : "bg-white/10"
+                      }`}
+                    />
                   )}
                 </div>
               ))}
@@ -248,10 +338,11 @@ const BookingModal = ({ isOpen, onClose }) => {
                       min={getMinDate()}
                       value={selectedDate}
                       onChange={(e) => setSelectedDate(e.target.value)}
-                      className="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white focus:border-[#FF66A3] outline-none font-dm"
+                      className="w-full p-4 rounded-xl bg-white/10 border border-white/15 text-white focus:border-[#FF66A3] outline-none font-dm"
                       data-testid="booking-date-input"
                     />
                   </div>
+
                   <div>
                     <label className="block font-dm font-bold text-white mb-2">
                       <Clock size={18} className="inline mr-2 text-[#32CD32]" />
@@ -263,10 +354,10 @@ const BookingModal = ({ isOpen, onClose }) => {
                           key={time}
                           type="button"
                           onClick={() => setSelectedTime(time)}
-                          className={`p-2 rounded-lg text-sm font-dm font-medium transition-all ${
+                          className={`p-2 rounded-xl text-sm font-dm font-medium transition-all ${
                             selectedTime === time
                               ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white shadow-lg"
-                              : "bg-white/10 text-white hover:bg-white/20"
+                              : "bg-white/10 text-white hover:bg-white/15"
                           }`}
                           data-testid={`time-slot-${time}`}
                         >
@@ -279,50 +370,103 @@ const BookingModal = ({ isOpen, onClose }) => {
 
                 {/* Floor Plan */}
                 <div className="mb-6">
-                  <h3 className="font-syne text-lg font-bold text-white mb-4 flex items-center gap-2">
-                    <Palmtree size={20} className="text-[#32CD32]" />
-                    Välj bord (42 platser)
-                  </h3>
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                    <h3 className="font-syne text-lg font-bold text-white flex items-center gap-2">
+                      <Palmtree size={20} className="text-[#32CD32]" />
+                      Välj bord ({totalSeats} platser)
+                    </h3>
+
+                    <div className="flex flex-wrap gap-2 text-xs">
+                      <div className="inline-flex items-center gap-2 rounded-full bg-amber-300/15 px-3 py-1 text-amber-100 border border-amber-200/10">
+                        <Star size={12} />
+                        Waterfront
+                      </div>
+                      <div className="inline-flex items-center gap-2 rounded-full bg-cyan-300/15 px-3 py-1 text-cyan-100 border border-cyan-200/10">
+                        <MapPin size={12} />
+                        Main dining
+                      </div>
+                      <div className="inline-flex items-center gap-2 rounded-full bg-emerald-300/15 px-3 py-1 text-emerald-100 border border-emerald-200/10">
+                        <Users size={12} />
+                        Terrace
+                      </div>
+                    </div>
+                  </div>
 
                   <div
-                    className="relative rounded-2xl overflow-hidden"
+                    className="relative rounded-[28px] overflow-hidden border border-white/10 shadow-2xl"
                     style={{
-                      background: "linear-gradient(180deg, #3D5A4C 0%, #2D4A3E 50%, #1A332A 100%)",
-                      minHeight: "320px",
+                      background: "linear-gradient(180deg, #122019 0%, #183327 42%, #26301f 100%)",
+                      minHeight: "430px",
                     }}
                   >
-                    {/* WATER at TOP */}
-                    <div className="absolute top-0 left-0 right-16 h-10 bg-gradient-to-b from-[#1E90FF]/50 to-transparent">
-                      <div className="absolute top-1 left-1/4 w-6 h-6 border border-[#87CEEB]/30 rounded-full animate-ping" style={{ animationDuration: "3s" }} />
-                      <div className="absolute top-2 left-1/2 w-4 h-4 border border-[#87CEEB]/20 rounded-full animate-ping" style={{ animationDuration: "4s", animationDelay: "1s" }} />
-                      <div className="absolute top-1 left-3/4 w-5 h-5 border border-[#87CEEB]/25 rounded-full animate-ping" style={{ animationDuration: "3.5s", animationDelay: "0.5s" }} />
+                    {/* Water strip */}
+                    <div className="absolute top-0 left-0 right-16 h-16 bg-gradient-to-r from-[#2F8CFF]/70 via-[#38BDF8]/60 to-[#1D4ED8]/60">
+                      <div className="absolute inset-0 opacity-60">
+                        <div
+                          className="absolute top-2 left-1/4 w-8 h-8 border border-white/20 rounded-full animate-ping"
+                          style={{ animationDuration: "3.5s" }}
+                        />
+                        <div
+                          className="absolute top-3 left-1/2 w-5 h-5 border border-white/15 rounded-full animate-ping"
+                          style={{ animationDuration: "4.5s", animationDelay: "1s" }}
+                        />
+                        <div
+                          className="absolute top-2 left-3/4 w-6 h-6 border border-white/20 rounded-full animate-ping"
+                          style={{ animationDuration: "4s", animationDelay: "0.5s" }}
+                        />
+                      </div>
+
+                      <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 rounded-full bg-black/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                        <Waves size={14} />
+                        Waterfront
+                      </div>
                     </div>
 
-                    {/* ENTRANCE & KITCHEN on RIGHT */}
-                    <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-amber-900/60 to-transparent flex flex-col items-center justify-center gap-6">
+                    {/* Kitchen/entrance bar */}
+                    <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-amber-900/50 to-transparent flex flex-col items-center justify-center gap-7">
                       <div className="text-center">
-                        <ChefHat size={20} className="text-orange-400 mx-auto mb-1" />
-                        <span className="text-orange-400 text-[9px] font-bold">KÖK</span>
+                        <ChefHat size={20} className="text-orange-300 mx-auto mb-1" />
+                        <span className="text-orange-200 text-[9px] font-bold tracking-wide">KÖK</span>
                       </div>
+
                       <div className="text-center">
                         <span className="text-white text-base">🚪</span>
-                        <p className="text-white/60 text-[9px] font-bold">ENTRÉ</p>
+                        <p className="text-white/70 text-[9px] font-bold tracking-wide">ENTRÉ</p>
                       </div>
+                    </div>
+
+                    {/* Decorative labels */}
+                    <div className="absolute left-4 top-20 rounded-full bg-black/20 px-3 py-1 text-[11px] text-white/70 backdrop-blur">
+                      Premium zone
+                    </div>
+                    <div className="absolute left-4 top-[35%] rounded-full bg-black/20 px-3 py-1 text-[11px] text-white/70 backdrop-blur">
+                      Main dining
+                    </div>
+                    <div className="absolute left-4 top-[66%] rounded-full bg-black/20 px-3 py-1 text-[11px] text-white/70 backdrop-blur">
+                      Terrace / flex
                     </div>
 
                     {/* Decorations */}
-                    <div className="absolute top-12 left-3 text-lg">🌴</div>
-                    <div className="absolute bottom-8 left-3 text-base">🌿</div>
+                    <div className="absolute top-[76px] left-4 text-lg">🌴</div>
+                    <div className="absolute bottom-8 left-4 text-base">🌿</div>
 
-                    {/* String lights */}
-                    <div className="absolute top-10 left-6 right-20 flex justify-between">
+                    {/* Soft lights */}
+                    <div className="absolute top-16 left-8 right-24 flex justify-between">
                       {[...Array(10)].map((_, i) => (
-                        <div key={i} className="w-1.5 h-1.5 rounded-full bg-yellow-300 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+                        <div
+                          key={i}
+                          className="w-2 h-2 rounded-full bg-yellow-300/90 animate-pulse shadow-[0_0_8px_rgba(255,220,120,0.8)]"
+                          style={{ animationDelay: `${i * 0.2}s` }}
+                        />
                       ))}
                     </div>
 
+                    {/* Walkways */}
+                    <div className="absolute left-6 right-20 top-[28%] h-px bg-white/10" />
+                    <div className="absolute left-6 right-20 top-[57%] h-px bg-white/10" />
+
                     {/* Tables */}
-                    <div className="absolute inset-0 pt-8 pb-2 pl-6 pr-20">
+                    <div className="absolute inset-0 pt-8 pb-4 pl-6 pr-20">
                       {tables.map((table) => (
                         <TableIcon
                           key={table.id}
@@ -335,29 +479,29 @@ const BookingModal = ({ isOpen, onClose }) => {
                   </div>
 
                   {/* Legend */}
-                  <div className="flex flex-wrap justify-center gap-4 mt-4">
+                  <div className="flex flex-wrap justify-center gap-4 mt-5">
                     <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded" style={{ backgroundColor: "#40E0D0" }} />
-                      <span className="font-dm text-sm text-white/60">Turkos</span>
+                      <div className="w-4 h-4 rounded bg-gradient-to-br from-[#F6D28B] to-[#E7B76A]" />
+                      <span className="font-dm text-sm text-white/60">Waterfront</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded" style={{ backgroundColor: "#DEB887" }} />
-                      <span className="font-dm text-sm text-white/60">Trä</span>
+                      <div className="w-4 h-4 rounded bg-gradient-to-br from-[#59E3D8] to-[#35C6D7]" />
+                      <span className="font-dm text-sm text-white/60">Main dining</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded" style={{ backgroundColor: "#2F4F4F" }} />
-                      <span className="font-dm text-sm text-white/60">Grön</span>
+                      <div className="w-4 h-4 rounded bg-gradient-to-br from-[#66D3A5] to-[#35B58A]" />
+                      <span className="font-dm text-sm text-white/60">Terrace</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded bg-[#FF66A3]" />
-                      <span className="font-dm text-sm text-white/60">Valt</span>
+                      <div className="w-4 h-4 rounded bg-gradient-to-r from-[#FF66A3] to-[#FFA500]" />
+                      <span className="font-dm text-sm text-white/60">Valt bord</span>
                     </div>
                   </div>
 
                   <div className="flex justify-center gap-6 mt-2 text-white/50 text-xs font-dm">
-                    <span>5st 6-platser</span>
-                    <span>2st 4-platser</span>
-                    <span>2st 2-platser</span>
+                    <span>{count6} st 6-platser</span>
+                    <span>{count4} st 4-platser</span>
+                    <span>{count2} st 2-platser</span>
                   </div>
                 </div>
 
@@ -365,14 +509,23 @@ const BookingModal = ({ isOpen, onClose }) => {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-gradient-to-r from-[#FF66A3]/20 to-[#FFA500]/20 p-4 rounded-xl mb-6 border border-[#FF66A3]/30"
+                    className="bg-gradient-to-r from-[#FF66A3]/15 to-[#FFA500]/15 p-4 rounded-2xl mb-6 border border-[#FF66A3]/20"
                   >
-                    <p className="font-dm text-white">
-                      <span className="text-[#FF66A3] font-bold">Ditt val:</span> Bord {selectedTable.id} ({selectedTable.seats} platser)
-                      {selectedTable.label && <span className="text-[#87CEEB]"> • {selectedTable.label}</span>}
-                      {selectedDate && <span className="text-[#FFA500]"> • {selectedDate}</span>}
-                      {selectedTime && <span className="text-[#32CD32]"> • kl {selectedTime}</span>}
-                    </p>
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                      <p className="font-dm text-white">
+                        <span className="text-[#FF66A3] font-bold">Ditt val:</span> Bord {selectedTable.id} ({selectedTable.seats} platser)
+                        <span className="text-[#87CEEB]"> • {getZoneLabel(selectedTable.zone)}</span>
+                        {selectedTable.label && <span className="text-[#F6D28B]"> • {selectedTable.label}</span>}
+                        {selectedDate && <span className="text-[#FFA500]"> • {selectedDate}</span>}
+                        {selectedTime && <span className="text-[#32CD32]"> • kl {selectedTime}</span>}
+                      </p>
+
+                      <p className="text-sm text-white/65">
+                        {selectedTable.zone === "waterfront" && "Närmast vattnet med bäst vibe."}
+                        {selectedTable.zone === "main" && "Centralt placerat i serveringen."}
+                        {selectedTable.zone === "terrace" && "Flexibel plats för både par och sällskap."}
+                      </p>
+                    </div>
                   </motion.div>
                 )}
 
@@ -397,10 +550,11 @@ const BookingModal = ({ isOpen, onClose }) => {
 
             {step === 2 && (
               <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                <div className="bg-gradient-to-r from-[#FF66A3]/20 to-[#FFA500]/20 p-4 rounded-xl mb-6 border border-[#FF66A3]/30">
+                <div className="bg-gradient-to-r from-[#FF66A3]/15 to-[#FFA500]/15 p-4 rounded-2xl mb-6 border border-[#FF66A3]/20">
                   <p className="font-dm text-white">
                     🪑 <strong>Bord {selectedTable.id}</strong> ({selectedTable.seats} platser)
-                    {selectedTable.label && <span className="text-[#87CEEB]"> • {selectedTable.label}</span>} •
+                    <span className="text-[#87CEEB]"> • {getZoneLabel(selectedTable.zone)}</span>
+                    {selectedTable.label && <span className="text-[#F6D28B]"> • {selectedTable.label}</span>} •
                     <span className="text-[#FFA500]"> {selectedDate}</span> • <span className="text-[#32CD32]"> kl {selectedTime}</span>
                   </p>
                 </div>
@@ -460,7 +614,11 @@ const BookingModal = ({ isOpen, onClose }) => {
                     </select>
                   </div>
 
-                  {error && <div className="bg-red-500/20 text-red-300 p-4 rounded-xl font-dm border border-red-500/30">{error}</div>}
+                  {error && (
+                    <div className="bg-red-500/20 text-red-300 p-4 rounded-xl font-dm border border-red-500/30">
+                      {error}
+                    </div>
+                  )}
 
                   <div className="flex justify-between gap-4 pt-4">
                     <motion.button
@@ -477,7 +635,9 @@ const BookingModal = ({ isOpen, onClose }) => {
                       type="submit"
                       disabled={isSubmitting}
                       className={`flex items-center gap-2 px-8 py-4 rounded-full font-dm font-bold transition-all ${
-                        isSubmitting ? "bg-white/20 text-white/50 cursor-not-allowed" : "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white hover:shadow-lg"
+                        isSubmitting
+                          ? "bg-white/20 text-white/50 cursor-not-allowed"
+                          : "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white hover:shadow-lg"
                       }`}
                       data-testid="booking-submit-button"
                     >
@@ -499,23 +659,34 @@ const BookingModal = ({ isOpen, onClose }) => {
 
             {step === 3 && (
               <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-12">
-                <motion.div className="text-6xl mb-6" animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 0.5, delay: 0.2 }}>
+                <motion.div
+                  className="text-6xl mb-6"
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
                   🎉
                 </motion.div>
+
                 <h3 className="font-syne text-3xl font-bold text-white mb-4">Tack för din bokning!</h3>
-                <p className="font-dm text-white/70 text-lg mb-8 max-w-md mx-auto">Vi ser fram emot att välkomna dig till Carib Hut.</p>
+                <p className="font-dm text-white/70 text-lg mb-8 max-w-md mx-auto">
+                  Vi ser fram emot att välkomna dig till Carib Hut.
+                </p>
 
                 <div className="bg-white/10 p-6 rounded-2xl max-w-sm mx-auto mb-8 border border-white/20">
                   <div className="text-4xl mb-4">🌴</div>
                   <p className="font-dm text-white">
                     <strong className="text-[#FF66A3]">Bord {selectedTable?.id}</strong> ({selectedTable?.seats} platser)
-                    {selectedTable?.label && <span className="text-[#87CEEB]"> • {selectedTable.label}</span>}
+                    <span className="text-[#87CEEB]"> • {selectedTable ? getZoneLabel(selectedTable.zone) : ""}</span>
+                    {selectedTable?.label && <span className="text-[#F6D28B]"> • {selectedTable.label}</span>}
                     <br />
-                    <span className="text-[#FFA500]">{selectedDate}</span> kl <span className="text-[#32CD32]">{selectedTime}</span>
+                    <span className="text-[#FFA500]">{selectedDate}</span> kl{" "}
+                    <span className="text-[#32CD32]">{selectedTime}</span>
                     <br />
                     {formData.guests} {formData.guests === 1 ? "gäst" : "gäster"}
                     <br />
-                    <span className="text-white/60">{formData.name} • {formData.phone}</span>
+                    <span className="text-white/60">
+                      {formData.name} • {formData.phone}
+                    </span>
                   </p>
                 </div>
 
