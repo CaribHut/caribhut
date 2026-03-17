@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     const email = (booking.email || "").trim();
     const date = (booking.date || "").trim();
     const time = (booking.time || "").trim();
-    const guests = Number(booking.guests || 0);
+    const guests = parseInt(String(booking.guests || "").match(/\d+/)?.[0] || "0", 10);
     const table = (booking.table || "").trim();
 
     if (!name || !phone || !date || !time || !guests || !table) {
