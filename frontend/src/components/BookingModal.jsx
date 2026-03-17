@@ -273,16 +273,17 @@ const BookingModal = ({ isOpen, onClose }) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          table_id: selectedTable.id,
-          table_seats: selectedTable.seats,
-          table_zone: selectedTable.zone,
-          date: selectedDate,
-          time: selectedTime,
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          guests: formData.guests,
-        }),
+  table: `Bord ${selectedTable.id}`,
+  table_id: selectedTable.id,
+  table_seats: selectedTable.seats,
+  table_zone: selectedTable.zone,
+  date: selectedDate,
+  time: selectedTime,
+  name: formData.name,
+  phone: formData.phone,
+  email: formData.email,
+  guests: formData.guests,
+}),
       });
 
       const text = await response.text();
