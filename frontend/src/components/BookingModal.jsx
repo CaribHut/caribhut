@@ -82,7 +82,32 @@ const getTableDimensions = (shape) => {
 
 const getZoneLabel = (zone) => {
   if (zone === "waterfront") return "Fontänen";
+  if (zone === "main") return "Mitten";
   return "Övriga platser";
+};
+
+const getZoneAccentClasses = (zone) => {
+  if (zone === "waterfront") {
+    return {
+      badge: "bg-[#F6D28B]/20 text-[#F6D28B] border border-[#F6D28B]/30",
+      card: "border-[#F6D28B]/20 bg-[#F6D28B]/5",
+      dot: "bg-[#F6D28B]",
+    };
+  }
+
+  if (zone === "main") {
+    return {
+      badge: "bg-[#59E3D8]/20 text-[#59E3D8] border border-[#59E3D8]/30",
+      card: "border-[#59E3D8]/20 bg-[#59E3D8]/5",
+      dot: "bg-[#59E3D8]",
+    };
+  }
+
+  return {
+    badge: "bg-[#66D3A5]/20 text-[#66D3A5] border border-[#66D3A5]/30",
+    card: "border-[#66D3A5]/20 bg-[#66D3A5]/5",
+    dot: "bg-[#66D3A5]",
+  };
 };
 
 const TableIcon = ({ table, selected, recommended, booked, onClick }) => {
@@ -152,6 +177,63 @@ const TableIcon = ({ table, selected, recommended, booked, onClick }) => {
   );
 };
 
+const MobileTableCard = ({ table, selected, recommended, booked, onClick }) => {
+  const zoneStyles = getZoneAccentClasses(table.zone);
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={booked}
+      className={`w-full rounded-2xl border p-4 text-left transition-all ${
+        booked
+          ? "border-white/10 bg-white/[0.04] opacity-45 cursor-not-allowed"
+          : selected
+          ? "border-[#FF66A3] bg-gradient-to-r from-[#FF66A3]/20 to-[#FFA500]/20 shadow-[0_10px_30px_rgba(255,102,163,0.18)]"
+          : recommended
+          ? "border-white/20 bg-white/[0.07] ring-1 ring-white/15 hover:bg-white/[0.1]"
+          : `hover:bg-white/[0.07] ${zoneStyles.card}`
+      }`}
+      data-testid={`mobile-table-${table.id}`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-white font-bold text-base">Bord {table.id}</span>
+            <span className={`text-[11px] px-2 py-1 rounded-full font-semibold ${zoneStyles.badge}`}>
+              {getZoneLabel(table.zone)}
+            </span>
+            {recommended && !booked && !selected && (
+              <span className="text-[11px] px-2 py-1 rounded-full font-semibold bg-white/10 text-white/80 border border-white/10">
+                Rekommenderat
+              </span>
+            )}
+            {selected && (
+              <span className="text-[11px] px-2 py-1 rounded-full font-semibold bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white">
+                Vald
+              </span>
+            )}
+            {booked && (
+              <span className="text-[11px] px-2 py-1 rounded-full font-semibold bg-red-500/20 text-red-300 border border-red-500/25">
+                Upptaget
+              </span>
+            )}
+          </div>
+
+          <div className="mt-3 flex items-center gap-4 text-sm text-white/75">
+            <span className="flex items-center gap-1">
+              <Users size={15} />
+              {table.seats} platser
+            </span>
+          </div>
+        </div>
+
+        <div className={`mt-1 h-3 w-3 rounded-full ${booked ? "bg-red-500/80" : zoneStyles.dot}`} />
+      </div>
+    </button>
+  );
+};
+
 const BookingModal = ({ isOpen, onClose }) => {
   const [bookedTableIds, setBookedTableIds] = useState([]);
   const [isLoadingAvailability, setIsLoadingAvailability] = useState(false);
@@ -179,9 +261,9 @@ const BookingModal = ({ isOpen, onClose }) => {
       setIsLoadingAvailability(true);
 
       try {
-      const response = await fetch(
-  `/api/availability?date=${encodeURIComponent(selectedDate)}&time=${encodeURIComponent(selectedTime)}`
-);
+        const response = await fetch(
+          `/api/availability?date=${encodeURIComponent(selectedDate)}&time=${encodeURIComponent(selectedTime)}`
+        );
 
         const data = await response.json();
 
@@ -237,6 +319,12 @@ const BookingModal = ({ isOpen, onClose }) => {
   const count4 = tables.filter((t) => t.seats === 4).length;
   const count6 = tables.filter((t) => t.seats === 6).length;
 
+  const groupedTables = {
+    waterfront: tables.filter((table) => table.zone === "waterfront"),
+    main: tables.filter((table) => table.zone === "main"),
+    terrace: tables.filter((table) => table.zone === "terrace"),
+  };
+
   const getMinDate = () => {
     const today = new Date();
     return today.toISOString().split("T")[0];
@@ -273,17 +361,17 @@ const BookingModal = ({ isOpen, onClose }) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-  table: `Bord ${selectedTable.id}`,
-  table_id: selectedTable.id,
-  table_seats: selectedTable.seats,
-  table_zone: selectedTable.zone,
-  date: selectedDate,
-  time: selectedTime,
-  name: formData.name,
-  phone: formData.phone,
-  email: formData.email,
-  guests: formData.guests,
-}),
+          table: `Bord ${selectedTable.id}`,
+          table_id: selectedTable.id,
+          table_seats: selectedTable.seats,
+          table_zone: selectedTable.zone,
+          date: selectedDate,
+          time: selectedTime,
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          guests: formData.guests,
+        }),
       });
 
       const text = await response.text();
@@ -326,30 +414,31 @@ const BookingModal = ({ isOpen, onClose }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+        className="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-4 bg-black/70 backdrop-blur-sm"
         onClick={handleClose}
         data-testid="booking-modal-overlay"
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          initial={{ opacity: 0, scale: 0.96, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="bg-gradient-to-br from-[#141412] via-[#1B1B18] to-[#252521] rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-y-auto shadow-2xl border border-[#FF66A3]/15"
+          exit={{ opacity: 0, scale: 0.96, y: 20 }}
+          className="bg-gradient-to-br from-[#141412] via-[#1B1B18] to-[#252521] rounded-none md:rounded-3xl w-full h-[100dvh] md:h-auto md:max-w-5xl md:max-h-[90vh] overflow-y-auto shadow-2xl border-0 md:border border-[#FF66A3]/15"
           onClick={(e) => e.stopPropagation()}
           data-testid="booking-modal"
         >
-          <div className="sticky top-0 bg-gradient-to-r from-[#141412]/95 to-[#252521]/95 backdrop-blur-md p-6 border-b border-white/10 flex items-center justify-between z-10">
+          <div className="sticky top-0 bg-gradient-to-r from-[#141412]/95 to-[#252521]/95 backdrop-blur-md px-4 py-4 md:p-6 border-b border-white/10 flex items-center justify-between z-10">
             <div>
-              <h2 className="font-syne text-2xl font-bold text-white flex items-center gap-3">
-                <span className="text-3xl">🌴</span>
+              <h2 className="font-syne text-xl md:text-2xl font-bold text-white flex items-center gap-3">
+                <span className="text-2xl md:text-3xl">🌴</span>
                 Boka Bord
               </h2>
-              <p className="font-dm text-white/60 text-sm mt-1">
-                {step === 1 && "Välj ditt favoritbord i vår tropiska oas"}
+              <p className="font-dm text-white/60 text-xs md:text-sm mt-1">
+                {step === 1 && "Välj bord, datum och tid"}
                 {step === 2 && "Berätta vem du är"}
                 {step === 3 && "Vi ses snart!"}
               </p>
             </div>
+
             <button
               onClick={handleClose}
               className="p-2 hover:bg-white/10 rounded-full transition-colors"
@@ -359,13 +448,13 @@ const BookingModal = ({ isOpen, onClose }) => {
             </button>
           </div>
 
-          <div className="px-6 py-4 bg-black/20">
-            <div className="flex items-center justify-center gap-4">
+          <div className="px-4 py-4 md:px-6 md:py-4 bg-black/20">
+            <div className="flex items-center justify-center gap-2 md:gap-4">
               {[{ num: 1, label: "Välj bord" }, { num: 2, label: "Dina uppgifter" }, { num: 3, label: "Bekräftat" }].map((s, i) => (
                 <div key={s.num} className="flex items-center">
                   <div className="flex flex-col items-center">
                     <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all ${
+                      className={`w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all ${
                         step >= s.num
                           ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white shadow-lg"
                           : "bg-white/10 text-white/40"
@@ -373,13 +462,14 @@ const BookingModal = ({ isOpen, onClose }) => {
                     >
                       {step > s.num ? <Check size={18} /> : s.num}
                     </div>
-                    <span className={`text-xs mt-1 ${step >= s.num ? "text-white" : "text-white/40"}`}>
+                    <span className={`text-[10px] md:text-xs mt-1 ${step >= s.num ? "text-white" : "text-white/40"}`}>
                       {s.label}
                     </span>
                   </div>
+
                   {i < 2 && (
                     <div
-                      className={`w-20 h-1 mx-3 rounded ${
+                      className={`w-10 md:w-20 h-1 mx-2 md:mx-3 rounded ${
                         step > s.num ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500]" : "bg-white/10"
                       }`}
                     />
@@ -389,11 +479,11 @@ const BookingModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             {step === 1 && (
               <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                 {/* Date and Time */}
-                <div className="grid md:grid-cols-2 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
                   <div>
                     <label className="block font-dm font-bold text-white mb-2">
                       <Calendar size={18} className="inline mr-2 text-[#FFA500]" />
@@ -414,13 +504,13 @@ const BookingModal = ({ isOpen, onClose }) => {
                       <Clock size={18} className="inline mr-2 text-[#32CD32]" />
                       Välj tid
                     </label>
-                    <div className="grid grid-cols-5 gap-2">
+                    <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-5 gap-2">
                       {timeSlots.map((time) => (
                         <button
                           key={time}
                           type="button"
                           onClick={() => setSelectedTime(time)}
-                          className={`p-2 rounded-xl text-sm font-dm font-medium transition-all ${
+                          className={`p-2.5 rounded-xl text-sm font-dm font-medium transition-all ${
                             selectedTime === time
                               ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white shadow-lg"
                               : "bg-white/10 text-white hover:bg-white/15"
@@ -456,8 +546,79 @@ const BookingModal = ({ isOpen, onClose }) => {
                   </select>
                 </div>
 
-                {/* Floor Plan */}
-                <div className="mb-6">
+                {/* MOBILE TABLE FLOW */}
+                <div className="md:hidden mb-6">
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                    <h3 className="font-syne text-lg font-bold text-white flex items-center gap-2">
+                      <Palmtree size={20} className="text-[#32CD32]" />
+                      Välj bord
+                    </h3>
+
+                    {isLoadingAvailability && (
+                      <div className="text-xs text-white/50 font-dm">Laddar...</div>
+                    )}
+                  </div>
+
+                  <div className="mb-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                    <p className="text-white/75 text-sm font-dm leading-relaxed">
+                      På mobil visar vi borden som större valbara kort. Upptagna bord är gråmarkerade så att det är lätt att se vad som finns ledigt.
+                    </p>
+                  </div>
+
+                  <div className="space-y-4">
+                    {[
+                      { key: "waterfront", title: "Fontänen" },
+                      { key: "main", title: "Mitten" },
+                      { key: "terrace", title: "Övriga platser" },
+                    ].map((group) => (
+                      <div key={group.key} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                        <div className="flex items-center justify-between gap-3 mb-3">
+                          <h4 className="text-white font-bold">{group.title}</h4>
+                          <span className={`text-[11px] px-2 py-1 rounded-full font-semibold ${getZoneAccentClasses(group.key).badge}`}>
+                            {groupedTables[group.key].length} bord
+                          </span>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-3">
+                          {groupedTables[group.key].map((table) => (
+                            <MobileTableCard
+                              key={table.id}
+                              table={table}
+                              selected={selectedTable?.id === table.id}
+                              recommended={recommendedTableIds.includes(table.id)}
+                              booked={bookedTableIds.includes(table.id)}
+                              onClick={() => {
+                                if (!bookedTableIds.includes(table.id)) {
+                                  handleTableSelect(table);
+                                }
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-wrap justify-center gap-4 mt-5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded bg-red-500/90" />
+                      <span className="font-dm text-sm text-white/60">Upptaget</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded bg-gradient-to-r from-[#FF66A3] to-[#FFA500]" />
+                      <span className="font-dm text-sm text-white/60">Valt bord</span>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center gap-4 mt-3 text-white/50 text-xs font-dm flex-wrap">
+                    <span>{count6} st 6-platser</span>
+                    <span>{count4} st 4-platser</span>
+                    <span>{count2} st 2-platser</span>
+                  </div>
+                </div>
+
+                {/* DESKTOP FLOOR PLAN */}
+                <div className="hidden md:block mb-6">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
                     <h3 className="font-syne text-lg font-bold text-white flex items-center gap-2">
                       <Palmtree size={20} className="text-[#32CD32]" />
@@ -476,7 +637,6 @@ const BookingModal = ({ isOpen, onClose }) => {
                       minHeight: "430px",
                     }}
                   >
-                    {/* Water strip */}
                     <div className="absolute top-0 left-0 right-16 h-16 bg-gradient-to-r from-[#2F8CFF]/70 via-[#38BDF8]/60 to-[#1D4ED8]/60">
                       <div className="absolute inset-0 opacity-60">
                         <div
@@ -499,7 +659,6 @@ const BookingModal = ({ isOpen, onClose }) => {
                       </div>
                     </div>
 
-                    {/* Kitchen/entrance bar */}
                     <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-amber-900/50 to-transparent flex flex-col items-center justify-center gap-7">
                       <div className="text-center">
                         <ChefHat size={20} className="text-orange-300 mx-auto mb-1" />
@@ -512,11 +671,9 @@ const BookingModal = ({ isOpen, onClose }) => {
                       </div>
                     </div>
 
-                    {/* Decorations */}
                     <div className="absolute top-[76px] left-4 text-lg">🌴</div>
                     <div className="absolute bottom-8 left-4 text-base">🌿</div>
 
-                    {/* Soft lights */}
                     <div className="absolute top-16 left-8 right-24 flex justify-between">
                       {[...Array(10)].map((_, i) => (
                         <div
@@ -527,11 +684,9 @@ const BookingModal = ({ isOpen, onClose }) => {
                       ))}
                     </div>
 
-                    {/* Walkways */}
                     <div className="absolute left-6 right-20 top-[28%] h-px bg-white/10" />
                     <div className="absolute left-6 right-20 top-[57%] h-px bg-white/10" />
 
-                    {/* Tables */}
                     <div className="absolute inset-0 pt-8 pb-4 pl-6 pr-20">
                       {tables.map((table) => (
                         <TableIcon
@@ -550,7 +705,6 @@ const BookingModal = ({ isOpen, onClose }) => {
                     </div>
                   </div>
 
-                  {/* Legend */}
                   <div className="flex flex-wrap justify-center gap-4 mt-5">
                     <div className="flex items-center gap-2">
                       <div className="w-4 h-4 rounded bg-red-500/90" />
@@ -576,7 +730,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                     className="bg-gradient-to-r from-[#FF66A3]/15 to-[#FFA500]/15 p-4 rounded-2xl mb-6 border border-[#FF66A3]/20"
                   >
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                      <p className="font-dm text-white">
+                      <p className="font-dm text-white text-sm md:text-base leading-relaxed">
                         <span className="text-[#FF66A3] font-bold">Ditt val:</span> Bord {selectedTable.id} ({selectedTable.seats} platser)
                         <span className="text-[#87CEEB]"> • {getZoneLabel(selectedTable.zone)}</span>
                         {selectedDate && <span className="text-[#FFA500]"> • {selectedDate}</span>}
@@ -597,12 +751,12 @@ const BookingModal = ({ isOpen, onClose }) => {
                     type="button"
                     onClick={handleNext}
                     disabled={!selectedTable || !selectedDate || !selectedTime}
-                    className={`flex items-center gap-2 px-8 py-4 rounded-full font-dm font-bold transition-all ${
+                    className={`flex items-center gap-2 px-6 md:px-8 py-4 rounded-full font-dm font-bold transition-all w-full md:w-auto justify-center ${
                       selectedTable && selectedDate && selectedTime
                         ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white hover:shadow-lg"
                         : "bg-white/10 text-white/40 cursor-not-allowed"
                     }`}
-                    whileHover={selectedTable && selectedDate && selectedTime ? { scale: 1.05 } : {}}
+                    whileHover={selectedTable && selectedDate && selectedTime ? { scale: 1.02 } : {}}
                     data-testid="booking-next-button"
                   >
                     Nästa steg <ArrowRight size={18} />
@@ -614,7 +768,7 @@ const BookingModal = ({ isOpen, onClose }) => {
             {step === 2 && (
               <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
                 <div className="bg-gradient-to-r from-[#FF66A3]/15 to-[#FFA500]/15 p-4 rounded-2xl mb-6 border border-[#FF66A3]/20">
-                  <p className="font-dm text-white">
+                  <p className="font-dm text-white text-sm md:text-base leading-relaxed">
                     🪑 <strong>Bord {selectedTable.id}</strong> ({selectedTable.seats} platser)
                     <span className="text-[#87CEEB]"> • {getZoneLabel(selectedTable.zone)}</span> •
                     <span className="text-[#FFA500]"> {selectedDate}</span> • <span className="text-[#32CD32]"> kl {selectedTime}</span>
@@ -682,11 +836,11 @@ const BookingModal = ({ isOpen, onClose }) => {
                     </div>
                   )}
 
-                  <div className="flex justify-between gap-4 pt-4">
+                  <div className="flex flex-col-reverse md:flex-row justify-between gap-4 pt-4">
                     <motion.button
                       type="button"
                       onClick={handleBack}
-                      className="flex items-center gap-2 px-6 py-4 rounded-full font-dm font-bold border-2 border-white/20 text-white hover:bg-white/10"
+                      className="flex items-center justify-center gap-2 px-6 py-4 rounded-full font-dm font-bold border-2 border-white/20 text-white hover:bg-white/10 w-full md:w-auto"
                       data-testid="booking-back-button"
                     >
                       <ArrowLeft size={18} />
@@ -696,7 +850,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                     <motion.button
                       type="submit"
                       disabled={isSubmitting}
-                      className={`flex items-center gap-2 px-8 py-4 rounded-full font-dm font-bold transition-all ${
+                      className={`flex items-center justify-center gap-2 px-8 py-4 rounded-full font-dm font-bold transition-all w-full md:w-auto ${
                         isSubmitting
                           ? "bg-white/20 text-white/50 cursor-not-allowed"
                           : "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white hover:shadow-lg"
@@ -720,7 +874,7 @@ const BookingModal = ({ isOpen, onClose }) => {
             )}
 
             {step === 3 && (
-              <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-12">
+              <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-8 md:py-12">
                 <motion.div
                   className="text-6xl mb-6"
                   animate={{ rotate: [0, 10, -10, 0] }}
@@ -729,14 +883,14 @@ const BookingModal = ({ isOpen, onClose }) => {
                   🎉
                 </motion.div>
 
-                <h3 className="font-syne text-3xl font-bold text-white mb-4">Tack för din bokning!</h3>
-                <p className="font-dm text-white/70 text-lg mb-8 max-w-md mx-auto">
+                <h3 className="font-syne text-2xl md:text-3xl font-bold text-white mb-4">Tack för din bokning!</h3>
+                <p className="font-dm text-white/70 text-base md:text-lg mb-8 max-w-md mx-auto">
                   Vi ser fram emot att välkomna dig till Carib Hut.
                 </p>
 
                 <div className="bg-white/10 p-6 rounded-2xl max-w-sm mx-auto mb-8 border border-white/20">
                   <div className="text-4xl mb-4">🌴</div>
-                  <p className="font-dm text-white">
+                  <p className="font-dm text-white leading-relaxed">
                     <strong className="text-[#FF66A3]">Bord {selectedTable?.id}</strong> ({selectedTable?.seats} platser)
                     <span className="text-[#87CEEB]"> • {selectedTable ? getZoneLabel(selectedTable.zone) : ""}</span>
                     <br />
@@ -754,8 +908,8 @@ const BookingModal = ({ isOpen, onClose }) => {
                 <motion.button
                   type="button"
                   onClick={handleClose}
-                  className="px-8 py-4 bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white rounded-full font-dm font-bold"
-                  whileHover={{ scale: 1.05 }}
+                  className="px-8 py-4 bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white rounded-full font-dm font-bold w-full sm:w-auto"
+                  whileHover={{ scale: 1.03 }}
                   data-testid="booking-close-button"
                 >
                   Stäng
