@@ -11,33 +11,31 @@ import {
   ChefHat,
   Palmtree,
   Waves,
-  Star,
-  MapPin,
 } from "lucide-react";
 
 // 62 seats total
 const tables = [
-  // Waterfront row (14 seats)
-  { id: 1, seats: 2, x: 10, y: 18, zone: "waterfront", shape: "small", label: "Exklusivt läge" },
-  { id: 2, seats: 6, x: 27, y: 17, zone: "waterfront", shape: "large", label: "Exklusivt läge" },
-  { id: 3, seats: 2, x: 46, y: 18, zone: "waterfront", shape: "small", label: "Exklusivt läge" },
-  { id: 4, seats: 6, x: 64, y: 17, zone: "waterfront", shape: "large", label: "Exklusivt läge" },
-  { id: 5, seats: 2, x: 84, y: 18, zone: "waterfront", shape: "small", label: "Exklusivt läge" },
+  // Front row / Fontänen
+  { id: 1, seats: 2, x: 10, y: 18, zone: "waterfront", shape: "small", label: "Fontänen" },
+  { id: 2, seats: 6, x: 27, y: 17, zone: "waterfront", shape: "large", label: "Fontänen" },
+  { id: 3, seats: 2, x: 46, y: 18, zone: "waterfront", shape: "small", label: "Fontänen" },
+  { id: 4, seats: 6, x: 64, y: 17, zone: "waterfront", shape: "large", label: "Fontänen" },
+  { id: 5, seats: 2, x: 84, y: 18, zone: "waterfront", shape: "small", label: "Fontänen" },
 
-  // Main row (16 seats)
-  { id: 6, seats: 4, x: 18, y: 43, zone: "main", shape: "medium", label: "Main dining" },
-  { id: 7, seats: 4, x: 37, y: 43, zone: "main", shape: "medium", label: "Main dining" },
-  { id: 8, seats: 4, x: 56, y: 43, zone: "main", shape: "medium", label: "Main dining" },
-  { id: 9, seats: 4, x: 75, y: 43, zone: "main", shape: "medium", label: "Main dining" },
+  // Middle row
+  { id: 6, seats: 4, x: 18, y: 43, zone: "main", shape: "medium", label: "" },
+  { id: 7, seats: 4, x: 37, y: 43, zone: "main", shape: "medium", label: "" },
+  { id: 8, seats: 4, x: 56, y: 43, zone: "main", shape: "medium", label: "" },
+  { id: 9, seats: 4, x: 75, y: 43, zone: "main", shape: "medium", label: "" },
 
-  // Terrace / flex row (32 seats)
-  { id: 10, seats: 2, x: 9, y: 72, zone: "terrace", shape: "small", label: "Terrace" },
-  { id: 11, seats: 6, x: 23, y: 70, zone: "terrace", shape: "large", label: "Terrace" },
-  { id: 12, seats: 4, x: 40, y: 72, zone: "terrace", shape: "medium", label: "Terrace" },
-  { id: 13, seats: 2, x: 55, y: 72, zone: "terrace", shape: "small", label: "Terrace" },
-  { id: 14, seats: 6, x: 69, y: 70, zone: "terrace", shape: "large", label: "Terrace" },
-  { id: 15, seats: 4, x: 85, y: 72, zone: "terrace", shape: "medium", label: "Terrace" },
-  { id: 16, seats: 2, x: 90, y: 56, zone: "terrace", shape: "small", label: "Terrace" },
+  // Back row
+  { id: 10, seats: 2, x: 9, y: 72, zone: "terrace", shape: "small", label: "" },
+  { id: 11, seats: 6, x: 23, y: 70, zone: "terrace", shape: "large", label: "" },
+  { id: 12, seats: 4, x: 40, y: 72, zone: "terrace", shape: "medium", label: "" },
+  { id: 13, seats: 2, x: 55, y: 72, zone: "terrace", shape: "small", label: "" },
+  { id: 14, seats: 6, x: 69, y: 70, zone: "terrace", shape: "large", label: "" },
+  { id: 15, seats: 4, x: 85, y: 72, zone: "terrace", shape: "medium", label: "" },
+  { id: 16, seats: 2, x: 90, y: 56, zone: "terrace", shape: "small", label: "" },
 ];
 
 const getZoneColors = (zone, selected) => {
@@ -83,9 +81,8 @@ const getTableDimensions = (shape) => {
 };
 
 const getZoneLabel = (zone) => {
-  if (zone === "waterfront") return "Waterfront";
-  if (zone === "main") return "Main dining";
-  return "Terrace";
+  if (zone === "waterfront") return "Fontänen";
+  return "Övriga platser";
 };
 
 const TableIcon = ({ table, selected, recommended, booked, onClick }) => {
@@ -105,24 +102,24 @@ const TableIcon = ({ table, selected, recommended, booked, onClick }) => {
       data-testid={`table-${id}`}
     >
       <motion.div
-        whileHover={{ scale: 1.06, y: -4 }}
-        whileTap={{ scale: 0.97 }}
+        whileHover={booked ? {} : { scale: 1.06, y: -4 }}
+        whileTap={booked ? {} : { scale: 0.97 }}
         animate={{
-  scale: selected ? 1.07 : recommended ? 1.03 : 1,
-  opacity: recommended || selected ? 1 : 0.65,
-  y: 0,
-}}
+          scale: booked ? 1 : selected ? 1.07 : recommended ? 1.03 : 1,
+          opacity: booked ? 0.28 : recommended || selected ? 1 : 0.8,
+          y: 0,
+        }}
         transition={{ duration: 0.2, ease: "easeOut" }}
         className="flex flex-col items-center"
       >
         <div
           className={`relative flex flex-col items-center justify-center border backdrop-blur-sm ${
-  selected
-    ? colors.ring
-    : recommended
-    ? "ring-2 ring-white/30 border-white/40"
-    : "border-white/20"
-}`}
+            selected
+              ? colors.ring
+              : recommended
+              ? "ring-2 ring-white/30 border-white/40"
+              : "border-white/20"
+          }`}
           style={{
             width,
             height,
@@ -131,17 +128,11 @@ const TableIcon = ({ table, selected, recommended, booked, onClick }) => {
             boxShadow: colors.glow,
           }}
         >
-          {zone === "waterfront" && !selected && (
-            <div className="absolute -top-2 rounded-full bg-white/80 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#5B3A14]">
-              Premium
+          {booked && (
+            <div className="absolute -top-2 rounded-full bg-red-500/90 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
+              Bokad
             </div>
           )}
-
-          {recommended && !selected && zone !== "waterfront" && (
-  <div className="absolute -top-2 rounded-full bg-white/85 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide text-[#15342E]">
-    Passar bäst
-  </div>
-)}
 
           <Users
             size={seats <= 2 ? 14 : seats === 4 ? 16 : 18}
@@ -163,84 +154,85 @@ const TableIcon = ({ table, selected, recommended, booked, onClick }) => {
 
 const BookingModal = ({ isOpen, onClose }) => {
   const [bookedTableIds, setBookedTableIds] = useState([]);
-const [isLoadingAvailability, setIsLoadingAvailability] = useState(false);
+  const [isLoadingAvailability, setIsLoadingAvailability] = useState(false);
   const [step, setStep] = useState(1);
   const [selectedTable, setSelectedTable] = useState(null);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
-  const [formData, setFormData] = useState({ name: "", phone: "", email: "", guests: 1 });
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    guests: 1,
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingComplete, setBookingComplete] = useState(false);
   const [error, setError] = useState("");
+
   useEffect(() => {
-  const fetchAvailability = async () => {
-    if (!selectedDate || !selectedTime) {
-      setBookedTableIds([]);
-      return;
-    }
-
-    setIsLoadingAvailability(true);
-
-    try {
-      const response = await fetch(
-        `/api/bookings/availability?date=${encodeURIComponent(selectedDate)}&time=${encodeURIComponent(selectedTime)}`
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setBookedTableIds(data.bookedTableIds || []);
-      } else {
+    const fetchAvailability = async () => {
+      if (!selectedDate || !selectedTime) {
         setBookedTableIds([]);
+        return;
       }
-    } catch (error) {
-      setBookedTableIds([]);
-    } finally {
-      setIsLoadingAvailability(false);
-    }
-  };
 
-  fetchAvailability();
-}, [selectedDate, selectedTime]);
+      setIsLoadingAvailability(true);
+
+      try {
+        const response = await fetch(
+          `/api/bookings/availability?date=${encodeURIComponent(selectedDate)}&time=${encodeURIComponent(selectedTime)}`
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setBookedTableIds(data.bookedTableIds || []);
+        } else {
+          setBookedTableIds([]);
+        }
+      } catch (error) {
+        setBookedTableIds([]);
+      } finally {
+        setIsLoadingAvailability(false);
+      }
+    };
+
+    fetchAvailability();
+  }, [selectedDate, selectedTime]);
+
+  useEffect(() => {
+    if (selectedTable && bookedTableIds.includes(selectedTable.id)) {
+      setSelectedTable(null);
+    }
+  }, [bookedTableIds, selectedTable]);
 
   const timeSlots = ["11:00", "12:00", "13:00", "14:00", "15:00", "17:00", "18:00", "19:00", "20:00", "21:00"];
 
-  const totalSeats = tables.reduce((sum, table) => sum + table.seats, 0);
-  const getPreferredTables = (guestCount) => {
-  if (!guestCount || guestCount < 1) return tables;
+  const getRecommendedTableIds = (guestCount) => {
+    if (!guestCount || guestCount < 1) return [];
 
-  const exact = tables.filter((table) => table.seats === guestCount);
-  const larger = tables.filter((table) => table.seats > guestCount);
-  const smaller = tables.filter((table) => table.seats < guestCount);
+    const exact = tables.filter((table) => table.seats === guestCount);
 
-  return [...exact, ...larger, ...smaller];
-};
+    if (exact.length > 0) {
+      return exact.map((table) => table.id);
+    }
 
-const getRecommendedTableIds = (guestCount) => {
-  if (!guestCount || guestCount < 1) return [];
+    const nextBestSize = Math.min(
+      ...tables
+        .filter((table) => table.seats >= guestCount)
+        .map((table) => table.seats)
+    );
 
-  const exact = tables.filter((table) => table.seats === guestCount);
+    if (Number.isFinite(nextBestSize)) {
+      return tables
+        .filter((table) => table.seats === nextBestSize)
+        .map((table) => table.id);
+    }
 
-  if (exact.length > 0) {
-    return exact.map((table) => table.id);
-  }
+    return [];
+  };
 
-  const nextBestSize = Math.min(
-    ...tables
-      .filter((table) => table.seats >= guestCount)
-      .map((table) => table.seats)
-  );
-
-  if (Number.isFinite(nextBestSize)) {
-    return tables
-      .filter((table) => table.seats === nextBestSize)
-      .map((table) => table.id);
-  }
-
-  return [];
-};
-
-const recommendedTableIds = getRecommendedTableIds(formData.guests);
+  const recommendedTableIds = getRecommendedTableIds(formData.guests);
   const count2 = tables.filter((t) => t.seats === 2).length;
   const count4 = tables.filter((t) => t.seats === 4).length;
   const count6 = tables.filter((t) => t.seats === 6).length;
@@ -262,7 +254,9 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
   };
 
   const handleNext = () => {
-    if (step === 1 && selectedTable && selectedDate && selectedTime) setStep(2);
+    if (step === 1 && selectedTable && selectedDate && selectedTime) {
+      setStep(2);
+    }
   };
 
   const handleBack = () => {
@@ -343,7 +337,6 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
           onClick={(e) => e.stopPropagation()}
           data-testid="booking-modal"
         >
-          {/* Header */}
           <div className="sticky top-0 bg-gradient-to-r from-[#141412]/95 to-[#252521]/95 backdrop-blur-md p-6 border-b border-white/10 flex items-center justify-between z-10">
             <div>
               <h2 className="font-syne text-2xl font-bold text-white flex items-center gap-3">
@@ -365,7 +358,6 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
             </button>
           </div>
 
-          {/* Progress indicator */}
           <div className="px-6 py-4 bg-black/20">
             <div className="flex items-center justify-center gap-4">
               {[{ num: 1, label: "Välj bord" }, { num: 2, label: "Dina uppgifter" }, { num: 3, label: "Bekräftat" }].map((s, i) => (
@@ -396,97 +388,84 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
             </div>
           </div>
 
-          {/* Content */}
           <div className="p-6">
             {step === 1 && (
               <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                 {/* Date and Time */}
-<div className="grid md:grid-cols-2 gap-6 mb-8">
-  <div>
-    <label className="block font-dm font-bold text-white mb-2">
-      <Calendar size={18} className="inline mr-2 text-[#FFA500]" />
-      Välj datum
-    </label>
-    <input
-      type="date"
-      min={getMinDate()}
-      value={selectedDate}
-      onChange={(e) => setSelectedDate(e.target.value)}
-      className="w-full p-4 rounded-xl bg-white/10 border border-white/15 text-white focus:border-[#FF66A3] outline-none font-dm"
-      data-testid="booking-date-input"
-      />
-
-  <div>
-    <label className="block font-dm font-bold text-white mb-2">
-      <Clock size={18} className="inline mr-2 text-[#32CD32]" />
-      Välj tid
-    </label>
-    <div className="grid grid-cols-5 gap-2">
-      {timeSlots.map((time) => (
-        <button
-          key={time}
-          type="button"
-          onClick={() => setSelectedTime(time)}
-          className={`p-2 rounded-xl text-sm font-dm font-medium transition-all ${
-            selectedTime === time
-              ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white shadow-lg"
-              : "bg-white/10 text-white hover:bg-white/15"
-          }`}
-          data-testid={`time-slot-${time}`}
-        >
-          {time}
-        </button>
-      ))}
-    </div>
-  </div>
-</div>
+                <div className="grid md:grid-cols-2 gap-6 mb-8">
+                  <div>
+                    <label className="block font-dm font-bold text-white mb-2">
+                      <Calendar size={18} className="inline mr-2 text-[#FFA500]" />
+                      Välj datum
+                    </label>
+                    <input
+                      type="date"
+                      min={getMinDate()}
+                      value={selectedDate}
+                      onChange={(e) => setSelectedDate(e.target.value)}
+                      className="w-full p-4 rounded-xl bg-white/10 border border-white/15 text-white focus:border-[#FF66A3] outline-none font-dm"
+                      data-testid="booking-date-input"
                     />
-                 </div>
-</div>
+                  </div>
 
-{/* Guests */}
-<div className="mb-6">
-  <label className="block font-dm font-bold text-white mb-2">
-    <Users size={18} className="inline mr-2 text-[#59E3D8]" />
-    Antal gäster
-  </label>
+                  <div>
+                    <label className="block font-dm font-bold text-white mb-2">
+                      <Clock size={18} className="inline mr-2 text-[#32CD32]" />
+                      Välj tid
+                    </label>
+                    <div className="grid grid-cols-5 gap-2">
+                      {timeSlots.map((time) => (
+                        <button
+                          key={time}
+                          type="button"
+                          onClick={() => setSelectedTime(time)}
+                          className={`p-2 rounded-xl text-sm font-dm font-medium transition-all ${
+                            selectedTime === time
+                              ? "bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white shadow-lg"
+                              : "bg-white/10 text-white hover:bg-white/15"
+                          }`}
+                          data-testid={`time-slot-${time}`}
+                        >
+                          {time}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
 
-  <select
-    value={formData.guests}
-    onChange={(e) =>
-      setFormData({ ...formData, guests: parseInt(e.target.value, 10) })
-    }
-    className="w-full md:w-64 p-4 rounded-xl bg-white/10 border border-white/20 text-white focus:border-[#FF66A3] outline-none font-dm"
-  >
-    {[1,2,3,4,5,6].map((num) => (
-      <option key={num} value={num} className="bg-[#1A1A18]">
-        {num} {num === 1 ? "gäst" : "gäster"}
-      </option>
-    ))}
-  </select>
-</div>
+                {/* Guests */}
+                <div className="mb-6">
+                  <label className="block font-dm font-bold text-white mb-2">
+                    <Users size={18} className="inline mr-2 text-[#59E3D8]" />
+                    Antal gäster
+                  </label>
 
-{/* Floor Plan */}
+                  <select
+                    value={formData.guests}
+                    onChange={(e) =>
+                      setFormData({ ...formData, guests: parseInt(e.target.value, 10) })
+                    }
+                    className="w-full md:w-64 p-4 rounded-xl bg-white/10 border border-white/20 text-white focus:border-[#FF66A3] outline-none font-dm"
+                  >
+                    {[1, 2, 3, 4, 5, 6].map((num) => (
+                      <option key={num} value={num} className="bg-[#1A1A18]">
+                        {num} {num === 1 ? "gäst" : "gäster"}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Floor Plan */}
+                <div className="mb-6">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
                     <h3 className="font-syne text-lg font-bold text-white flex items-center gap-2">
-  <Palmtree size={20} className="text-[#32CD32]" />
-  Välj bord efter antal gäster
-</h3>
+                      <Palmtree size={20} className="text-[#32CD32]" />
+                      Välj bord vid Fontänen
+                    </h3>
 
-                    <div className="flex flex-wrap gap-2 text-xs">
-                      <div className="inline-flex items-center gap-2 rounded-full bg-amber-300/15 px-3 py-1 text-amber-100 border border-amber-200/10">
-                        <Star size={12} />
-                        Waterfront
-                      </div>
-                      <div className="inline-flex items-center gap-2 rounded-full bg-cyan-300/15 px-3 py-1 text-cyan-100 border border-cyan-200/10">
-                        <MapPin size={12} />
-                        Main dining
-                      </div>
-                      <div className="inline-flex items-center gap-2 rounded-full bg-emerald-300/15 px-3 py-1 text-emerald-100 border border-emerald-200/10">
-                        <Users size={12} />
-                        Terrace
-                      </div>
-                    </div>
+                    {isLoadingAvailability && (
+                      <div className="text-xs text-white/50 font-dm">Laddar bokningar...</div>
+                    )}
                   </div>
 
                   <div
@@ -515,7 +494,7 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
 
                       <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 rounded-full bg-black/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
                         <Waves size={14} />
-                        Waterfront
+                        Fontänen
                       </div>
                     </div>
 
@@ -530,17 +509,6 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
                         <span className="text-white text-base">🚪</span>
                         <p className="text-white/70 text-[9px] font-bold tracking-wide">ENTRÉ</p>
                       </div>
-                    </div>
-
-                    {/* Decorative labels */}
-                    <div className="absolute left-4 top-20 rounded-full bg-black/20 px-3 py-1 text-[11px] text-white/70 backdrop-blur">
-                      Premium zone
-                    </div>
-                    <div className="absolute left-4 top-[35%] rounded-full bg-black/20 px-3 py-1 text-[11px] text-white/70 backdrop-blur">
-                      Main dining
-                    </div>
-                    <div className="absolute left-4 top-[66%] rounded-full bg-black/20 px-3 py-1 text-[11px] text-white/70 backdrop-blur">
-                      Terrace / flex
                     </div>
 
                     {/* Decorations */}
@@ -565,33 +533,27 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
                     {/* Tables */}
                     <div className="absolute inset-0 pt-8 pb-4 pl-6 pr-20">
                       {tables.map((table) => (
-  <TableIcon
-    key={table.id}
-    table={table}
-    selected={selectedTable?.id === table.id}
-    recommended={recommendedTableIds.includes(table.id)}
-    booked={bookedTableIds.includes(table.id)}
-    onClick={() => {
-      if (!bookedTableIds.includes(table.id)) {
-        handleTableSelect(table);
-      }
-    }}
-  />
-))}
+                        <TableIcon
+                          key={table.id}
+                          table={table}
+                          selected={selectedTable?.id === table.id}
+                          recommended={recommendedTableIds.includes(table.id)}
+                          booked={bookedTableIds.includes(table.id)}
+                          onClick={() => {
+                            if (!bookedTableIds.includes(table.id)) {
+                              handleTableSelect(table);
+                            }
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
 
                   {/* Legend */}
                   <div className="flex flex-wrap justify-center gap-4 mt-5">
                     <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded bg-gradient-to-br from-[#F6D28B] to-[#E7B76A]" />
-                      <span className="font-dm text-sm text-white/60">Waterfront</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded bg-gradient-to-br from-[#59E3D8] to-[#35C6D7]" />
-                      <span className="font-dm text-sm text-white/60">Main dining</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded bg-gradient-to-br from-[#66D3A5] to-[#35B58A]" />
-                      <span className="font-dm text-sm text-white/60">Terrace</span>
+                      <div className="w-4 h-4 rounded bg-red-500/90" />
+                      <span className="font-dm text-sm text-white/60">Bokad</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-4 h-4 rounded bg-gradient-to-r from-[#FF66A3] to-[#FFA500]" />
@@ -616,15 +578,14 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
                       <p className="font-dm text-white">
                         <span className="text-[#FF66A3] font-bold">Ditt val:</span> Bord {selectedTable.id} ({selectedTable.seats} platser)
                         <span className="text-[#87CEEB]"> • {getZoneLabel(selectedTable.zone)}</span>
-                        {selectedTable.label && <span className="text-[#F6D28B]"> • {selectedTable.label}</span>}
                         {selectedDate && <span className="text-[#FFA500]"> • {selectedDate}</span>}
                         {selectedTime && <span className="text-[#32CD32]"> • kl {selectedTime}</span>}
                       </p>
 
                       <p className="text-sm text-white/65">
-                        {selectedTable.zone === "waterfront" && "Närmast vattnet med bäst vibe."}
-                        {selectedTable.zone === "main" && "Centralt placerat i serveringen."}
-                        {selectedTable.zone === "terrace" && "Flexibel plats för både par och sällskap."}
+                        {selectedTable.zone === "waterfront"
+                          ? "Närmast fontänen."
+                          : "Skön plats i serveringen."}
                       </p>
                     </div>
                   </motion.div>
@@ -654,8 +615,7 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
                 <div className="bg-gradient-to-r from-[#FF66A3]/15 to-[#FFA500]/15 p-4 rounded-2xl mb-6 border border-[#FF66A3]/20">
                   <p className="font-dm text-white">
                     🪑 <strong>Bord {selectedTable.id}</strong> ({selectedTable.seats} platser)
-                    <span className="text-[#87CEEB]"> • {getZoneLabel(selectedTable.zone)}</span>
-                    {selectedTable.label && <span className="text-[#F6D28B]"> • {selectedTable.label}</span>} •
+                    <span className="text-[#87CEEB]"> • {getZoneLabel(selectedTable.zone)}</span> •
                     <span className="text-[#FFA500]"> {selectedDate}</span> • <span className="text-[#32CD32]"> kl {selectedTime}</span>
                   </p>
                 </div>
@@ -778,7 +738,6 @@ const recommendedTableIds = getRecommendedTableIds(formData.guests);
                   <p className="font-dm text-white">
                     <strong className="text-[#FF66A3]">Bord {selectedTable?.id}</strong> ({selectedTable?.seats} platser)
                     <span className="text-[#87CEEB]"> • {selectedTable ? getZoneLabel(selectedTable.zone) : ""}</span>
-                    {selectedTable?.label && <span className="text-[#F6D28B]"> • {selectedTable.label}</span>}
                     <br />
                     <span className="text-[#FFA500]">{selectedDate}</span> kl{" "}
                     <span className="text-[#32CD32]">{selectedTime}</span>
