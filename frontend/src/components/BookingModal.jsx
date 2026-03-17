@@ -179,9 +179,9 @@ const BookingModal = ({ isOpen, onClose }) => {
       setIsLoadingAvailability(true);
 
       try {
-        const response = await fetch(
-          `/api/bookings/availability?date=${encodeURIComponent(selectedDate)}&time=${encodeURIComponent(selectedTime)}`
-        );
+      const response = await fetch(
+  `/api/availability?date=${encodeURIComponent(selectedDate)}&time=${encodeURIComponent(selectedTime)}`
+);
 
         const data = await response.json();
 
