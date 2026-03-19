@@ -1,6 +1,7 @@
 import clientPromise from "./lib/mongodb";
 
 const BOOKING_BLOCK_MINUTES = 120;
+const MAX_RESTAURANT_CAPACITY = 60;
 
 function parseBookingDateTime(date, time) {
   if (!date || !time) return null;
@@ -13,6 +14,11 @@ function parseBookingDateTime(date, time) {
 
 function minutesBetween(a, b) {
   return Math.abs(a.getTime() - b.getTime()) / 60000;
+}
+
+function normalizeGuests(value) {
+  const parsed = parseInt(String(value || "").match(/\d+/)?.[0] || "0", 10);
+  return Number.isFinite(parsed) ? parsed : 0;
 }
 
 export default async function handler(req, res) {
@@ -50,7 +56,8 @@ export default async function handler(req, res) {
       status: { $ne: "cancelled" },
     }).toArray();
 
-    const bookedTableIds = [];
+    let totalBookedGuests = 0;
+    const matchedBookings = [];
 
     for (const booking of existingBookings) {
       const bookingDateTime = parseBookingDateTime(booking.date, booking.time);
@@ -59,24 +66,41 @@ export default async function handler(req, res) {
       const diff = minutesBetween(bookingDateTime, requestedDateTime);
 
       if (diff < BOOKING_BLOCK_MINUTES) {
-        let tableId = null;
+        const guests = normalizeGuests(booking.guests);
+        totalBookedGuests += guests;
 
-        if (booking.table_id) {
-          tableId = Number(booking.table_id);
-        } else if (booking.table) {
-          const match = String(booking.table).match(/\d+/);
-          if (match) tableId = Number(match[0]);
-        }
-
-        if (tableId && !bookedTableIds.includes(tableId)) {
-          bookedTableIds.push(tableId);
-        }
+        matchedBookings.push({
+          id: booking._id,
+          date: booking.date,
+          time: booking.time,
+          guests,
+          area: booking.area || null,
+        });
       }
     }
 
+    const remainingSeats = Math.max(
+      0,
+      MAX_RESTAURANT_CAPACITY - totalBookedGuests
+    );
+
+    const isFullyBooked = remainingSeats <= 0;
+
     return res.status(200).json({
       success: true,
-      bookedTableIds,
+      date,
+      time,
+      bookingBlockMinutes: BOOKING_BLOCK_MINUTES,
+      maxCapacity: MAX_RESTAURANT_CAPACITY,
+      totalBookedGuests,
+      remainingSeats,
+      availableSeats: remainingSeats,
+      seatsLeft: remainingSeats,
+      isFullyBooked,
+      message: isFullyBooked
+        ? "Det är tyvärr fullt online denna tid. Vänligen ring oss istället för att boka bord."
+        : null,
+      matchedBookingsCount: matchedBookings.length,
     });
   } catch (error) {
     console.error("AVAILABILITY API ERROR:", error);
