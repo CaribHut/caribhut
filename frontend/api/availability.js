@@ -12,8 +12,8 @@ function parseBookingDateTime(date, time) {
   return dt;
 }
 
-function minutesBetween(a, b) {
-  return Math.abs(a.getTime() - b.getTime()) / 60000;
+function minutesDiffForward(from, to) {
+  return (to.getTime() - from.getTime()) / 60000;
 }
 
 function normalizeGuests(value) {
@@ -63,9 +63,11 @@ export default async function handler(req, res) {
       const bookingDateTime = parseBookingDateTime(booking.date, booking.time);
       if (!bookingDateTime) continue;
 
-      const diff = minutesBetween(bookingDateTime, requestedDateTime);
+      const diff = minutesDiffForward(bookingDateTime, requestedDateTime);
 
-      if (diff < BOOKING_BLOCK_MINUTES) {
+      // Bokning påverkar bara framåt i 120 min:
+      // ex 18:00 påverkar 18:00 och 19:00, men inte 17:00
+      if (diff >= 0 && diff < BOOKING_BLOCK_MINUTES) {
         const guests = normalizeGuests(booking.guests);
         totalBookedGuests += guests;
 
