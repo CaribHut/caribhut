@@ -19,21 +19,21 @@ const MAX_ONLINE_BOOKING_SIZE = 12;
 const seatingAreas = [
   {
     id: "waterfront",
-    title: "Vid fontänen",
+    title: "Vid havet",
     description: "För er som vill sitta nära vattnet och stämningen.",
     emoji: "💦",
   },
   {
     id: "main",
-    title: "Mitt i serveringen",
+    title: "Mitt på stranden",
     description: "Bra puls, nära bar och musik.",
-    emoji: "🌴",
+    emoji: "🏝️",
   },
   {
     id: "terrace",
-    title: "Lugnare sittning",
-    description: "Lite mer avskilt och avslappnat.",
-    emoji: "🍽️",
+    title: "Nära vibben",
+    description: "Perfekt för er som vill vara nära musik och liv.",
+    emoji: "🌴",
   },
 ];
 
