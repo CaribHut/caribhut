@@ -1,13 +1,32 @@
 import nodemailer from "nodemailer";
 import clientPromise from "./lib/mongodb";
 
+const BOOKING_BLOCK_MINUTES = 120;
 const MAX_RESTAURANT_CAPACITY = 60;
 
 const AREA_LABELS = {
-  waterfront: "Vid fontänen",
-  main: "Mitt i serveringen",
-  terrace: "Lugnare sittning",
+  waterfront: "Vid havet",
+  main: "Mitt på stranden",
+  terrace: "Nära vibben",
 };
+
+function parseBookingDateTime(date, time) {
+  if (!date || !time) return null;
+
+  const dt = new Date(`${date}T${time}:00`);
+  if (Number.isNaN(dt.getTime())) return null;
+
+  return dt;
+}
+
+function minutesDiffForward(from, to) {
+  return (to.getTime() - from.getTime()) / 60000;
+}
+
+function normalizeGuests(value) {
+  const parsed = parseInt(String(value || "").match(/\d+/)?.[0] || "0", 10);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
 
 function escapeHtml(value = "") {
   return String(value)
@@ -15,11 +34,6 @@ function escapeHtml(value = "") {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
-}
-
-function normalizeGuests(value) {
-  const parsed = parseInt(String(value || "").match(/\d+/)?.[0] || "0", 10);
-  return Number.isFinite(parsed) ? parsed : 0;
 }
 
 export default async function handler(req, res) {
@@ -74,26 +88,44 @@ export default async function handler(req, res) {
       });
     }
 
+    const requestedDateTime = parseBookingDateTime(date, time);
+
+    if (!requestedDateTime) {
+      return res.status(400).json({
+        success: false,
+        message: "Ogiltigt datum eller tid",
+      });
+    }
+
     const client = await clientPromise;
     const db = client.db("caribhut");
     const bookingsCollection = db.collection("bookings");
 
-    const existingBookings = await bookingsCollection
-      .find({
-        date,
-        time,
-        status: { $ne: "cancelled" },
-      })
-      .project({ guests: 1 })
-      .toArray();
+    const existingBookings = await bookingsCollection.find({
+      status: { $ne: "cancelled" },
+    }).toArray();
 
-    const alreadyBookedGuests = existingBookings.reduce((sum, item) => {
-      return sum + normalizeGuests(item.guests);
-    }, 0);
+    let totalBookedGuests = 0;
+
+    for (const existingBooking of existingBookings) {
+      const bookingDateTime = parseBookingDateTime(
+        existingBooking.date,
+        existingBooking.time
+      );
+      if (!bookingDateTime) continue;
+
+      const diff = minutesDiffForward(bookingDateTime, requestedDateTime);
+
+      // Samma logik som availability.js:
+      // tidigare bokningar påverkar framåt i 120 min
+      if (diff >= 0 && diff < BOOKING_BLOCK_MINUTES) {
+        totalBookedGuests += normalizeGuests(existingBooking.guests);
+      }
+    }
 
     const remainingSeats = Math.max(
       0,
-      MAX_RESTAURANT_CAPACITY - alreadyBookedGuests
+      MAX_RESTAURANT_CAPACITY - totalBookedGuests
     );
 
     if (remainingSeats <= 0) {
