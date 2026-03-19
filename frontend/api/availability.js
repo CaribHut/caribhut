@@ -65,8 +65,6 @@ export default async function handler(req, res) {
 
       const diff = minutesDiffForward(bookingDateTime, requestedDateTime);
 
-      // Bokning påverkar bara framåt i 120 min:
-      // ex 18:00 påverkar 18:00 och 19:00, men inte 17:00
       if (diff >= 0 && diff < BOOKING_BLOCK_MINUTES) {
         const guests = normalizeGuests(booking.guests);
         totalBookedGuests += guests;
