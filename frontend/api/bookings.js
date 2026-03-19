@@ -1,9 +1,33 @@
 import nodemailer from "nodemailer";
 import clientPromise from "./lib/mongodb";
 
+const MAX_RESTAURANT_CAPACITY = 60;
+
+const AREA_LABELS = {
+  waterfront: "Vid fontänen",
+  main: "Mitt i serveringen",
+  terrace: "Lugnare sittning",
+};
+
+function escapeHtml(value = "") {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function normalizeGuests(value) {
+  const parsed = parseInt(String(value || "").match(/\d+/)?.[0] || "0", 10);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ success: false, message: "Method not allowed" });
+    return res.status(405).json({
+      success: false,
+      message: "Method not allowed",
+    });
   }
 
   try {
@@ -14,22 +38,39 @@ export default async function handler(req, res) {
     const email = String(booking.email || "").trim();
     const date = String(booking.date || "").trim();
     const time = String(booking.time || "").trim();
-    const guests = parseInt(String(booking.guests || "").match(/\d+/)?.[0] || "0", 10);
+    const guests = normalizeGuests(booking.guests);
+    const area = String(booking.area || "").trim();
+    const areaLabel = String(
+      booking.area_label || AREA_LABELS[area] || area || ""
+    ).trim();
+    const comment = String(booking.comment || "").trim();
 
-    const table =
-      String(
-        booking.table ||
-        booking.table_name ||
-        booking.tableLabel ||
-        booking.table_id ||
-        ""
-      ).trim();
-
-    if (!name || !phone || !date || !time || !guests || !table) {
+    if (!name || !phone || !date || !time || !guests || !area) {
       return res.status(400).json({
         success: false,
         message: "Alla obligatoriska fält måste fyllas i",
-        debug: { name, phone, date, time, guests, table },
+        debug: {
+          name,
+          phone,
+          date,
+          time,
+          guests,
+          area,
+        },
+      });
+    }
+
+    if (guests < 1) {
+      return res.status(400).json({
+        success: false,
+        message: "Antal gäster måste vara minst 1",
+      });
+    }
+
+    if (guests > MAX_RESTAURANT_CAPACITY) {
+      return res.status(400).json({
+        success: false,
+        message: "För många gäster för onlinebokning",
       });
     }
 
@@ -37,17 +78,36 @@ export default async function handler(req, res) {
     const db = client.db("caribhut");
     const bookingsCollection = db.collection("bookings");
 
-    const existingBooking = await bookingsCollection.findOne({
-      date,
-      time,
-      table,
-      status: { $ne: "cancelled" },
-    });
+    const existingBookings = await bookingsCollection
+      .find({
+        date,
+        time,
+        status: { $ne: "cancelled" },
+      })
+      .project({ guests: 1 })
+      .toArray();
 
-    if (existingBooking) {
+    const alreadyBookedGuests = existingBookings.reduce((sum, item) => {
+      return sum + normalizeGuests(item.guests);
+    }, 0);
+
+    const remainingSeats = Math.max(
+      0,
+      MAX_RESTAURANT_CAPACITY - alreadyBookedGuests
+    );
+
+    if (remainingSeats <= 0) {
       return res.status(409).json({
         success: false,
-        message: "Det bordet är redan bokat på vald tid",
+        message:
+          "Det är tyvärr fullt online denna tid. Vänligen ring oss istället för att boka bord.",
+      });
+    }
+
+    if (guests > remainingSeats) {
+      return res.status(409).json({
+        success: false,
+        message: `Det finns tyvärr bara ${remainingSeats} platser kvar online denna tid. Vänligen ring oss istället för större sällskap.`,
       });
     }
 
@@ -58,7 +118,9 @@ export default async function handler(req, res) {
       date,
       time,
       guests,
-      table,
+      area,
+      areaLabel,
+      comment: comment || null,
       status: "confirmed",
       createdAt: new Date(),
     };
@@ -96,13 +158,15 @@ export default async function handler(req, res) {
       subject: "Ny bordsbokning – Carib Hut",
       html: `
         <h2>Ny bokning</h2>
-        <p><b>Namn:</b> ${name}</p>
-        <p><b>Telefon:</b> ${phone}</p>
-        <p><b>E-post:</b> ${email}</p>
-        <p><b>Datum:</b> ${date}</p>
-        <p><b>Tid:</b> ${time}</p>
+        <p><b>Namn:</b> ${escapeHtml(name)}</p>
+        <p><b>Telefon:</b> ${escapeHtml(phone)}</p>
+        <p><b>E-post:</b> ${escapeHtml(email || "-")}</p>
+        <p><b>Datum:</b> ${escapeHtml(date)}</p>
+        <p><b>Tid:</b> ${escapeHtml(time)}</p>
         <p><b>Gäster:</b> ${guests}</p>
-        <p><b>Bord:</b> ${table}</p>
+        <p><b>Önskat område:</b> ${escapeHtml(areaLabel)}</p>
+        <p><b>Kommentar / önskemål:</b> ${escapeHtml(comment || "-")}</p>
+        <p><b>Platser kvar efter bokning:</b> ${Math.max(0, remainingSeats - guests)}</p>
         <p><b>Booking ID:</b> ${insertResult.insertedId}</p>
       `,
     });
@@ -110,16 +174,11 @@ export default async function handler(req, res) {
     return res.status(200).json({
       success: true,
       message: "Booking received",
+      bookingId: insertResult.insertedId,
+      remainingSeats: Math.max(0, remainingSeats - guests),
     });
   } catch (error) {
     console.error("BOOKING API ERROR:", error);
-
-    if (error.code === 11000) {
-      return res.status(409).json({
-        success: false,
-        message: "Det bordet är redan bokat på vald tid",
-      });
-    }
 
     return res.status(500).json({
       success: false,
