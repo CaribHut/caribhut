@@ -405,13 +405,10 @@ export const aboutData = {
 
 export const contactData = {
   address: "Aseatorget, 72217 Västerås",
-  phone: "0735-876005",
+  phone: "Coming",
   emails: [
     "info@caribhut.se",
-    "kontakt@caribhut.se",
     "order@caribhut.se",
-    "support@caribhut.se",
-    "faktura@caribhut.se"
   ],
   hours: {
     weekdays: "Tis - Tor: 11:00 - 22:00",
