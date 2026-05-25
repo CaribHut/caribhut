@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Flame, Leaf, Star, Sparkles } from 'lucide-react';
-import { menuData } from '../data/menuData';
+
 
 const TagBadge = ({ tag }) => {
   const tagConfig = {
@@ -161,31 +161,43 @@ const MenuSection = () => {
         </motion.div>
 
         {/* Full Menu List */}
-        <div className="grid lg:grid-cols-2 gap-x-16">
-          <div>
-            {menuData.food.slice(0, 2).map((section, index) => (
-              <CategorySection
-                key={section.category}
-                category={section.category}
-                items={section.items}
-                categoryIndex={index}
-              />
-            ))}
-          </div>
-          <div>
-            {menuData.food.slice(2).map((section, index) => (
-              <CategorySection
-                key={section.category}
-                category={section.category}
-                items={section.items}
-                categoryIndex={index + 2}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default MenuSection;
+<div className="max-w-3xl mx-auto">
+  <CategorySection
+    category="Main Dishes"
+    categoryIndex={0}
+    items={[
+      {
+        id: 'chicken-roti',
+        name: 'Chicken Roti',
+        description:
+          'Soft roti filled with flavorful Caribbean chicken and authentic island spices.',
+        price: 149,
+        tags: ['popular'],
+      },
+      {
+        id: 'scampi-roti',
+        name: 'Scampi Roti',
+        description:
+          'Caribbean-style roti with juicy scampi, fresh herbs and tropical flavors.',
+        price: 169,
+        tags: ['new'],
+      },
+      {
+        id: 'chicken-waffle',
+        name: 'Chicken & Waffle',
+        description:
+          'Crispy chicken served with fluffy waffles and our homemade magical sauce.',
+        price: 159,
+        tags: ['popular'],
+      },
+      {
+        id: 'caribbean-caesar',
+        name: 'Carribean Ceasar Salad',
+        description:
+          'Fresh Caesar salad with a Caribbean twist, topped with grilled chicken.',
+        price: 139,
+        tags: [],
+      },
+    ]}
+  />
+</div>
