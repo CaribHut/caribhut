@@ -1,11 +1,59 @@
+```jsx
 import { motion } from 'framer-motion';
 import { Flame, Leaf, Star, Sparkles } from 'lucide-react';
 
+const dishes = [
+  {
+    id: 'chicken-roti',
+    name: 'Chicken Roti',
+    description:
+      'Mjuk roti fylld med saftig kyckling, karibiska kryddor och fräscha tillbehör.',
+    price: 149,
+    image: '/mat/Chicken roti.jpg',
+    tags: ['popular'],
+  },
+  {
+    id: 'scampi-roti',
+    name: 'Scampi Roti',
+    description:
+      'Roti fylld med smakrika scampi, örter och tropiska karibiska toner.',
+    price: 169,
+    image: '/mat/Scampi roti.jpg',
+    tags: ['new'],
+  },
+  {
+    id: 'scampi-pasta',
+    name: 'Scampi Pasta',
+    description:
+      'Krämig pasta med scampi, vitlök, örter och karibisk hetta.',
+    price: 179,
+    image: '/mat/Scampi pasta.jpg',
+    tags: ['popular'],
+  },
+  {
+    id: 'chicken-waffle',
+    name: 'Chicken & Waffle',
+    description:
+      'Krispig kyckling med fluffig våffla och vår egengjorda magiska sås.',
+    price: 159,
+    image: '/mat/Chicken Waffle.jpg',
+    tags: ['popular'],
+  },
+  {
+    id: 'veg-roti',
+    name: 'Veg Roti',
+    description:
+      'Vegetarisk roti fylld med smakrika grönsaker och autentiska island spices.',
+    price: 139,
+    image: '/mat/Veg roti.jpg',
+    tags: ['vegan'],
+  },
+];
 
 const TagBadge = ({ tag }) => {
   const tagConfig = {
     spicy: { icon: Flame, className: 'tag-spicy', label: 'Stark' },
-    vegan: { icon: Leaf, className: 'tag-vegan', label: 'Vegan' },
+    vegan: { icon: Leaf, className: 'tag-vegan', label: 'Veg' },
     popular: { icon: Star, className: 'tag-popular', label: 'Populär' },
     new: { icon: Sparkles, className: 'tag-new', label: 'Nyhet' },
   };
@@ -25,179 +73,88 @@ const TagBadge = ({ tag }) => {
   );
 };
 
-const MenuItem = ({ item, index }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="group"
-      data-testid={`menu-item-${item.id}`}
-    >
-      <div className="flex items-start justify-between gap-4 py-6 border-b border-stone-200">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-3 flex-wrap">
-            <h4 className="font-space text-lg font-bold text-[#1A1A18] group-hover:text-[#008080] transition-colors">
-              {item.name}
-            </h4>
-            {item.tags.map((tag) => (
-              <TagBadge key={tag} tag={tag} />
-            ))}
-          </div>
-          <p className="font-dm text-[#5F5F58] text-sm mt-2 leading-relaxed">
-            {item.description}
-          </p>
-        </div>
-        <div className="flex-shrink-0">
-          <span className="font-syne text-xl font-bold text-[#1A1A18]">
-            {item.price} kr
-          </span>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
-const CategorySection = ({ category, items, categoryIndex }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: categoryIndex * 0.2 }}
-      className="mb-16"
-    >
-      <div className="flex items-center gap-4 mb-8">
-        <h3 className="font-syne text-2xl md:text-3xl font-bold text-[#1A1A18]">
-          {category}
-        </h3>
-        <div className="flex-1 h-px bg-gradient-to-r from-[#008080] to-transparent" />
-      </div>
-      <div className="space-y-0">
-        {items.map((item, index) => (
-          <MenuItem key={item.id} item={item} index={index} />
-        ))}
-      </div>
-    </motion.div>
-  );
-};
-
 const MenuSection = () => {
   return (
     <section
       id="menu"
-      className="py-24 md:py-32 bg-white relative"
+      className="py-24 md:py-32 bg-white relative overflow-hidden"
       data-testid="menu-section"
     >
-      {/* Background decoration */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF66A3] rounded-full opacity-5 blur-3xl" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#32CD32] rounded-full opacity-5 blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16 md:mb-24"
+          className="text-center mb-16 md:mb-20"
         >
           <p className="font-space text-[#008080] font-bold tracking-widest text-sm uppercase mb-4">
             Vår Meny
           </p>
+
           <h2 className="font-syne text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#1A1A18] mb-6">
-            Karibiska <span className="text-[#FFA500]">Klassiker</span>
+            Karibiska <span className="text-[#FFA500]">Favoriter</span>
           </h2>
+
           <p className="font-dm text-[#5F5F58] text-lg max-w-2xl mx-auto leading-relaxed">
-            Från kryddig jerk till smakrik roti, varje rätt tillagas med autentiska 
-            karibiska kryddor och färska, lokala råvaror.
+            Smakrika roti, krämig scampi pasta och crispy chicken & waffle — direkt från öarna till din tallrik.
           </p>
+
           <div className="section-divider mx-auto mt-8" />
         </motion.div>
 
-        {/* Featured Dishes Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-6 mb-20"
-        >
-          {menuData.food
-            .flatMap((cat) => cat.items)
-            .filter((item) => item.image)
-            .slice(0, 3)
-            .map((item, index) => (
-              <motion.div
-                key={item.id}
-                whileHover={{ y: -8 }}
-                className="bg-[#FDFCF8] rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all card-hover"
-                data-testid={`featured-dish-${item.id}`}
-              >
-                <div className="aspect-video overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover img-hover"
-                  />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {dishes.map((item, index) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.08 }}
+              whileHover={{ y: -8 }}
+              className="group bg-[#FDFCF8] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-stone-100"
+              data-testid={`menu-item-${item.id}`}
+            >
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A18]/70 via-transparent to-transparent" />
+
+                <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
+                  {item.tags.map((tag) => (
+                    <TagBadge key={tag} tag={tag} />
+                  ))}
                 </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    {item.tags.map((tag) => (
-                      <TagBadge key={tag} tag={tag} />
-                    ))}
-                  </div>
-                  <h4 className="font-space text-xl font-bold text-[#1A1A18] mb-2">
+
+                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
+                  <h3 className="font-syne text-2xl font-extrabold text-white">
                     {item.name}
-                  </h4>
-                  <p className="font-dm text-[#5F5F58] text-sm line-clamp-2">
-                    {item.description}
-                  </p>
-                  <p className="font-syne text-2xl font-bold text-[#008080] mt-4">
+                  </h3>
+
+                  <p className="font-syne text-xl font-bold text-[#FFA500] bg-[#1A1A18]/80 px-3 py-1 rounded-full whitespace-nowrap">
                     {item.price} kr
                   </p>
                 </div>
-              </motion.div>
-            ))}
-        </motion.div>
+              </div>
 
-        {/* Full Menu List */}
-<div className="max-w-3xl mx-auto">
-  <CategorySection
-    category="Main Dishes"
-    categoryIndex={0}
-    items={[
-      {
-        id: 'chicken-roti',
-        name: 'Chicken Roti',
-        description:
-          'Soft roti filled with flavorful Caribbean chicken and authentic island spices.',
-        price: 149,
-        tags: ['popular'],
-      },
-      {
-        id: 'scampi-roti',
-        name: 'Scampi Roti',
-        description:
-          'Caribbean-style roti with juicy scampi, fresh herbs and tropical flavors.',
-        price: 169,
-        tags: ['new'],
-      },
-      {
-        id: 'chicken-waffle',
-        name: 'Chicken & Waffle',
-        description:
-          'Crispy chicken served with fluffy waffles and our homemade magical sauce.',
-        price: 159,
-        tags: ['popular'],
-      },
-      {
-        id: 'caribbean-caesar',
-        name: 'Carribean Ceasar Salad',
-        description:
-          'Fresh Caesar salad with a Caribbean twist, topped with grilled chicken.',
-        price: 139,
-        tags: [],
-      },
-    ]}
-  />
-</div>
+              <div className="p-6">
+                <p className="font-dm text-[#5F5F58] text-sm leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default MenuSection;
+```
