@@ -1,8 +1,7 @@
-
+```jsx
 import { motion } from 'framer-motion';
 import { Flame, Leaf, Star, Sparkles } from 'lucide-react';
 
-```jsx
 const dishes = [
   {
     id: 'chicken-roti',
@@ -69,7 +68,10 @@ const TagBadge = ({ tag }) => {
   };
 
   const config = tagConfig[tag];
-  if (!config) return null;
+
+  if (!config) {
+    return null;
+  }
 
   const Icon = config.icon;
 
@@ -109,7 +111,7 @@ const MenuSection = () => {
           </h2>
 
           <p className="font-dm text-[#5F5F58] text-lg max-w-2xl mx-auto leading-relaxed">
-            Smakrika roti, krämig scampi pasta och crispy chicken & waffle — direkt från öarna till din tallrik.
+            Smakrika roti, krämig scampi pasta, caesarsallad och crispy chicken & waffle — direkt från öarna till din tallrik.
           </p>
 
           <div className="section-divider mx-auto mt-8" />
@@ -167,3 +169,4 @@ const MenuSection = () => {
 };
 
 export default MenuSection;
+```
