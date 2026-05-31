@@ -49,6 +49,15 @@ const dishes = [
     tags: ['vegan'],
   },
 ];
+{
+  id: 'caribbean-caesar',
+  name: 'Caribbean Caesar Salad',
+  description:
+    'Fräsch caesarsallad med grillad kyckling, parmesan, krutonger och en karibisk twist.',
+  price: 149,
+  image: '/mat/Carib hut0097.jpg',
+  tags: ['new'],
+},
 
 const TagBadge = ({ tag }) => {
   const tagConfig = {
