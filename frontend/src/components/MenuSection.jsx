@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { Flame, Leaf, Star, Sparkles } from 'lucide-react';
 
+```jsx
 const dishes = [
   {
     id: 'chicken-roti',
@@ -43,21 +44,21 @@ const dishes = [
     id: 'veg-roti',
     name: 'Veg Roti',
     description:
-      'Vegetarisk roti fylld med smakrika grönsaker och autentiska island spices.',
+      'Vegetarisk roti fylld med smakrika grönsaker och autentiska karibiska kryddor.',
     price: 139,
     image: '/mat/Veg roti.jpg',
     tags: ['vegan'],
   },
+  {
+    id: 'caribbean-caesar',
+    name: 'Caribbean Caesar Salad',
+    description:
+      'Fräsch caesarsallad med grillad kyckling, parmesan, krutonger och en karibisk twist.',
+    price: 149,
+    image: '/mat/Carib hut0097.jpg',
+    tags: ['new'],
+  },
 ];
-{
-  id: 'caribbean-caesar',
-  name: 'Caribbean Caesar Salad',
-  description:
-    'Fräsch caesarsallad med grillad kyckling, parmesan, krutonger och en karibisk twist.',
-  price: 149,
-  image: '/mat/Carib hut0097.jpg',
-  tags: ['new'],
-},
 
 const TagBadge = ({ tag }) => {
   const tagConfig = {
