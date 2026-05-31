@@ -8,7 +8,7 @@ const dishes = [
     name: 'Chicken Roti',
     description:
       'Mjuk roti fylld med saftig kyckling, karibiska kryddor och fräscha tillbehör.',
-    price: 149,
+    price: 159,
     image: '/mat/Chicken roti.jpg',
     tags: ['popular'],
   },
@@ -35,7 +35,7 @@ const dishes = [
     name: 'Chicken & Waffle',
     description:
       'Krispig kyckling med fluffig våffla och vår egengjorda magiska sås.',
-    price: 159,
+    price: 125,
     image: '/mat/Chicken Waffle.jpg',
     tags: ['popular'],
   },
