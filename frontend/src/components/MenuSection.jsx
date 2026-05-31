@@ -1,4 +1,4 @@
-```jsx
+
 import { motion } from 'framer-motion';
 import { Flame, Leaf, Star, Sparkles } from 'lucide-react';
 
@@ -157,4 +157,3 @@ const MenuSection = () => {
 };
 
 export default MenuSection;
-```
