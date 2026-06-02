@@ -4,18 +4,21 @@ import { X } from "lucide-react";
 
 const seatingZones = [
   {
-    id: "havet",
+    id: "waterfront",
     name: "Vid havet",
+    emoji: "🌊",
     capacity: 15,
   },
   {
-    id: "viben",
-    name: "Vid viben",
-    capacity: 15,
-  },
-  {
-    id: "stranden",
+    id: "main",
     name: "Vid stranden",
+    emoji: "🏖️",
+    capacity: 15,
+  },
+  {
+    id: "terrace",
+    name: "Vid viben",
+    emoji: "🌴",
     capacity: 15,
   },
 ];
@@ -28,19 +31,29 @@ const BookingModal = ({ isOpen, onClose }) => {
     date: "",
     time: "",
     guests: "2",
-    zone: "havet",
+    area: "waterfront",
+    area_label: "Vid havet",
+    comment: "",
   });
 
   const [status, setStatus] = useState("");
 
   if (!isOpen) return null;
 
-  const selectedZone = seatingZones.find((zone) => zone.id === formData.zone);
+  const selectedZone = seatingZones.find((zone) => zone.id === formData.area);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const selectZone = (zone) => {
+    setFormData({
+      ...formData,
+      area: zone.id,
+      area_label: zone.name,
     });
   };
 
@@ -58,13 +71,15 @@ const BookingModal = ({ isOpen, onClose }) => {
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error("Bokningen kunde inte skickas.");
+        throw new Error(data.message || "Bokningen kunde inte skickas.");
       }
 
       setStatus("Bokningen är skickad! Vi återkommer med bekräftelse.");
     } catch (error) {
-      setStatus("Något gick fel. Testa igen eller kontakta oss direkt.");
+      setStatus(error.message || "Något gick fel. Testa igen eller kontakta oss direkt.");
     }
   };
 
@@ -81,7 +96,7 @@ const BookingModal = ({ isOpen, onClose }) => {
           initial={{ opacity: 0, scale: 0.96, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 20 }}
-          className="relative bg-gradient-to-br from-[#141412] via-[#1B1B18] to-[#252521] rounded-3xl w-full max-w-xl p-8 shadow-2xl border border-[#FF66A3]/20"
+          className="relative bg-gradient-to-br from-[#141412] via-[#1B1B18] to-[#252521] rounded-3xl w-full max-w-2xl p-8 shadow-2xl border border-[#FF66A3]/20 max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -110,7 +125,7 @@ const BookingModal = ({ isOpen, onClose }) => {
               onChange={handleChange}
               placeholder="Namn"
               required
-              className="w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/10"
+              className="w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/10 focus:outline-none focus:border-[#FF66A3]/60"
             />
 
             <input
@@ -119,8 +134,7 @@ const BookingModal = ({ isOpen, onClose }) => {
               onChange={handleChange}
               placeholder="E-post"
               type="email"
-              required
-              className="w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/10"
+              className="w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/10 focus:outline-none focus:border-[#FF66A3]/60"
             />
 
             <input
@@ -129,7 +143,7 @@ const BookingModal = ({ isOpen, onClose }) => {
               onChange={handleChange}
               placeholder="Telefonnummer"
               required
-              className="w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/10"
+              className="w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/10 focus:outline-none focus:border-[#FF66A3]/60"
             />
 
             <div className="grid grid-cols-2 gap-4">
@@ -139,7 +153,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                 onChange={handleChange}
                 type="date"
                 required
-                className="w-full p-4 rounded-xl bg-white/10 text-white border border-white/10"
+                className="w-full p-4 rounded-xl bg-white/10 text-white border border-white/10 focus:outline-none focus:border-[#FF66A3]/60"
               />
 
               <input
@@ -148,7 +162,7 @@ const BookingModal = ({ isOpen, onClose }) => {
                 onChange={handleChange}
                 type="time"
                 required
-                className="w-full p-4 rounded-xl bg-white/10 text-white border border-white/10"
+                className="w-full p-4 rounded-xl bg-white/10 text-white border border-white/10 focus:outline-none focus:border-[#FF66A3]/60"
               />
             </div>
 
@@ -160,21 +174,45 @@ const BookingModal = ({ isOpen, onClose }) => {
               min="1"
               max={selectedZone?.capacity || 15}
               required
-              className="w-full p-4 rounded-xl bg-white/10 text-white border border-white/10"
+              placeholder="Antal gäster"
+              className="w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/10 focus:outline-none focus:border-[#FF66A3]/60"
             />
 
-            <select
-              name="zone"
-              value={formData.zone}
+            <div>
+              <p className="font-dm text-white/70 mb-3">Välj område</p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {seatingZones.map((zone) => (
+                  <button
+                    key={zone.id}
+                    type="button"
+                    onClick={() => selectZone(zone)}
+                    className={`p-4 rounded-2xl border transition-all text-left ${
+                      formData.area === zone.id
+                        ? "bg-gradient-to-br from-[#FF66A3]/30 to-[#FFA500]/30 border-[#FFA500]"
+                        : "bg-white/10 border-white/10 hover:border-[#FF66A3]/50"
+                    }`}
+                  >
+                    <div className="text-3xl mb-2">{zone.emoji}</div>
+                    <div className="font-dm font-bold text-white">
+                      {zone.name}
+                    </div>
+                    <div className="font-dm text-white/55 text-sm">
+                      {zone.capacity} platser
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <textarea
+              name="comment"
+              value={formData.comment}
               onChange={handleChange}
-              className="w-full p-4 rounded-xl bg-white/10 text-white border border-white/10"
-            >
-              {seatingZones.map((zone) => (
-                <option key={zone.id} value={zone.id}>
-                  {zone.name} - {zone.capacity} platser
-                </option>
-              ))}
-            </select>
+              placeholder="Kommentar / önskemål"
+              rows="3"
+              className="w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/10 focus:outline-none focus:border-[#FF66A3]/60 resize-none"
+            />
 
             <button
               type="submit"
