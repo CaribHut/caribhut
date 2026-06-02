@@ -21,7 +21,7 @@ const BookingModal = lazy(() => import("./components/BookingModal"));
 function App() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
 
-  const isAdminPage = window.location.pathname === "/admin-bookings";
+  const isAdminPage = window.location.pathname.includes("admin-bookings");
 
   useEffect(() => {
     if (isAdminPage) return;
