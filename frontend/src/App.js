@@ -12,6 +12,7 @@ import SnowconeSection from "./components/SnowconeSection";
 import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
+import AdminBookings from "./pages/AdminBookings";
 
 import { Analytics } from "@vercel/analytics/react";
 
@@ -20,7 +21,11 @@ const BookingModal = lazy(() => import("./components/BookingModal"));
 function App() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
 
+  const isAdminPage = window.location.pathname === "/admin-bookings";
+
   useEffect(() => {
+    if (isAdminPage) return;
+
     const elements = document.querySelectorAll(".fade-in");
 
     const observer = new IntersectionObserver(
@@ -37,7 +42,16 @@ function App() {
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, []);
+  }, [isAdminPage]);
+
+  if (isAdminPage) {
+    return (
+      <>
+        <AdminBookings />
+        <Analytics />
+      </>
+    );
+  }
 
   return (
     <div className="App bg-[#FDFCF8] min-h-screen">
