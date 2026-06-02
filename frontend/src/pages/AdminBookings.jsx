@@ -9,7 +9,7 @@ export default function AdminBookings() {
   const loadBookings = async () => {
     try {
       const res = await fetch(
-        `/api/admin-bookings?password=${PASSWORD}`
+        `/api/admin-bookings?password=${caribhut1337!}`
       );
 
       const data = await res.json();
