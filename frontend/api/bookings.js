@@ -2,12 +2,17 @@ import nodemailer from "nodemailer";
 import clientPromise from "./lib/mongodb";
 
 const BOOKING_BLOCK_MINUTES = 120;
-const MAX_RESTAURANT_CAPACITY = 60;
+
+const AREA_CAPACITY = {
+  waterfront: 15,
+  main: 15,
+  terrace: 15,
+};
 
 const AREA_LABELS = {
   waterfront: "Vid havet",
-  main: "Mitt på stranden",
-  terrace: "Nära vibben",
+  main: "Vid stranden",
+  terrace: "Vid viben",
 };
 
 function parseBookingDateTime(date, time) {
@@ -53,10 +58,12 @@ export default async function handler(req, res) {
     const date = String(booking.date || "").trim();
     const time = String(booking.time || "").trim();
     const guests = normalizeGuests(booking.guests);
-    const area = String(booking.area || "").trim();
+    const area = String(booking.area || booking.zone || "").trim();
+
     const areaLabel = String(
       booking.area_label || AREA_LABELS[area] || area || ""
     ).trim();
+
     const comment = String(booking.comment || "").trim();
 
     if (!name || !phone || !date || !time || !guests || !area) {
@@ -74,6 +81,15 @@ export default async function handler(req, res) {
       });
     }
 
+    const areaCapacity = AREA_CAPACITY[area];
+
+    if (!areaCapacity) {
+      return res.status(400).json({
+        success: false,
+        message: "Ogiltigt område",
+      });
+    }
+
     if (guests < 1) {
       return res.status(400).json({
         success: false,
@@ -81,10 +97,10 @@ export default async function handler(req, res) {
       });
     }
 
-    if (guests > MAX_RESTAURANT_CAPACITY) {
+    if (guests > areaCapacity) {
       return res.status(400).json({
         success: false,
-        message: "För många gäster för onlinebokning",
+        message: `Det finns max ${areaCapacity} platser i området ${areaLabel}.`,
       });
     }
 
@@ -101,9 +117,12 @@ export default async function handler(req, res) {
     const db = client.db("caribhut");
     const bookingsCollection = db.collection("bookings");
 
-    const existingBookings = await bookingsCollection.find({
-      status: { $ne: "cancelled" },
-    }).toArray();
+    const existingBookings = await bookingsCollection
+      .find({
+        status: { $ne: "cancelled" },
+        area,
+      })
+      .toArray();
 
     let totalBookedGuests = 0;
 
@@ -112,34 +131,29 @@ export default async function handler(req, res) {
         existingBooking.date,
         existingBooking.time
       );
+
       if (!bookingDateTime) continue;
 
       const diff = minutesDiffForward(bookingDateTime, requestedDateTime);
 
-      // Samma logik som availability.js:
-      // tidigare bokningar påverkar framåt i 120 min
       if (diff >= 0 && diff < BOOKING_BLOCK_MINUTES) {
         totalBookedGuests += normalizeGuests(existingBooking.guests);
       }
     }
 
-    const remainingSeats = Math.max(
-      0,
-      MAX_RESTAURANT_CAPACITY - totalBookedGuests
-    );
+    const remainingSeats = Math.max(0, areaCapacity - totalBookedGuests);
 
     if (remainingSeats <= 0) {
       return res.status(409).json({
         success: false,
-        message:
-          "Det är tyvärr fullt online denna tid. Vänligen ring oss istället för att boka bord.",
+        message: `Det är tyvärr fullt i området ${areaLabel} denna tid. Vänligen välj en annan tid eller annat område.`,
       });
     }
 
     if (guests > remainingSeats) {
       return res.status(409).json({
         success: false,
-        message: `Det finns tyvärr bara ${remainingSeats} platser kvar online denna tid. Vänligen ring oss istället för större sällskap.`,
+        message: `Det finns tyvärr bara ${remainingSeats} platser kvar i området ${areaLabel} denna tid.`,
       });
     }
 
@@ -198,7 +212,10 @@ export default async function handler(req, res) {
         <p><b>Gäster:</b> ${guests}</p>
         <p><b>Önskat område:</b> ${escapeHtml(areaLabel)}</p>
         <p><b>Kommentar / önskemål:</b> ${escapeHtml(comment || "-")}</p>
-        <p><b>Platser kvar efter bokning:</b> ${Math.max(0, remainingSeats - guests)}</p>
+        <p><b>Platser kvar i området efter bokning:</b> ${Math.max(
+          0,
+          remainingSeats - guests
+        )}</p>
         <p><b>Booking ID:</b> ${insertResult.insertedId}</p>
       `,
     });
@@ -208,6 +225,8 @@ export default async function handler(req, res) {
       message: "Booking received",
       bookingId: insertResult.insertedId,
       remainingSeats: Math.max(0, remainingSeats - guests),
+      area,
+      areaLabel,
     });
   } catch (error) {
     console.error("BOOKING API ERROR:", error);
