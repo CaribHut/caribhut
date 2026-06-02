@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const PASSWORD = "DITT_ADMIN_LÖSENORD";
+const PASSWORD = "caribhut1337!";
 
 export default function AdminBookings() {
   const [bookings, setBookings] = useState([]);
@@ -9,7 +9,7 @@ export default function AdminBookings() {
   const loadBookings = async () => {
     try {
       const res = await fetch(
-        `/api/admin-bookings?password=${caribhut1337!}`
+        `/api/admin-bookings?password=${PASSWORD}`
       );
 
       const data = await res.json();
