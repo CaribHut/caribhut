@@ -1,8 +1,72 @@
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
+const seatingZones = [
+  {
+    id: "havet",
+    name: "Vid havet",
+    capacity: 15,
+  },
+  {
+    id: "viben",
+    name: "Vid viben",
+    capacity: 15,
+  },
+  {
+    id: "stranden",
+    name: "Vid stranden",
+    capacity: 15,
+  },
+];
+
 const BookingModal = ({ isOpen, onClose }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    date: "",
+    time: "",
+    guests: "2",
+    zone: "havet",
+  });
+
+  const [status, setStatus] = useState("");
+
   if (!isOpen) return null;
+
+  const selectedZone = seatingZones.find((zone) => zone.id === formData.zone);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setStatus("Skickar bokning...");
+
+    try {
+      const response = await fetch("/api/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Bokningen kunde inte skickas.");
+      }
+
+      setStatus("Bokningen är skickad! Vi återkommer med bekräftelse.");
+    } catch (error) {
+      setStatus("Något gick fel. Testa igen eller kontakta oss direkt.");
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -27,28 +91,104 @@ const BookingModal = ({ isOpen, onClose }) => {
             <X size={24} className="text-white/60" />
           </button>
 
-          <div className="text-center">
-            <div className="text-6xl mb-6">🌴</div>
+          <div className="text-center mb-6">
+            <div className="text-5xl mb-4">🌴</div>
 
-            <h2 className="font-syne text-3xl font-bold text-white mb-4">
-              Booking disabled
+            <h2 className="font-syne text-3xl font-bold text-white mb-2">
+              Boka bord
             </h2>
 
-            <p className="font-dm text-white/75 text-lg mb-4">
-              Bordsbokningen är tillfälligt stängd.
+            <p className="font-dm text-white/60">
+              Välj datum, tid och område.
             </p>
+          </div>
 
-            <p className="font-dm text-white/55 mb-8">
-              Vi tar just nu inte emot bordsbokningar online.
-            </p>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Namn"
+              required
+              className="w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/10"
+            />
+
+            <input
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="E-post"
+              type="email"
+              required
+              className="w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/10"
+            />
+
+            <input
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Telefonnummer"
+              required
+              className="w-full p-4 rounded-xl bg-white/10 text-white placeholder-white/50 border border-white/10"
+            />
+
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                type="date"
+                required
+                className="w-full p-4 rounded-xl bg-white/10 text-white border border-white/10"
+              />
+
+              <input
+                name="time"
+                value={formData.time}
+                onChange={handleChange}
+                type="time"
+                required
+                className="w-full p-4 rounded-xl bg-white/10 text-white border border-white/10"
+              />
+            </div>
+
+            <input
+              name="guests"
+              value={formData.guests}
+              onChange={handleChange}
+              type="number"
+              min="1"
+              max={selectedZone?.capacity || 15}
+              required
+              className="w-full p-4 rounded-xl bg-white/10 text-white border border-white/10"
+            />
+
+            <select
+              name="zone"
+              value={formData.zone}
+              onChange={handleChange}
+              className="w-full p-4 rounded-xl bg-white/10 text-white border border-white/10"
+            >
+              {seatingZones.map((zone) => (
+                <option key={zone.id} value={zone.id}>
+                  {zone.name} - {zone.capacity} platser
+                </option>
+              ))}
+            </select>
 
             <button
-              onClick={onClose}
+              type="submit"
               className="w-full py-4 rounded-full bg-gradient-to-r from-[#FF66A3] to-[#FFA500] text-white font-dm font-bold hover:shadow-lg transition-all"
             >
-              Stäng
+              Skicka bokning
             </button>
-          </div>
+
+            {status && (
+              <p className="text-center text-white/70 font-dm mt-4">
+                {status}
+              </p>
+            )}
+          </form>
         </motion.div>
       </motion.div>
     </AnimatePresence>
