@@ -3,7 +3,7 @@ import "./App.css";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Infocards from "./components/InfoCards";
+import InfoCards from "./components/InfoCards";
 import BrandBanner from "./components/BrandBanner";
 import MenuSection from "./components/MenuSection";
 import NightMenuSection from "./components/NightMenuSection";
