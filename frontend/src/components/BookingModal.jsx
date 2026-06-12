@@ -79,7 +79,9 @@ const BookingModal = ({ isOpen, onClose }) => {
 
       setStatus("Bokningen är skickad! Vi återkommer med bekräftelse.");
     } catch (error) {
-      setStatus(error.message || "Något gick fel. Testa igen eller kontakta oss direkt.");
+      setStatus(
+        error.message || "Något gick fel. Testa igen eller kontakta oss direkt."
+      );
     }
   };
 
@@ -115,6 +117,12 @@ const BookingModal = ({ isOpen, onClose }) => {
 
             <p className="font-dm text-white/60">
               Välj datum, tid och område.
+            </p>
+          </div>
+
+          <div className="mb-5 rounded-2xl bg-gradient-to-r from-[#FF66A3]/20 to-[#FFA500]/20 border border-white/10 p-4">
+            <p className="text-sm md:text-base font-dm font-medium text-white text-center">
+              📩 Bordsbokning under Cityfestivalen sker endast via mail eller DM.
             </p>
           </div>
 
