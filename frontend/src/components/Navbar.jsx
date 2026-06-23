@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import logo from "../ch-logo-pink.png";
 
+const BOOKING_ENABLED = false;
+
 const Navbar = ({ onBookingClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,12 +13,14 @@ const Navbar = ({ onBookingClick }) => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
+
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
@@ -48,18 +52,18 @@ const Navbar = ({ onBookingClick }) => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <motion.button
-  onClick={() => scrollToSection('hero')}
-  className="flex items-center gap-3"
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
-  data-testid="logo-button"
->
-  <img
-    src={logo}
-    alt="Carib Hut"
-    className="h-10 w-10 rounded-full object-contain"
-  />
-</motion.button>
+              onClick={() => scrollToSection('hero')}
+              className="flex items-center gap-3"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              data-testid="logo-button"
+            >
+              <img
+                src={logo}
+                alt="Carib Hut"
+                className="h-10 w-10 rounded-full object-contain"
+              />
+            </motion.button>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
@@ -75,16 +79,18 @@ const Navbar = ({ onBookingClick }) => {
               ))}
             </div>
 
-            {/* CTA Button */}
-            <motion.button
-              onClick={onBookingClick}
-              className="hidden md:block bg-[#008080] text-white rounded-full px-6 py-3 font-dm font-bold text-sm tracking-wide hover:bg-[#006666] transition-all shadow-lg hover:shadow-xl btn-fill"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              data-testid="nav-cta-button"
-            >
-              Boka Bord
-            </motion.button>
+            {/* CTA Button - tillfälligt avstängd */}
+            {BOOKING_ENABLED && (
+              <motion.button
+                onClick={onBookingClick}
+                className="hidden md:block bg-[#008080] text-white rounded-full px-6 py-3 font-dm font-bold text-sm tracking-wide hover:bg-[#006666] transition-all shadow-lg hover:shadow-xl btn-fill"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                data-testid="nav-cta-button"
+              >
+                Boka Bord
+              </motion.button>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -123,19 +129,23 @@ const Navbar = ({ onBookingClick }) => {
                   {link.label}
                 </motion.button>
               ))}
-              <motion.button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  onBookingClick();
-                }}
-                className="mt-8 bg-[#008080] text-white rounded-full px-8 py-4 font-dm font-bold text-lg tracking-wide"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                data-testid="mobile-cta-button"
-              >
-                Boka Bord
-              </motion.button>
+
+              {/* Mobile CTA Button - tillfälligt avstängd */}
+              {BOOKING_ENABLED && (
+                <motion.button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    onBookingClick();
+                  }}
+                  className="mt-8 bg-[#008080] text-white rounded-full px-8 py-4 font-dm font-bold text-lg tracking-wide"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  data-testid="mobile-cta-button"
+                >
+                  Boka Bord
+                </motion.button>
+              )}
             </div>
           </motion.div>
         )}
