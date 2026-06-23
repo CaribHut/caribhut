@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
 import Navbar from "./components/Navbar";
@@ -17,11 +17,7 @@ import AdminBookings from "./pages/AdminBookings";
 
 import { Analytics } from "@vercel/analytics/react";
 
-const BookingModal = lazy(() => import("./components/BookingModal"));
-
 function App() {
-  const [isBookingOpen, setIsBookingOpen] = useState(false);
-
   const isAdminPage = window.location.pathname.includes("admin-bookings");
 
   useEffect(() => {
@@ -56,7 +52,7 @@ function App() {
 
   return (
     <div className="App bg-[#FDFCF8] min-h-screen">
-      <Navbar onBookingClick={() => setIsBookingOpen(true)} />
+      <Navbar />
 
       <main>
         <Hero />
@@ -72,15 +68,6 @@ function App() {
       </main>
 
       <Footer />
-
-      <Suspense fallback={null}>
-        {isBookingOpen && (
-          <BookingModal
-            isOpen={isBookingOpen}
-            onClose={() => setIsBookingOpen(false)}
-          />
-        )}
-      </Suspense>
 
       <Analytics />
     </div>
