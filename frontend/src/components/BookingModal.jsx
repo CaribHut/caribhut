@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
+const BOOKING_ENABLED = false;
+
 const seatingZones = [
   {
     id: "waterfront",
@@ -38,6 +40,7 @@ const BookingModal = ({ isOpen, onClose }) => {
 
   const [status, setStatus] = useState("");
 
+  if (!BOOKING_ENABLED) return null;
   if (!isOpen) return null;
 
   const selectedZone = seatingZones.find((zone) => zone.id === formData.area);
@@ -122,7 +125,8 @@ const BookingModal = ({ isOpen, onClose }) => {
 
           <div className="mb-5 rounded-2xl bg-gradient-to-r from-[#FF66A3]/20 to-[#FFA500]/20 border border-white/10 p-4">
             <p className="text-sm md:text-base font-dm font-medium text-white text-center">
-              📩 Bordsbokning under Cityfestivalen sker endast via mail eller DM.
+              📩 Bordsbokning under Cityfestivalen sker endast via mail eller
+              DM.
             </p>
           </div>
 
