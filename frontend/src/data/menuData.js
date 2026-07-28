@@ -1,94 +1,65 @@
 export const menuData = {
   food: [
     {
-      category: "Starters",
-      items: [
-        {
-          id: 1,
-          name: "Jerk Wings",
-          description: "Crispy chicken wings marinated in our signature jerk spice blend, served with mango dipping sauce",
-          price: 129,
-          tags: ["popular", "spicy"],
-          image: "https://images.pexels.com/photos/27556985/pexels-photo-27556985.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-        },
-        {
-          id: 2,
-          name: "Plantain Chips",
-          description: "Thinly sliced sweet plantains, fried to golden perfection with sea salt",
-          price: 69,
-          tags: ["vegan"],
-          image: null
-        },
-        {
-          id: 3,
-          name: "Coconut Shrimp",
-          description: "Jumbo shrimp coated in coconut flakes, served with pineapple chili sauce",
-          price: 149,
-          tags: ["popular"],
-          image: null
-        },
-        {
-          id: 4,
-          name: "Callaloo Fritters",
-          description: "Traditional Caribbean greens mixed with spices and deep fried",
-          price: 89,
-          tags: ["vegan"],
-          image: null
-        }
-      ]
-    },
-    {
       category: "Main Courses",
       items: [
         {
           id: 5,
           name: "Caribbean Shrimp Pasta",
-          description: "Creamy garlic pasta with jumbo shrimp, bell peppers, and Caribbean spices",
+          description:
+            "Creamy garlic pasta with jumbo shrimp, bell peppers, and Caribbean spices",
           price: 219,
           tags: ["popular"],
-          image: "https://images.pexels.com/photos/31235404/pexels-photo-31235404.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          image:
+            "https://images.pexels.com/photos/31235404/pexels-photo-31235404.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
         },
         {
           id: 6,
           name: "Chicken Roti",
-          description: "Tender curried chicken wrapped in soft, flaky roti bread with potatoes and chickpeas",
+          description:
+            "Tender curried chicken wrapped in soft, flaky roti bread with potatoes and chickpeas",
           price: 179,
           tags: ["popular"],
-          image: "https://customer-assets.emergentagent.com/job_carib-menu/artifacts/5uv4l9sc_Roti.jpg"
+          image:
+            "https://customer-assets.emergentagent.com/job_carib-menu/artifacts/5uv4l9sc_Roti.jpg",
         },
         {
           id: 7,
           name: "Jerk Chicken Platter",
-          description: "Half chicken marinated 24hrs in jerk spices, grilled over pimento wood. Served with rice & peas",
+          description:
+            "Half chicken marinated 24hrs in jerk spices, grilled over pimento wood. Served with rice & peas",
           price: 199,
           tags: ["spicy", "popular"],
-          image: null
+          image: null,
         },
         {
           id: 8,
           name: "Curry Goat",
-          description: "Slow-cooked goat in aromatic curry sauce with potatoes, served with festival",
+          description:
+            "Slow-cooked goat in aromatic curry sauce with potatoes, served with festival",
           price: 229,
           tags: ["spicy"],
-          image: null
+          image: null,
         },
         {
           id: 9,
           name: "Oxtail Stew",
-          description: "Braised oxtail in rich gravy with butter beans, served with rice & peas",
+          description:
+            "Braised oxtail in rich gravy with butter beans, served with rice & peas",
           price: 249,
           tags: ["popular"],
-          image: null
+          image: null,
         },
         {
           id: 10,
           name: "Grilled Red Snapper",
-          description: "Whole red snapper seasoned with Caribbean herbs, served with bammy and festival",
+          description:
+            "Whole red snapper seasoned with Caribbean herbs, served with bammy and festival",
           price: 289,
           tags: ["new"],
-          image: null
-        }
-      ]
+          image: null,
+        },
+      ],
     },
     {
       category: "Seafood Specials",
@@ -96,28 +67,31 @@ export const menuData = {
         {
           id: 11,
           name: "Garlic Butter Lobster Tail",
-          description: "Caribbean lobster tail grilled with garlic herb butter, served with coconut rice",
+          description:
+            "Caribbean lobster tail grilled with garlic herb butter, served with coconut rice",
           price: 349,
           tags: ["new"],
-          image: null
+          image: null,
         },
         {
           id: 12,
           name: "Seafood Rundown",
-          description: "Mixed seafood simmered in coconut milk with okra and Caribbean spices",
+          description:
+            "Mixed seafood simmered in coconut milk with okra and Caribbean spices",
           price: 279,
           tags: ["spicy"],
-          image: null
+          image: null,
         },
         {
           id: 13,
           name: "Pepper Shrimp",
-          description: "Spicy sautéed shrimp with scotch bonnet peppers and garlic",
+          description:
+            "Spicy sautéed shrimp with scotch bonnet peppers and garlic",
           price: 199,
           tags: ["spicy"],
-          image: null
-        }
-      ]
+          image: null,
+        },
+      ],
     },
     {
       category: "Sides",
@@ -125,38 +99,43 @@ export const menuData = {
         {
           id: 14,
           name: "Rice & Peas",
-          description: "Traditional coconut rice with kidney beans and thyme",
+          description:
+            "Traditional coconut rice with kidney beans and thyme",
           price: 49,
           tags: ["vegan"],
-          image: null
+          image: null,
         },
         {
           id: 15,
           name: "Fried Plantains",
-          description: "Sweet ripe plantains caramelized to perfection",
+          description:
+            "Sweet ripe plantains caramelized to perfection",
           price: 49,
           tags: ["vegan"],
-          image: null
+          image: null,
         },
         {
           id: 16,
           name: "Coleslaw",
-          description: "Creamy Caribbean-style coleslaw with a hint of lime",
+          description:
+            "Creamy Caribbean-style coleslaw with a hint of lime",
           price: 39,
           tags: [],
-          image: null
+          image: null,
         },
         {
           id: 17,
           name: "Festival",
-          description: "Sweet fried dumplings, perfect with any dish",
+          description:
+            "Sweet fried dumplings, perfect with any dish",
           price: 45,
           tags: ["vegan"],
-          image: null
-        }
-      ]
-    }
+          image: null,
+        },
+      ],
+    },
   ],
+
   drinks: [
     {
       category: "Rum Cocktails",
@@ -164,44 +143,50 @@ export const menuData = {
         {
           id: 101,
           name: "Caribbean Punch",
-          description: "Our signature rum punch with tropical fruits and a secret spice blend",
+          description:
+            "Our signature rum punch with tropical fruits and a secret spice blend",
           price: 129,
           tags: ["popular"],
-          image: "https://images.unsplash.com/photo-1692746931486-22b6c7feb80e?crop=entropy&cs=srgb&fm=jpg&q=85"
+          image:
+            "https://images.unsplash.com/photo-1692746931486-22b6c7feb80e?crop=entropy&cs=srgb&fm=jpg&q=85",
         },
         {
           id: 102,
           name: "Dark & Stormy",
-          description: "Dark rum, ginger beer, lime, and bitters",
+          description:
+            "Dark rum, ginger beer, lime, and bitters",
           price: 119,
           tags: [],
-          image: null
+          image: null,
         },
         {
           id: 103,
           name: "Mojito Caribeño",
-          description: "White rum, fresh mint, lime, and a splash of passion fruit",
+          description:
+            "White rum, fresh mint, lime, and a splash of passion fruit",
           price: 129,
           tags: ["popular"],
-          image: null
+          image: null,
         },
         {
           id: 104,
           name: "Piña Colada",
-          description: "Coconut cream, pineapple, and aged rum blended to perfection",
+          description:
+            "Coconut cream, pineapple, and aged rum blended to perfection",
           price: 139,
           tags: [],
-          image: null
+          image: null,
         },
         {
           id: 105,
           name: "Ti' Punch",
-          description: "Traditional French Caribbean cocktail with rhum agricole and lime",
+          description:
+            "Traditional French Caribbean cocktail with rhum agricole and lime",
           price: 109,
           tags: ["new"],
-          image: null
-        }
-      ]
+          image: null,
+        },
+      ],
     },
     {
       category: "Mocktails",
@@ -209,44 +194,53 @@ export const menuData = {
         {
           id: 201,
           name: "Virgin Punch",
-          description: "All the tropical flavor without the rum - passion fruit, mango, and pineapple",
+          description:
+            "All the tropical flavor without the rum - passion fruit, mango, and pineapple",
           price: 79,
           tags: ["popular"],
-          image: "https://images.pexels.com/photos/12931223/pexels-photo-12931223.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          image:
+            "https://images.pexels.com/photos/12931223/pexels-photo-12931223.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
         },
         {
           id: 202,
           name: "Sorrel Cooler",
-          description: "Traditional hibiscus drink with ginger and cinnamon",
+          description:
+            "Traditional hibiscus drink with ginger and cinnamon",
           price: 69,
           tags: ["vegan"],
-          image: "https://images.pexels.com/photos/2093089/pexels-photo-2093089.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          image:
+            "https://images.pexels.com/photos/2093089/pexels-photo-2093089.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
         },
         {
           id: 203,
           name: "Coconut Lime Refresher",
-          description: "Fresh coconut water with lime and mint",
+          description:
+            "Fresh coconut water with lime and mint",
           price: 69,
           tags: ["vegan"],
-          image: null
+          image: null,
         },
         {
           id: 204,
           name: "Mango Sunrise",
-          description: "Fresh mango puree with orange juice and grenadine",
+          description:
+            "Fresh mango puree with orange juice and grenadine",
           price: 79,
           tags: [],
-          image: "https://images.unsplash.com/photo-1568752114168-ef1ec63ffd18?crop=entropy&cs=srgb&fm=jpg&q=85"
+          image:
+            "https://images.unsplash.com/photo-1568752114168-ef1ec63ffd18?crop=entropy&cs=srgb&fm=jpg&q=85",
         },
         {
           id: 205,
           name: "Tropical Paradise",
-          description: "Ananas, kokos och passionsfrukt - en smak av Karibien",
+          description:
+            "Ananas, kokos och passionsfrukt - en smak av Karibien",
           price: 85,
           tags: ["new"],
-          image: "https://images.unsplash.com/photo-1654248235353-4546d1e2b199?crop=entropy&cs=srgb&fm=jpg&q=85"
-        }
-      ]
+          image:
+            "https://images.unsplash.com/photo-1654248235353-4546d1e2b199?crop=entropy&cs=srgb&fm=jpg&q=85",
+        },
+      ],
     },
     {
       category: "Beer & Cider",
@@ -254,36 +248,40 @@ export const menuData = {
         {
           id: 301,
           name: "Red Stripe",
-          description: "Jamaican lager - crisp and refreshing",
+          description:
+            "Jamaican lager - crisp and refreshing",
           price: 69,
           tags: ["popular"],
-          image: null
+          image: null,
         },
         {
           id: 302,
           name: "Carib Lager",
-          description: "Trinidad's finest - light and smooth",
+          description:
+            "Trinidad's finest - light and smooth",
           price: 69,
           tags: [],
-          image: null
+          image: null,
         },
         {
           id: 303,
           name: "Banks Beer",
-          description: "Barbados premium beer",
+          description:
+            "Barbados premium beer",
           price: 69,
           tags: [],
-          image: null
+          image: null,
         },
         {
           id: 304,
           name: "Local Craft Selection",
-          description: "Ask your server for today's Swedish craft beer selection",
+          description:
+            "Ask your server for today's Swedish craft beer selection",
           price: 79,
           tags: ["new"],
-          image: null
-        }
-      ]
+          image: null,
+        },
+      ],
     },
     {
       category: "Wine",
@@ -291,28 +289,31 @@ export const menuData = {
         {
           id: 401,
           name: "House White",
-          description: "Crisp Sauvignon Blanc - perfect with seafood",
+          description:
+            "Crisp Sauvignon Blanc - perfect with seafood",
           price: 89,
           tags: [],
-          image: null
+          image: null,
         },
         {
           id: 402,
           name: "House Red",
-          description: "Smooth Merlot - pairs well with jerk dishes",
+          description:
+            "Smooth Merlot - pairs well with jerk dishes",
           price: 89,
           tags: [],
-          image: null
+          image: null,
         },
         {
           id: 403,
           name: "Sparkling",
-          description: "Celebration bubbles - ask for our selection",
+          description:
+            "Celebration bubbles - ask for our selection",
           price: 129,
           tags: [],
-          image: null
-        }
-      ]
+          image: null,
+        },
+      ],
     },
     {
       category: "Soft Drinks",
@@ -320,62 +321,70 @@ export const menuData = {
         {
           id: 501,
           name: "Ting",
-          description: "Jamaican grapefruit soda",
+          description:
+            "Jamaican grapefruit soda",
           price: 39,
           tags: ["popular"],
-          image: null
+          image: null,
         },
         {
           id: 502,
           name: "Ginger Beer",
-          description: "Spicy Caribbean ginger beer",
+          description:
+            "Spicy Caribbean ginger beer",
           price: 45,
           tags: ["spicy"],
-          image: null
+          image: null,
         },
         {
           id: 503,
           name: "Fresh Coconut Water",
-          description: "Served in the shell when available",
+          description:
+            "Served in the shell when available",
           price: 59,
           tags: ["vegan"],
-          image: null
+          image: null,
         },
         {
           id: 504,
           name: "Coca-Cola / Fanta / Sprite",
-          description: "Klassiska läskfavoriter",
+          description:
+            "Klassiska läskfavoriter",
           price: 35,
           tags: [],
-          image: null
+          image: null,
         },
         {
           id: 505,
           name: "Lemonad",
-          description: "Hemgjord lemonad med färsk citron och mynta",
+          description:
+            "Hemgjord lemonad med färsk citron och mynta",
           price: 49,
           tags: ["popular"],
-          image: "https://images.unsplash.com/photo-1528163077399-91ef32e66754?crop=entropy&cs=srgb&fm=jpg&q=85"
+          image:
+            "https://images.unsplash.com/photo-1528163077399-91ef32e66754?crop=entropy&cs=srgb&fm=jpg&q=85",
         },
         {
           id: 506,
           name: "Mango Lassi",
-          description: "Krämig yoghurtdryck med färsk mango",
+          description:
+            "Krämig yoghurtdryck med färsk mango",
           price: 55,
           tags: ["vegan"],
-          image: null
+          image: null,
         },
         {
           id: 507,
           name: "Juice (Apelsin / Äpple / Ananas)",
-          description: "Färskpressad juice",
+          description:
+            "Färskpressad juice",
           price: 45,
           tags: [],
-          image: null
-        }
-      ]
-    }
-  ]
+          image: null,
+        },
+      ],
+    },
+  ],
 };
 
 export const aboutData = {
@@ -387,38 +396,39 @@ export const aboutData = {
     "Längs vägen anslöt även Mathias, en driven entreprenör, nära vän och självklar samarbetspartner i satsningen. Med hans erfarenhet och engagemang tog visionen form på riktigt.",
     "Tio år senare blev drömmen verklighet.",
     "Idag finns vi – Carib Hut – mitt i hjärtat av Västerås, på Aseatorget. Här kombinerar vi vår passion för musik, kultur och mat i en varm och välkomnande miljö.",
-    "Varmt välkomna till oss!"
+    "Varmt välkomna till oss!",
   ],
   founders: [
     {
       name: "Christoffer & Mathias",
       role: "Grundare",
-      quote: "Mat är hur vi delar vår kultur och vår kärlek."
+      quote: "Mat är hur vi delar vår kultur och vår kärlek.",
     },
     {
       name: "René",
       role: "Kock",
-      quote: "Vi serverar inte bara mat – vi serverar minnen."
-    }
-  ]
+      quote: "Vi serverar inte bara mat – vi serverar minnen.",
+    },
+  ],
 };
 
 export const contactData = {
   address: "Aseatorget, 72217 Västerås",
-  phone: "Coming",
+  phone: "-",
   emails: [
     "info@caribhut.se",
     "order@caribhut.se",
   ],
-  hours: {
-    weekdays: "Tis - Tor: 11:00 - 22:00",
-    friday: "Fre: 11:00 - 23:00",
-    saturday: "Lör: 12:00 - 23:00",
-    sunday: "Sön: 12:00 - 20:00",
-    monday: "Mån: Stängt"
-  },
+  hours: [
+    "Mån: 11:00–01:00",
+    "Ons: 11:00–01:00",
+    "Tors: 11:00–01:00",
+    "Fre: 11:00–01:00",
+    "Lör: 11:00–01:00",
+    "Sön: 11:00–01:00",
+  ],
   social: {
     instagram: "@caribhut",
-    facebook: "Carib Hut"
-  }
+    facebook: "Carib Hut",
+  },
 };
