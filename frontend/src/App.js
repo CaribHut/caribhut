@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import "./App.css";
 
@@ -53,6 +54,21 @@ function App() {
   return (
     <div className="App bg-[#FDFCF8] min-h-screen">
       <Navbar />
+
+      {/* STÄNGT FÖR SÄSONGEN */}
+      <div className="w-full bg-[#102D27] text-white text-center py-12 px-4">
+        <h1 className="text-4xl md:text-6xl font-extrabold uppercase tracking-wide">
+          STÄNGT FÖR SÄSONGEN
+        </h1>
+
+        <p className="text-xl md:text-2xl mt-5">
+          🌴 Tack för en fantastisk sommar 2026! 🌴
+        </p>
+
+        <p className="text-lg mt-3 text-yellow-400">
+          Vi ses igen nästa säsong! ☀️🍹
+        </p>
+      </div>
 
       <main>
         <Hero />
